@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>rbsherpa_hl_sim</name>
+  <name>rbsherpa_sim</name>
   <version>0.0.0</version>
-  <description>The rbsherpa_hl_sim package</description>
+  <description>The rbsherpa_sim package</description>
 
   <maintainer email="alvaro@todo.todo">alvaro</maintainer>
   <maintainer email="asoriano@robotnik.es">asoriano</maintainer>
+  <maintainer email="jgomez@robotnik.es">asoriano</maintainer>
 
   <license>TODO</license>
 

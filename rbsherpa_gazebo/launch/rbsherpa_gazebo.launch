@@ -9,14 +9,14 @@
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="launch_robot_b" default="false"/>
 	<arg name="launch_robot_c" default="false"/>
-	<arg name="gazebo_world" default="rbsherpa_hl.world"/>
+	<arg name="gazebo_world" default="rbsherpa.world"/>
 	<arg name="debug" default="false"/>
 	<arg name="ros_planar_move_plugin" default="false"/>
 
 
 	<!--params of the different robots-->
 	<!-- robot a -->
-	<arg name="id_robot_a" default="rbsherpa_hl_a"/>
+	<arg name="id_robot_a" default="rbsherpa_a"/>
 	<arg name="x_init_pose_robot_a" default="0" />
 	<arg name="y_init_pose_robot_a" default="0" />
 	<arg name="z_init_pose_robot_a" default="0" />
@@ -25,12 +25,12 @@
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
 	<arg name="map_file_a" default="empty/empty.yaml"/>
-	<arg name="xacro_robot_a" default="rbsherpa_hl_std.urdf.xacro"/>
+	<arg name="xacro_robot_a" default="rbsherpa_std.urdf.xacro"/>
 	<arg name="hq_model_a" default="false"/>
 	<arg name="sim_a" default="false"/>
 
 	<!-- robot b -->
-	<arg name="id_robot_b" default="rbsherpa_hl_b"/>
+	<arg name="id_robot_b" default="rbsherpa_b"/>
 	<arg name="x_init_pose_robot_b" default="0" />
 	<arg name="y_init_pose_robot_b" default="1" />
 	<arg name="z_init_pose_robot_b" default="0" />
@@ -39,12 +39,12 @@
 	<arg name="move_base_robot_b" default="false"/>
 	<arg name="amcl_and_mapserver_b" default="false"/>
 	<arg name="map_file_b" default="empty/empty.yaml"/>
-	<arg name="xacro_robot_b" default="rbsherpa_hl_std.urdf.xacro"/>
+	<arg name="xacro_robot_b" default="rbsherpa_std.urdf.xacro"/>
 	<arg name="hq_model_b" default="false"/>
 	<arg name="sim_b" default="false"/>
 
 	<!-- robot c -->
-	<arg name="id_robot_c" default="rbsherpa_hl_c"/>
+	<arg name="id_robot_c" default="rbsherpa_c"/>
 	<arg name="x_init_pose_robot_c" default="0" />
 	<arg name="y_init_pose_robot_c" default="2" />
 	<arg name="z_init_pose_robot_c" default="0" />
@@ -53,13 +53,13 @@
 	<arg name="move_base_robot_c" default="false"/>
 	<arg name="amcl_and_mapserver_c" default="false"/>
 	<arg name="map_file_c" default="empty/empty.yaml"/>
-	<arg name="xacro_robot_c" default="rbsherpa_hl_std.urdf.xacro"/>
+	<arg name="xacro_robot_c" default="rbsherpa_std.urdf.xacro"/>
 	<arg name="hq_model_c" default="false"/>
 	<arg name="sim_c" default="false"/>
 
 
 	<!--BEGIN ROBOT 1-->
-	<include if="$(arg launch_robot_a)" file="$(find rbsherpa_hl_gazebo)/launch/rbsherpa_hl_one_robot.launch">
+	<include if="$(arg launch_robot_a)" file="$(find rbsherpa_gazebo)/launch/rbsherpa_one_robot.launch">
 		<arg name="id_robot" value="$(arg id_robot_a)"/>
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_a)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>
@@ -76,7 +76,7 @@
 	</include>
 
 	<!--BEGIN ROBOT 2-->
-	<include if="$(arg launch_robot_b)" file="$(find rbsherpa_hl_gazebo)/launch/rbsherpa_hl_one_robot.launch">
+	<include if="$(arg launch_robot_b)" file="$(find rbsherpa_gazebo)/launch/rbsherpa_one_robot.launch">
 		<arg name="id_robot" value="$(arg id_robot_b)"/>
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_b)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_b)"/>
@@ -93,7 +93,7 @@
 	</include>
 
 	<!--BEGIN ROBOT 3-->
-	<include if="$(arg launch_robot_c)" file="$(find rbsherpa_hl_gazebo)/launch/rbsherpa_hl_one_robot.launch">
+	<include if="$(arg launch_robot_c)" file="$(find rbsherpa_gazebo)/launch/rbsherpa_one_robot.launch">
 		<arg name="id_robot" value="$(arg id_robot_c)"/>
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_c)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_c)"/>
@@ -111,7 +111,7 @@
 
 
 	<!-- gazebo simulation and rviz visualization-->
-	<include file="$(find rbsherpa_hl_gazebo)/launch/gazebo_rviz.launch">
+	<include file="$(find rbsherpa_gazebo)/launch/gazebo_rviz.launch">
 		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="world" value="$(arg gazebo_world)"/>
 		<arg name="debug" value="$(arg debug)"/>

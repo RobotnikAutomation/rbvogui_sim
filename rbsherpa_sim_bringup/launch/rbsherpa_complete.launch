@@ -6,20 +6,19 @@
 	<arg name="model" value="$(env ROBOT_MODEL)"/>
 	<arg name="launch_rviz" default="true"/>
 	<arg name="launch_robot_a" default="true"/>
-	<arg name="gazebo_world" default="rbsherpa_hl.world"/>
+	<arg name="gazebo_world" default="rbsherpa.world"/>
 	<arg name="localization_robot_a" default="false"/>
 	<arg name="gmapping_robot_a" default="false"/>
 	<arg name="move_base_robot_a" default="false"/>
 	<arg name="amcl_and_mapserver_a" default="false"/>
-	<!-- rbsherpa_hl_omni_std.urdf.xacro or rbsherpa_hl_ackermann_std.urdf.xacro -->
-	<arg name="xacro_robot_a" default="rbsherpa_hl_$(arg model)_std.urdf.xacro"/>
+	<arg name="xacro_robot_a" default="rbsherpa_std.urdf.xacro"/>
 	<arg name="hq_model_a" default="true"/>
 	<arg name="ros_planar_move_plugin" default="false"/>
 	<arg name="sim_a" default="true"/>
 
 
 	<!--LAUNCH GAZEBO SIMULATION-->
-	<include file="$(find rbsherpa_hl_gazebo)/launch/rbsherpa_hl_gazebo.launch">
+	<include file="$(find rbsherpa_gazebo)/launch/rbsherpa_gazebo.launch">
 		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>

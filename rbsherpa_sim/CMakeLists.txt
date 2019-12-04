@@ -1,4 +1,4 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(rbsherpa_hl_sim)
+project(rbsherpa_sim)
 find_package(catkin REQUIRED)
 catkin_metapackage()

@@ -73,7 +73,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /rbsherpa_hl_a/front_rgbd_camera/depth/points
+      Topic: /rbsherpa_a/front_rgbd_camera/depth/points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -84,7 +84,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /rbsherpa_hl_a/map
+      Topic: /rbsherpa_a/map
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -101,7 +101,7 @@ Visualization Manager:
       Shaft Length: 0.230000004
       Shaft Radius: 0.00999999978
       Shape: Arrow (Flat)
-      Topic: /rbsherpa_hl_a/particlecloud
+      Topic: /rbsherpa_a/particlecloud
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -114,76 +114,76 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        rbsherpa_hl_a_back_left_motor_wheel_link:
+        rbsherpa_a_back_left_motor_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_back_left_steer_wheel_link:
+        rbsherpa_a_back_left_steer_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_back_right_motor_wheel_link:
+        rbsherpa_a_back_right_motor_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_back_right_steer_wheel_link:
+        rbsherpa_a_back_right_steer_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_base_footprint:
+        rbsherpa_a_base_footprint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_base_link:
+        rbsherpa_a_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_front_laser_base_link:
+        rbsherpa_a_front_laser_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_front_laser_link:
+        rbsherpa_a_front_laser_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        rbsherpa_hl_a_front_left_motor_wheel_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rbsherpa_hl_a_front_left_steer_wheel_link:
+        rbsherpa_a_front_left_motor_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_front_right_motor_wheel_link:
+        rbsherpa_a_front_left_steer_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_front_right_steer_wheel_link:
+        rbsherpa_a_front_right_motor_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_rear_laser_base_link:
+        rbsherpa_a_front_right_steer_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rbsherpa_hl_a_rear_laser_link:
+        rbsherpa_a_rear_laser_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rbsherpa_a_rear_laser_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
       Name: RobotModel
-      Robot Description: rbsherpa_hl_a/robot_description
+      Robot Description: rbsherpa_a/robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
@@ -213,7 +213,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /rbsherpa_hl_a/front_laser/scan
+      Topic: /rbsherpa_a/front_laser/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -243,7 +243,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /rbsherpa_hl_a/rear_laser/scan
+      Topic: /rbsherpa_a/rear_laser/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -252,7 +252,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: rbsherpa_hl_a_base_footprint
+    Fixed Frame: rbsherpa_a_base_footprint
     Frame Rate: 30
   Name: root
   Tools:
@@ -263,9 +263,9 @@ Visualization Manager:
     - Class: rviz/FocusCamera
     - Class: rviz/Measure
     - Class: rviz/SetInitialPose
-      Topic: /rbsherpa_hl_a/initialpose
+      Topic: /rbsherpa_a/initialpose
     - Class: rviz/SetGoal
-      Topic: /rbsherpa_hl_a/move_base_simple/goal
+      Topic: /rbsherpa_a/move_base_simple/goal
     - Class: rviz/PublishPoint
       Single click: true
       Topic: /clicked_point
