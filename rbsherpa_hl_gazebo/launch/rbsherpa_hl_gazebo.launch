@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- arg to config the launch file-->
+
+	<!--launch_navigation and launch_navigation_nomap args are exclusive
+	and they are (or not) launched for all robots-->
+	<arg name="launch_rviz" default="true"/>
+	<arg name="launch_robot_a" default="true"/>
+	<arg name="launch_robot_b" default="false"/>
+	<arg name="launch_robot_c" default="false"/>
+	<arg name="gazebo_world" default="rbsherpa_hl.world"/>
+	<arg name="debug" default="false"/>
+	<arg name="ros_planar_move_plugin" default="false"/>
+
+
+	<!--params of the different robots-->
+	<!-- robot a -->
+	<arg name="id_robot_a" default="rbsherpa_hl_a"/>
+	<arg name="x_init_pose_robot_a" default="0" />
+	<arg name="y_init_pose_robot_a" default="0" />
+	<arg name="z_init_pose_robot_a" default="0" />
+	<arg name="localization_robot_a" default="false"/>
+	<arg name="gmapping_robot_a" default="false"/>
+	<arg name="move_base_robot_a" default="false"/>
+	<arg name="amcl_and_mapserver_a" default="false"/>
+	<arg name="map_file_a" default="empty/empty.yaml"/>
+	<arg name="xacro_robot_a" default="rbsherpa_hl_std.urdf.xacro"/>
+	<arg name="hq_model_a" default="false"/>
+	<arg name="sim_a" default="false"/>
+
+	<!-- robot b -->
+	<arg name="id_robot_b" default="rbsherpa_hl_b"/>
+	<arg name="x_init_pose_robot_b" default="0" />
+	<arg name="y_init_pose_robot_b" default="1" />
+	<arg name="z_init_pose_robot_b" default="0" />
+	<arg name="localization_robot_b" default="false"/>
+	<arg name="gmapping_robot_b" default="false"/>
+	<arg name="move_base_robot_b" default="false"/>
+	<arg name="amcl_and_mapserver_b" default="false"/>
+	<arg name="map_file_b" default="empty/empty.yaml"/>
+	<arg name="xacro_robot_b" default="rbsherpa_hl_std.urdf.xacro"/>
+	<arg name="hq_model_b" default="false"/>
+	<arg name="sim_b" default="false"/>
+
+	<!-- robot c -->
+	<arg name="id_robot_c" default="rbsherpa_hl_c"/>
+	<arg name="x_init_pose_robot_c" default="0" />
+	<arg name="y_init_pose_robot_c" default="2" />
+	<arg name="z_init_pose_robot_c" default="0" />
+	<arg name="localization_robot_c" default="false"/>
+	<arg name="gmapping_robot_c" default="false"/>
+	<arg name="move_base_robot_c" default="false"/>
+	<arg name="amcl_and_mapserver_c" default="false"/>
+	<arg name="map_file_c" default="empty/empty.yaml"/>
+	<arg name="xacro_robot_c" default="rbsherpa_hl_std.urdf.xacro"/>
+	<arg name="hq_model_c" default="false"/>
+	<arg name="sim_c" default="false"/>
+
+
+	<!--BEGIN ROBOT 1-->
+	<include if="$(arg launch_robot_a)" file="$(find rbsherpa_hl_gazebo)/launch/rbsherpa_hl_one_robot.launch">
+		<arg name="id_robot" value="$(arg id_robot_a)"/>
+		<arg name="x_init_pose" value="$(arg x_init_pose_robot_a)"/>
+		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>
+		<arg name="z_init_pose" value="$(arg z_init_pose_robot_a)"/>
+		<arg name="xacro_robot" value="$(arg xacro_robot_a)"/>
+		<arg name="launch_robot_localization" value="$(arg localization_robot_a)"/>
+		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_a)"/>
+		<arg name="launch_gmapping" value="$(arg gmapping_robot_a)"/>
+		<arg name="map_file" value="$(arg map_file_a)"/>
+ 		<arg name="launch_move_base" value="$(arg move_base_robot_a)"/>
+		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+		<arg name="hq_model" value="$(arg hq_model_a)"/>
+		<arg name="sim" value="$(arg sim_a)"/>
+	</include>
+
+	<!--BEGIN ROBOT 2-->
+	<include if="$(arg launch_robot_b)" file="$(find rbsherpa_hl_gazebo)/launch/rbsherpa_hl_one_robot.launch">
+		<arg name="id_robot" value="$(arg id_robot_b)"/>
+		<arg name="x_init_pose" value="$(arg x_init_pose_robot_b)"/>
+		<arg name="y_init_pose" value="$(arg y_init_pose_robot_b)"/>
+		<arg name="z_init_pose" value="$(arg z_init_pose_robot_b)"/>
+		<arg name="xacro_robot" value="$(arg xacro_robot_b)"/>
+		<arg name="launch_robot_localization" value="$(arg localization_robot_b)"/>
+		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_b)"/>
+		<arg name="launch_gmapping" value="$(arg gmapping_robot_b)"/>
+		<arg name="map_file" value="$(arg map_file_b)"/>
+ 		<arg name="launch_move_base" value="$(arg move_base_robot_b)"/>
+		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+		<arg name="hq_model" value="$(arg hq_model_b)"/>
+		<arg name="sim" value="$(arg sim_b)"/>
+	</include>
+
+	<!--BEGIN ROBOT 3-->
+	<include if="$(arg launch_robot_c)" file="$(find rbsherpa_hl_gazebo)/launch/rbsherpa_hl_one_robot.launch">
+		<arg name="id_robot" value="$(arg id_robot_c)"/>
+		<arg name="x_init_pose" value="$(arg x_init_pose_robot_c)"/>
+		<arg name="y_init_pose" value="$(arg y_init_pose_robot_c)"/>
+		<arg name="z_init_pose" value="$(arg z_init_pose_robot_c)"/>
+		<arg name="xacro_robot" value="$(arg xacro_robot_c)"/>
+		<arg name="launch_robot_localization" value="$(arg localization_robot_c)"/>
+		<arg name="launch_amcl_and_mapserver" value="$(arg amcl_and_mapserver_c)"/>
+		<arg name="launch_gmapping" value="$(arg gmapping_robot_c)"/>
+		<arg name="map_file" value="$(arg map_file_c)"/>
+ 		<arg name="launch_move_base" value="$(arg move_base_robot_c)"/>
+		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
+		<arg name="hq_model" value="$(arg hq_model_c)"/>
+		<arg name="sim" value="$(arg sim_c)"/>
+	</include>
+
+
+	<!-- gazebo simulation and rviz visualization-->
+	<include file="$(find rbsherpa_hl_gazebo)/launch/gazebo_rviz.launch">
+		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
+		<arg name="world" value="$(arg gazebo_world)"/>
+		<arg name="debug" value="$(arg debug)"/>
+	</include>
+
+</launch>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>rbsherpa_hl_sim_bringup</name>
+  <version>0.0.0</version>
+  <description>The rbsherpa_hl_sim_bringup package</description>
+
+  <maintainer email="alvaro@todo.todo">alvaro</maintainer>
+  <maintainer email="asoriano@robotnik.es">asoriano</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roslaunch</build_depend>
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>rbsherpa_hl_control</run_depend>
+  <run_depend>rbsherpa_hl_description</run_depend>
+  <run_depend>rbsherpa_hl_pad</run_depend>
+
+</package>
