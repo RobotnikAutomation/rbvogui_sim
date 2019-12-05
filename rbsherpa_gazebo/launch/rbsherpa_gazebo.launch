@@ -5,6 +5,7 @@
 
 	<!--launch_navigation and launch_navigation_nomap args are exclusive
 	and they are (or not) launched for all robots-->
+	<arg name="kinematics" default="ackermann"/>
 	<arg name="launch_rviz" default="true"/>
 	<arg name="rviz_config" default="$(find rbsherpa_gazebo)/rviz/rbsherpa.rviz"/>
 	<arg name="launch_robot_a" default="true"/>
@@ -35,6 +36,7 @@
 
 	<!--BEGIN ROBOT 1-->
 	<include if="$(arg launch_robot_a)" file="$(find rbsherpa_gazebo)/launch/rbsherpa_one_robot.launch">
+		<arg name="kinematics" value="$(arg kinematics)"/>
 		<arg name="id_robot" value="$(arg id_robot_a)"/>
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_a)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>
