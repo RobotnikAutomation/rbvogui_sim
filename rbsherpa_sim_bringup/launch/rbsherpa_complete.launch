@@ -33,7 +33,7 @@
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
 		<arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/>
 		<!-- robot_a args -->
-		<arg name="id_robot_a" default="$(arg id_robot_a)"/>
+		<arg name="id_robot_a" value="$(arg id_robot_a)"/>
 		<arg name="xacro_robot_a" value="$(arg xacro_robot_a)"/>
 		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
 		<arg name="map_file_a" value="$(arg map_file_a)"/>
@@ -41,8 +41,8 @@
 		<arg name="gmapping_robot_a" value="$(arg gmapping_robot_a)"/>
 		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
 		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
-		<arg name="map_frame_a" default="$(arg map_frame_a)"/>
-		<arg name="move_robot_a" default="$(arg move_robot_a)"/>
+		<arg name="map_frame_a" value="$(arg map_frame_a)"/>
+		<arg name="move_robot_a" value="$(arg move_robot_a)"/>
 
 		<!--arg name="hq_model_a" value="$(arg hq_model_a)"/>
 		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>

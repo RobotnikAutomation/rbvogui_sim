@@ -36,7 +36,7 @@
 		</node>
 		
 		<!-- start rbsherpa_control nodes -->
-		<include file="$(find rbsherpa_control)/launch/rbsherpa_control_$(arg kinematics)_sim.launch">
+		<include file="$(find rbsherpa_control)/launch/rbsherpa_control.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 			<arg name="kinematics" value="$(arg kinematics)"/>
 			<arg name="id_robot" value="$(arg id_robot)"/>
