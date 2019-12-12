@@ -44,6 +44,12 @@
 			<arg name="launch_robot_localization" value="$(arg launch_robot_localization)"/>
 		</include>
 
+		<!-- start twist2ackermann node -->
+		<include file="$(find robotnik_twist2ackermann)/launch/twist2ackermann.launch">
+			<arg name="from_topic" value="$(arg prefix)control/cmd_vel"/>
+			<arg name="to_topic" value="$(arg prefix)control/cmd_ack"/>
+		</include>
+
 		<!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
 		<include if="$(arg launch_robot_localization)" file="$(find rbsherpa_localization)/launch/robot_localization_$(arg kinematics).launch">
 			<!--arg name="prefix" value="$(arg prefix)"/-->
