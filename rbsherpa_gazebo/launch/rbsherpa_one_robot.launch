@@ -92,7 +92,7 @@
 		</include>
 
 		<!-- gmapping -->
-		<include if="$(arg launch_gmapping)" file="$(find rbsherpa_localization)/launch/slam_gmapping.launch">
+		<include if="$(arg launch_gmapping)" file="$(find rbsherpa_localization)/launch/gmapping.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
 

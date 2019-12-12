@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /FrontLaserScan A1/Status1
       Splitter Ratio: 0.441666663
     Tree Height: 591
   - Class: rviz/Selection
@@ -26,7 +27,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: FrontLaserScan A
   - Class: rviz_plugin_tutorials/Teleop
     Name: Teleop
     Topic: /rbsherpa/rbsherpa_control/cmd_vel
@@ -218,9 +219,9 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: -999999
+      Max Intensity: 0
       Min Color: 0; 0; 0
-      Min Intensity: 999999
+      Min Intensity: 0
       Name: FrontLaserScan A
       Position Transformer: XYZ
       Queue Size: 10
@@ -228,7 +229,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /rbsherpa_a/front_laser/scan
+      Topic: /rbsherpa/front_laser/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -258,7 +259,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.00999999978
       Style: Flat Squares
-      Topic: /rbsherpa_a/rear_laser/scan
+      Topic: /rbsherpa/rear_laser/scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -288,25 +289,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 7.84226704
+      Distance: 3.84909415
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.398342401
-        Y: 1.08649743
-        Z: -0.223558411
+        X: 1.08774078
+        Y: 0.570468903
+        Z: -0.392208189
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.365398288
+      Pitch: 0.445397913
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.43857145
+      Yaw: 3.89356041
     Saved: ~
 Window Geometry:
   Displays:
