@@ -3,6 +3,7 @@
 
 	<arg name="id_robot" default="rbsherpa"/>
 	<arg name="kinematics" default="ackermann" />
+	<arg name="twist2ackermann" default="true"/>
 	<arg name="x_init_pose" default="0"/>
 	<arg name="y_init_pose" default="0"/>
 	<arg name="z_init_pose" default="0"/>
@@ -45,7 +46,7 @@
 		</include>
 
 		<!-- start twist2ackermann node -->
-		<include file="$(find robotnik_twist2ackermann)/launch/twist2ackermann.launch">
+		<include if="$(arg twist2ackermann)" file="$(find robotnik_twist2ackermann)/launch/twist2ackermann.launch">
 			<arg name="from_topic" value="$(arg prefix)control/cmd_vel"/>
 			<arg name="to_topic" value="$(arg prefix)control/cmd_ack"/>
 		</include>

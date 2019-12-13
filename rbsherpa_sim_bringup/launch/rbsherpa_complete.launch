@@ -4,6 +4,7 @@
 	<!--launch_navigation and launch_navigation_nomap args are exclusive
 	and they are (or not) launched for all robots-->
 	<arg name="kinematics" default="$(optenv ROBOT_KINEMATICS ackermann)"/>
+	<arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN true)"/>
 	<arg name="launch_rviz" default="true"/>
 	<arg name="gazebo_world" default="$(find rbsherpa_gazebo)/worlds/rbsherpa.world"/>
 	<arg name="launch_base_hw_sim" default="false"/>
@@ -29,6 +30,7 @@
 	<include file="$(find rbsherpa_gazebo)/launch/rbsherpa_gazebo.launch">
 		<!-- general args -->
 		<arg name="kinematics" value="$(arg kinematics)"/>
+		<arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
 		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
 		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
 		<arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/>
