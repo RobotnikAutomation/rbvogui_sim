@@ -5,8 +5,8 @@
 
 	<!--launch_navigation and launch_navigation_nomap args are exclusive
 	and they are (or not) launched for all robots-->
-	<arg name="kinematics" default="ackermann"/>
-	<arg name="twist2ackermann" default="true"/>
+	<arg name="kinematics" default="omni"/>
+	<arg name="twist2ackermann" default="false"/>
 	<arg name="launch_rviz" default="true"/>
 	<arg name="rviz_config" default="$(find rbsherpa_gazebo)/rviz/rbsherpa.rviz"/>
 	<arg name="launch_robot_a" default="true"/>

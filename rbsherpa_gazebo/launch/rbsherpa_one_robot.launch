@@ -2,8 +2,8 @@
 <launch>
 
 	<arg name="id_robot" default="rbsherpa"/>
-	<arg name="kinematics" default="ackermann" />
-	<arg name="twist2ackermann" default="true"/>
+	<arg name="kinematics" default="omni" />
+	<arg name="twist2ackermann" default="false"/>
 	<arg name="x_init_pose" default="0"/>
 	<arg name="y_init_pose" default="0"/>
 	<arg name="z_init_pose" default="0"/>
@@ -87,8 +87,8 @@
 
 		<!-- move base -->
 		<include if="$(arg launch_move_base)" file="$(find rbsherpa_navigation)/launch/move_base.launch">
-			<arg name="prefix" value="$(arg id_robot)"/>
-			<!--arg name="scan_topic" value="/$(arg id_robot)/front_laser/scan"/-->
+			<arg name="id_robot" value="$(arg id_robot)"/>
+			<arg name="kinematics" value="$(arg kinematics)"/>
 			<arg name="global_frame" value="$(arg global_frame)"/>
 		</include>
 

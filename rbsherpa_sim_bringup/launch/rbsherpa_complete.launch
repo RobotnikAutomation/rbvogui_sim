@@ -3,8 +3,8 @@
 
 	<!--launch_navigation and launch_navigation_nomap args are exclusive
 	and they are (or not) launched for all robots-->
-	<arg name="kinematics" default="$(optenv ROBOT_KINEMATICS ackermann)"/>
-	<arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN true)"/>
+	<arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
+	<arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
 	<arg name="launch_rviz" default="true"/>
 	<arg name="gazebo_world" default="$(find rbsherpa_gazebo)/worlds/rbsherpa.world"/>
 	<arg name="launch_base_hw_sim" default="false"/>
