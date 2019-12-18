@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-	<arg name="id_robot" default="rbsherpa"/>
+	<arg name="id_robot" default="robot"/>
 	<arg name="kinematics" default="omni" />
 	<arg name="twist2ackermann" default="false"/>
 	<arg name="x_init_pose" default="0"/>
@@ -14,7 +14,7 @@
 	<arg name="launch_move_base" default="false"/>
 	<arg name="launch_move" default="false"/>
 	<arg name="map_file" default="$(find rbsherpa_localization)/maps/empty/map_empty.yaml"/>
-	<arg name="prefix" value="$(arg id_robot)_"/>
+	<arg name="prefix" default="$(arg id_robot)_"/>
 	<arg name="global_frame" default="$(arg prefix)map"/>
 	<arg name="launch_base_hw_sim" default="false"/>
 

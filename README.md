@@ -3,6 +3,8 @@ rbsherpa_sim
 
 Packages for the simulation of the RB-Sherpa
 
+Gazebo 9 required
+
 <h2>rbsherpa_gazebo</h2>
 
 Launch files and world files to start the models in gazebo

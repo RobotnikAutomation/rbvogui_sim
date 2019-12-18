@@ -10,7 +10,7 @@
 	<arg name="launch_base_hw_sim" default="false"/>
 
 	<!-- arguments robot a -->
-	<arg name="id_robot_a" default="rbsherpa"/>
+	<arg name="id_robot_a" default="$(optenv ROBOT_ID robot)"/>
 	<arg name="xacro_robot_a" default="rbsherpa_std.urdf.xacro"/>
 	<arg name="launch_robot_a" default="true"/>
 	<arg name="map_file_a" default="$(find rbsherpa_localization)/maps/empty/map_empty.yaml"/>
