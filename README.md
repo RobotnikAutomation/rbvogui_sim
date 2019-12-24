@@ -38,4 +38,4 @@ Launch files that execute the complete simulation of the robot
   Set your robot kinematics omni/ackermann (In case of ackermann, you will need twist2ackermann node enabled)
   - roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch kinematics:=omni twist2ackermann:=false
 
-3) Enjoy! You can use the topic "/robot/rbsherpa_control/cmd_vel" to control the RB-Sherpa robot.
+3) Enjoy! You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Sherpa robot.
