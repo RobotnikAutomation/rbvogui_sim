@@ -33,9 +33,14 @@ Launch files that execute the complete simulation of the robot
 1) Install the following dependencies:
   - [rbsherpa_common](https://github.com/RobotnikAutomation/rbsherpa_common)
   - [robotnik_sensors](https://github.com/RobotnikAutomation/robotnik_sensors)
+  - [hector_gazebo](https://github.com/tu-darmstadt-ros-pkg/hector_gazebo)
 
-2) Launch RB-Sherpa simulation with: <br>
-  Set your robot kinematics omni/ackermann (In case of ackermann, you will need twist2ackermann node enabled)
-  - roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch kinematics:=omni twist2ackermann:=false
+2) Launch RB-Sherpa simulation:
+<br>
+  Set your robot kinematics to omni/ackermann (In case of ackermann, you will need twist2ackermann node enabled)
+  
+  ```bash
+  roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch kinematics:=omni twist2ackermann:=false
+  ```
 
 3) Enjoy! You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Sherpa robot.
