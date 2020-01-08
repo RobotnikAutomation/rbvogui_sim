@@ -47,8 +47,8 @@
 
 		<!-- start twist2ackermann node -->
 		<include if="$(arg twist2ackermann)" file="$(find robotnik_twist2ackermann)/launch/twist2ackermann.launch">
-			<arg name="from_topic" value="$(arg prefix)control/cmd_vel"/>
-			<arg name="to_topic" value="$(arg prefix)control/cmd_ack"/>
+			<arg name="from_topic" value="robotnik_base_control/cmd_vel"/>
+			<arg name="to_topic" value="robotnik_base_control/cmd_ack"/>
 		</include>
 
 		<!-- robot_localization nodes, publishes transformation world->odom->base_footprint -->
