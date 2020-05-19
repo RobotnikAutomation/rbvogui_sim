@@ -17,6 +17,7 @@
 	<arg name="prefix" default="$(arg id_robot)_"/>
 	<arg name="global_frame" default="$(arg prefix)map"/>
 	<arg name="launch_base_hw_sim" default="false"/>
+	<arg name="launch_arm" default="false"/>
 
 	<!-- BEGIN ROBOT-->
 	<rosparam file="$(find rbsherpa_control)/config/gazebo/gazebo_controller_$(arg kinematics).yaml" command="load"/>
@@ -35,7 +36,7 @@
 		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
 			<remap from="/joint_states" to="joint_states" />
 		</node>
-		
+
 		<!-- start rbsherpa_control nodes -->
 		<include file="$(find rbsherpa_control)/launch/rbsherpa_control.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
@@ -60,10 +61,16 @@
 		<include file="$(find rbsherpa_pad)/launch/rbsherpa_pad.launch">
 			<arg name="kinematics" value="$(arg kinematics)"/>
 		</include>
-		
-		<!--/group-->
 
-		
+		<group if="$(arg launch_arm)">
+			<rosparam file="$(find rbsherpa_gazebo)/config/arm_control.yaml" command="load"/>
+			<arg name="joint_names" default="[$(arg id_robot)_arm_shoulder_pan_joint, $(arg id_robot)_arm_shoulder_lift_joint, $(arg id_robot)_arm_elbow_joint, $(arg id_robot)_arm_wrist_1_joint, $(arg id_robot)_arm_wrist_2_joint, $(arg id_robot)_arm_wrist_3_joint] "/>
+			<rosparam param="arm_controller/joints" subst_value="True"> $(arg joint_names)</rosparam>
+
+			<node if="$(arg launch_arm)" name="controller_spawner_arm" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="
+                        arm_controller"/>
+		</group>
+
 
 		<!-- use static_transform_publisher to define map->odom transform    -->
 		<!-- only use if you aren´t using a localization algorithm like amcl -->
