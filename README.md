@@ -43,4 +43,19 @@ Launch files that execute the complete simulation of the robot
   roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch kinematics:=omni twist2ackermann:=false
   ```
 
+  In case you want to launch the rbsherpa with an UR arm (right now `default_arm_model` only supports '_ur10'), you can type the following command:
+  ```bash
+  roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch launch_arm:=true
+  ```
+
+  You can play with the arm by using the rqt_joint_trajectory:
+  ```bash
+  ROS_NAMESPACE=robot rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
+  ```
+
+  Or even use moveit to plan trajectories:
+  ```bash
+  roslaunch rbsherpa_moveit_ur10 demo.launch
+  ```
+
 3) Enjoy! You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Sherpa robot.
