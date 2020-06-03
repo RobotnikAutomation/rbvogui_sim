@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- What simulator to use -->
+  <arg name="simulation_package" default="$(optenv SIMULATION_PACKAGE rbsherpa_gazebo)"/>
+  <arg name="config_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
+  
+  <!-- Rviz arguments -->
+  <arg name="rviz_config" default="rviz/rviz.rviz"/>
+  <arg name="rviz_config_file" default="$(eval find(config_package) + '/' + rviz_config)"/>
+
+  <!-- Run rviz -->
+  <node name="rviz" pkg="rviz" type="rviz" required="true" args="-d $(arg rviz_config_file)"/>
+
+</launch>

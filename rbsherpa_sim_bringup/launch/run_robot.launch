@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- What simulator to use -->
+  <arg name="simulation_package" default="$(optenv SIMULATION_PACKAGE rbsherpa_gazebo)"/>
+  <arg name="config_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
+  <!--arg name="use_gpu_for_simulation" default="$(optenv SIMULATION_USE_GPU true)"/-->
+
+  <!-- arg to config the launch file-->
+  <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg robot_id)_"/>
+  <arg name="robot_model" default="$(optenv ROBOT_MODEL rbsherpa)"/> 
+  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbsherpa_xl_std.urdf.xacro)"/>
+
+  <!-- Robot configuration -->
+  <arg name="x_init_pose" default="0"/>
+  <arg name="y_init_pose" default="0"/>
+  <arg name="z_init_pose" default="0"/>
+  <arg name="ros_planar_move_plugin" default="false"/>
+  <arg name="launch_base_hw_sim" default="false"/>
+  <arg name="launch_move_base" default="false"/>
+	<arg name="launch_move" default="false"/>
+  <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
+	<arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
+
+  <!-- Arm configuration-->
+	<arg name="launch_arm" default="false"/>
+  <arg name="launch_arm_control" default="false"/>
+  <arg name="arm_controllers" default="pos_traj_controller"/> <!-- controllers can be listed seprated by a blank space -->
+  <arg name="load_kinematics_file" default="$(arg launch_arm_control)"/> <!-- Necesarry for ur_description compatible with official ur drivers--> 
+  
+  <!-- Gripper configuration-->
+  <arg name="launch_gripper_control" default="false"/>
+  <arg name="gripper_controllers" default="gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
+
+  <!-- If Rviz should be spawned here -->
+  <arg name="run_rviz" default="false"/>
+  
+  <!-- RViz configuration -->
+  <arg name="rviz_config_file" default="rviz/rviz.rviz"/>
+  <arg name="rviz_config_path" default="$(eval find(config_package) + '/' + rviz_config_file)"/>
+  
+  <!-- Launch robot (simulation specific software) -->
+  <group ns="$(arg robot_id)">
+    <!-- spawn robot in simulator -->
+    <include file="$(eval find(simulation_package) + '/launch/spawn_robot.launch')">
+      <arg name="robot_id" value="$(arg robot_id)"/>
+      <arg name="x_init_pose" value="$(arg x_init_pose)"/>
+      <arg name="y_init_pose" value="$(arg y_init_pose)"/>
+      <arg name="z_init_pose" value="$(arg z_init_pose)"/>
+    </include>
+  </group>
+
+  <!-- Launch robot (simulation independent software) -->
+  <group ns="$(arg robot_id)">
+
+    <!-- Load the URDF into the ROS Parameter Server -->
+    <include file="$(find rbsherpa_description)/launch/rbsherpa_state.launch" >
+      <arg name="prefix" value="$(arg prefix)" />
+      <arg name="robot_model" value="$(arg robot_xacro)" />
+    </include>
+
+    <!-- Start control nodes -->
+    <include file="$(find rbsherpa_control)/launch/rbsherpa_control.launch">
+      <arg name="robot_id" value="$(arg robot_id)"/>
+      <arg name="prefix" value="$(arg prefix)"/>
+      <arg name="sim" value="true"/>
+      <arg name="kinematics" value="$(arg kinematics)"/>
+    </include>
+
+		<!-- move base -->
+		<include if="$(arg launch_move_base)" file="$(find rbsherpa_navigation)/launch/move_base.launch">
+			<arg name="id_robot" value="$(arg id_robot)"/>
+			<arg name="kinematics" value="$(arg kinematics)"/>
+			<arg name="global_frame" value="$(arg global_frame)"/>
+		</include>
+
+    <!-- base_hw_sim -->
+		<include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/rb1_hw_sim.launch">
+			<arg name="prefix" value="$(arg prefix)"/>
+		</include>
+
+    <!-- move  -->
+		<include if="$(arg launch_move)" file="$(find rbkairos_navigation)/launch/move.launch">
+			<arg name="id_robot" value="$(arg id_robot)"/>
+		</include>
+  </group>
+
+  <!-- launch rviz -->
+  <include if="$(arg run_rviz)" ns="$(arg robot_id)" file="$(find rbsherpa_sim_bringup)/launch/run_rviz.launch">
+    <arg name="config_path" value="$(arg rviz_config_path)" />
+  </include>
+  
+</launch>
