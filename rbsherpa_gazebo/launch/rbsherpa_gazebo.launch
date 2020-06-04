@@ -40,7 +40,7 @@
 	<include if="$(arg launch_robot_a)" file="$(find rbsherpa_gazebo)/launch/rbsherpa_one_robot.launch">
 		<arg name="kinematics" value="$(arg kinematics)"/>
 		<arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
-		<arg name="id_robot" value="$(arg id_robot_a)"/>
+		<arg name="robot_id" value="$(arg id_robot_a)"/>
 		<arg name="x_init_pose" value="$(arg x_init_pose_robot_a)"/>
 		<arg name="y_init_pose" value="$(arg y_init_pose_robot_a)"/>
 		<arg name="z_init_pose" value="$(arg z_init_pose_robot_a)"/>
