@@ -4,6 +4,7 @@
   <!-- What simulator to use -->
   <arg name="simulation_package" default="$(optenv SIMULATION_PACKAGE rbsherpa_gazebo)"/>
   <arg name="config_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
+  <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
   <!--arg name="use_gpu_for_simulation" default="$(optenv SIMULATION_USE_GPU true)"/-->
 
   <!-- arg to config the launch file-->
@@ -16,7 +17,7 @@
   <arg name="x_init_pose" default="0"/>
   <arg name="y_init_pose" default="0"/>
   <arg name="z_init_pose" default="0"/>
-  <arg name="ros_planar_move_plugin" default="false"/>
+  <!--arg name="ros_planar_move_plugin" default="false"/-->
   <arg name="launch_base_hw_sim" default="false"/>
   <arg name="launch_move_base" default="false"/>
 	<arg name="launch_move" default="false"/>
@@ -34,11 +35,7 @@
   <arg name="gripper_controllers" default="gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
 
   <!-- If Rviz should be spawned here -->
-  <arg name="run_rviz" default="false"/>
-  
-  <!-- RViz configuration -->
-  <arg name="rviz_config_file" default="rviz/rviz.rviz"/>
-  <arg name="rviz_config_path" default="$(eval find(config_package) + '/' + rviz_config_file)"/>
+  <arg name="run_rviz" default="true"/>
   
   <!-- Launch robot (simulation specific software) -->
   <group ns="$(arg robot_id)">
@@ -56,23 +53,26 @@
 
     <!-- Load the URDF into the ROS Parameter Server -->
     <include file="$(find rbsherpa_description)/launch/rbsherpa_state.launch" >
-      <arg name="prefix" value="$(arg prefix)" />
-      <arg name="robot_model" value="$(arg robot_xacro)" />
+      <arg name="robot_id" value="$(arg robot_id)" />
+      <arg name="robot_xacro" value="$(arg robot_xacro)" />
     </include>
 
     <!-- Start control nodes -->
     <include file="$(find rbsherpa_control)/launch/rbsherpa_control.launch">
       <arg name="robot_id" value="$(arg robot_id)"/>
-      <arg name="prefix" value="$(arg prefix)"/>
       <arg name="sim" value="true"/>
       <arg name="kinematics" value="$(arg kinematics)"/>
     </include>
 
 		<!-- move base -->
 		<include if="$(arg launch_move_base)" file="$(find rbsherpa_navigation)/launch/move_base.launch">
-			<arg name="id_robot" value="$(arg id_robot)"/>
+			<arg name="robot_id" value="$(arg robot_id)"/>
 			<arg name="kinematics" value="$(arg kinematics)"/>
-			<arg name="global_frame" value="$(arg global_frame)"/>
+		</include>
+
+    <!-- pad -->
+		<include file="$(find rbsherpa_pad)/launch/rbsherpa_pad.launch">
+			<arg name="kinematics" value="$(arg kinematics)"/>
 		</include>
 
     <!-- base_hw_sim -->
@@ -81,14 +81,14 @@
 		</include>
 
     <!-- move  -->
-		<include if="$(arg launch_move)" file="$(find rbkairos_navigation)/launch/move.launch">
-			<arg name="id_robot" value="$(arg id_robot)"/>
+		<include if="$(arg launch_move)" file="$(find rbsherpa_navigation)/launch/move.launch">
+			<arg name="robot_id" value="$(arg robot_id)"/>
 		</include>
   </group>
 
   <!-- launch rviz -->
   <include if="$(arg run_rviz)" ns="$(arg robot_id)" file="$(find rbsherpa_sim_bringup)/launch/run_rviz.launch">
-    <arg name="config_path" value="$(arg rviz_config_path)" />
+    <arg name="config_package" value="$(arg config_package)" />
   </include>
   
 </launch>
