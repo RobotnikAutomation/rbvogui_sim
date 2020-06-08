@@ -27,7 +27,7 @@
   <!-- Arm configuration-->
 	<arg name="launch_arm" default="false"/>
   <arg name="launch_arm_control" default="false"/>
-  <arg name="arm_controllers" default="pos_traj_controller"/> <!-- controllers can be listed seprated by a blank space -->
+  <arg name="arm_controllers" default="right_arm/pos_traj_controller left_arm/pos_traj_controller"/> <!-- controllers can be listed seprated by a blank space -->
   <arg name="load_kinematics_file" default="$(arg launch_arm_control)"/> <!-- Necesarry for ur_description compatible with official ur drivers--> 
   
   <!-- Gripper configuration-->
@@ -55,6 +55,7 @@
     <include file="$(find rbsherpa_description)/launch/rbsherpa_state.launch" >
       <arg name="robot_id" value="$(arg robot_id)" />
       <arg name="robot_xacro" value="$(arg robot_xacro)" />
+      <arg name="launch_arm" value="$(arg launch_arm)" />
     </include>
 
     <!-- Start control nodes -->
@@ -62,6 +63,8 @@
       <arg name="robot_id" value="$(arg robot_id)"/>
       <arg name="sim" value="true"/>
       <arg name="kinematics" value="$(arg kinematics)"/>
+      <arg name="arm_controllers" value="$(arg arm_controllers)"/>
+      <arg name="sim_arm_control" value="$(arg load_kinematics_file)" />
     </include>
 
 		<!-- move base -->
