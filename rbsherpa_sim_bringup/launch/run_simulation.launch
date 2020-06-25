@@ -2,9 +2,8 @@
 <launch>
 
  <!-- What simulator to use -->
- <arg name="simulation_package" default="$(optenv SIMULATION_PACKAGE rbsherpa_gazebo)"/>
- <arg name="config_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
- <!--arg name="use_gpu_for_simulation" default="$(optenv SIMULATION_USE_GPU true)"/-->
+ <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
+ <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbsherpa_gazebo)"/>
  
  <!-- Simulation arguments -->
  <arg name="world" default="worlds/rbsherpa.world" /> <!-- relative path to config_package -->
