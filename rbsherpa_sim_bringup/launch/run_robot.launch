@@ -2,22 +2,20 @@
 <launch>
 
   <!-- What simulator to use -->
-  <arg name="simulation_package" default="$(optenv SIMULATION_PACKAGE rbsherpa_gazebo)"/>
-  <arg name="config_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
+  <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
+  <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbsherpa_gazebo)"/>
   <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
-  <!--arg name="use_gpu_for_simulation" default="$(optenv SIMULATION_USE_GPU true)"/-->
 
   <!-- arg to config the launch file-->
-  <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
-  <arg name="prefix" default="$(arg robot_id)_"/>
   <arg name="robot_model" default="$(optenv ROBOT_MODEL rbsherpa)"/> 
   <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbsherpa_xl_std.urdf.xacro)"/>
 
   <!-- Robot configuration -->
+  <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg robot_id)_"/>
   <arg name="x_init_pose" default="0"/>
   <arg name="y_init_pose" default="0"/>
   <arg name="z_init_pose" default="0"/>
-  <!--arg name="ros_planar_move_plugin" default="false"/-->
   <arg name="launch_base_hw_sim" default="false"/>
   <arg name="launch_move_base" default="false"/>
 	<arg name="launch_move" default="false"/>
@@ -28,21 +26,18 @@
 	<arg name="launch_arm" default="false"/>
   <arg name="launch_arm_control" default="false"/>
   <arg name="arm_controllers" default="right_arm/pos_traj_controller left_arm/pos_traj_controller"/> <!-- controllers can be listed seprated by a blank space -->
-  <arg name="load_kinematics_file" default="$(arg launch_arm_control)"/> <!-- Necesarry for ur_description compatible with official ur drivers--> 
+  <arg name="load_kinematics_file" default="$(arg launch_arm_control)"/> <!-- Necesary for ur_description compatible with official ur drivers--> 
   
   <!-- Gripper configuration-->
   <arg name="launch_gripper_control" default="false"/>
   <arg name="gripper_controllers" default="gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
-
-  <!-- If Rviz should be spawned here -->
-  <arg name="run_rviz" default="true"/>
   
   <!-- Launch robot (simulation specific software) -->
   <group ns="$(arg robot_id)">
     <!-- spawn robot in simulator -->
     <include file="$(eval find(simulation_package) + '/launch/spawn_robot.launch')">
       <arg name="robot_id" value="$(arg robot_id)"/>
-      <arg name="x_init_pose" value="$(arg x_init_pose)"/>
+      <arg name="x_init_pose" value="$(arg x_init_pose)"/> 
       <arg name="y_init_pose" value="$(arg y_init_pose)"/>
       <arg name="z_init_pose" value="$(arg z_init_pose)"/>
     </include>
@@ -56,6 +51,7 @@
       <arg name="robot_id" value="$(arg robot_id)" />
       <arg name="robot_xacro" value="$(arg robot_xacro)" />
       <arg name="launch_arm" value="$(arg launch_arm)" />
+      <arg name="load_kinematics_file" value="$(arg load_kinematics_file)"/>
     </include>
 
     <!-- Start control nodes -->
@@ -88,10 +84,5 @@
 			<arg name="robot_id" value="$(arg robot_id)"/>
 		</include>
   </group>
-
-  <!-- launch rviz -->
-  <include if="$(arg run_rviz)" ns="$(arg robot_id)" file="$(find rbsherpa_sim_bringup)/launch/run_rviz.launch">
-    <arg name="config_package" value="$(arg config_package)" />
-  </include>
   
 </launch>
