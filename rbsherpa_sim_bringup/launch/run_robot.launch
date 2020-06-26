@@ -23,8 +23,8 @@
 	<arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
 
   <!-- Arm configuration-->
-	<arg name="launch_arm" default="false"/>
-  <arg name="launch_arm_control" default="false"/>
+  <arg name="launch_arm_control" default="true"/>
+	<arg name="launch_arm" default="$(arg launch_arm_control)"/>
   <arg name="arm_controllers" default="right_arm/pos_traj_controller left_arm/pos_traj_controller"/> <!-- controllers can be listed seprated by a blank space -->
   <arg name="load_kinematics_file" default="$(arg launch_arm_control)"/> <!-- Necesary for ur_description compatible with official ur drivers--> 
   
