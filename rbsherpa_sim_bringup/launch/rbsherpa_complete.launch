@@ -31,9 +31,6 @@
   <arg name="y_init_pose" default="0"/>
   <arg name="z_init_pose" default="0"/>
   <arg name="launch_base_hw_sim" default="false"/>
-  <arg name="launch_move_base" default="false"/>
-  <arg name="launch_move" default="false"/>
-
 
   <!-- Arm configuration-->
   <arg name="launch_arm_control" default="false"/>
@@ -71,8 +68,6 @@
     <arg name="y_init_pose" value="$(arg y_init_pose)"/>
     <arg name="z_init_pose" value="$(arg z_init_pose)"/>
     <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/>
-    <arg name="launch_move_base" value="$(arg launch_move_base)"/>
-    <arg name="launch_move" value="$(arg launch_move)"/>
   	<arg name="launch_arm_control" value="$(arg launch_arm_control)"/>
     <arg name="load_kinematics_file" value="$(arg load_kinematics_file)"/>
     <arg name="arm_controllers" value="$(arg arm_controllers)"/>
