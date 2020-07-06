@@ -63,12 +63,6 @@
       <arg name="sim_arm_control" value="$(arg load_kinematics_file)" />
     </include>
 
-		<!-- move base -->
-		<include if="$(arg launch_move_base)" file="$(find rbsherpa_navigation)/launch/move_base.launch">
-			<arg name="robot_id" value="$(arg robot_id)"/>
-			<arg name="kinematics" value="$(arg kinematics)"/>
-		</include>
-
     <!-- pad -->
 		<include file="$(find rbsherpa_pad)/launch/rbsherpa_pad.launch">
 			<arg name="kinematics" value="$(arg kinematics)"/>
@@ -77,11 +71,6 @@
     <!-- base_hw_sim -->
 		<include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/rb1_hw_sim.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
-		</include>
-
-    <!-- move  -->
-		<include if="$(arg launch_move)" file="$(find rbsherpa_navigation)/launch/move.launch">
-			<arg name="robot_id" value="$(arg robot_id)"/>
 		</include>
   </group>
   
