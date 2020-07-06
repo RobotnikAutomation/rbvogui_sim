@@ -65,7 +65,7 @@ Launch files that execute the complete simulation of the robot
 
   The rbsherpa Xl can be launched with two UR arms, only this bi-arm option is available actually:
   ```bash
-  roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch robot_xacro:=rbsherpa_xl.urdf.xacro launch_arm_control:=true arm_controllers:=right_arm/pos_traj_controller left_arm/pos_traj_controller
+  roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch robot_xacro:=rbsherpa_xl.urdf.xacro launch_arm_control:=true
   ``` 
 
   To plan trajectories with the bi-arm robot you can type:
