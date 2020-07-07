@@ -1,61 +1,87 @@
 <?xml version="1.0"?>
 <launch>
 
-	<!--launch_navigation and launch_navigation_nomap args are exclusive
-	and they are (or not) launched for all robots-->
-	<arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
-	<arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
-	<arg name="launch_rviz" default="true"/>
-	<arg name="gazebo_world" default="$(find rbsherpa_gazebo)/worlds/rbsherpa.world"/>
-	<arg name="launch_base_hw_sim" default="false"/>
-	<arg name="launch_arm" default="false"/>
-	<arg name="default_arm_model" default="_ur10"/>
+  <!-- What simulator config package to use -->
+  <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
+  <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbsherpa_gazebo)"/>
+  <arg name="sim_bringup_package" default="$(optenv SIM_BRINGUP_PACKAGE rbsherpa_sim_bringup)"/>
 
-	<!-- arguments robot a -->
-	<arg name="id_robot_a" default="$(optenv ROBOT_ID robot)"/>
-	<arg if="$(arg launch_arm)" name="xacro_robot_a" default="rbsherpa_std$(arg default_arm_model).urdf.xacro"/>
-	<arg unless="$(arg launch_arm)" name="xacro_robot_a" default="rbsherpa_std.urdf.xacro"/>
-	<arg name="launch_robot_a" default="true"/>
-	<arg name="map_file_a" default="$(find rbsherpa_localization)/maps/empty/map_empty.yaml"/>
-	<arg name="localization_robot_a" default="false"/>
-	<arg name="gmapping_robot_a" default="false"/>
-	<arg name="move_base_robot_a" default="false"/>
-	<arg name="amcl_and_mapserver_a" default="false"/>
-	<arg name="map_frame_a" default="$(arg id_robot_a)_map"/>
-	<arg name="move_robot_a" default="false"/>
+  <!-- What to execute -->
+  <arg name="run_simulation" default="true"/>
+  <arg name="run_robot" default="true"/>
+  <arg name="run_rviz" default="true"/>
 
-	<!--arg name="hq_model_a" default="true"/>
-	<arg name="ros_planar_move_plugin" default="false"/>
-	<arg name="sim_a" default="true"/-->
+  <!-- Simulation configuration -->
+  <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
+  <arg name="world" default="worlds/rbsherpa.world" /> <!-- relative path to config_package -->
+  <arg name="world_file" default="$(eval find(config_package) + '/' + world)"/> <!-- absolute path -->
+  <arg name="debug" default="false"/>
+  <arg name="paused" default="false"/>
+  <arg name="headless" default="false"/>
+  <arg name="gui" default="true"/>
 
+  <!-- Robot configuration -->
+  <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
+  <arg name="prefix" default="$(arg robot_id)_"/>
+  <arg name="robot_model" default="$(optenv ROBOT_MODEL rbsherpa)"/>
+  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbsherpa_std.urdf.xacro)"/>
+  <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
+  <arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
+  <arg name="x_init_pose" default="0"/>
+  <arg name="y_init_pose" default="0"/>
+  <arg name="z_init_pose" default="0"/>
+  <arg name="launch_base_hw_sim" default="false"/>
 
-	<!--LAUNCH GAZEBO SIMULATION-->
-	<include file="$(find rbsherpa_gazebo)/launch/rbsherpa_gazebo.launch">
-		<!-- general args -->
-		<arg name="kinematics" value="$(arg kinematics)"/>
-		<arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
-		<arg name="launch_rviz" value="$(arg launch_rviz)"/>
-		<arg name="gazebo_world" value="$(arg gazebo_world)"/>
-		<arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/>
-		<!-- robot_a args -->
-		<arg name="id_robot_a" value="$(arg id_robot_a)"/>
-		<arg name="xacro_robot_a" value="$(arg xacro_robot_a)"/>
-		<arg name="launch_robot_a" value="$(arg launch_robot_a)"/>
-		<arg name="map_file_a" value="$(arg map_file_a)"/>
-		<arg name="localization_robot_a" value="$(arg localization_robot_a)"/>
-		<arg name="gmapping_robot_a" value="$(arg gmapping_robot_a)"/>
-		<arg name="move_base_robot_a" value="$(arg move_base_robot_a)"/>
-		<arg name="amcl_and_mapserver_a" value="$(arg amcl_and_mapserver_a)"/>
-		<arg name="map_frame_a" value="$(arg map_frame_a)"/>
-		<arg name="move_robot_a" value="$(arg move_robot_a)"/>
-		<arg name="launch_arm" value="$(arg launch_arm)"/>
+  <!-- Arm configuration-->
+  <arg name="launch_arm_control" default="false"/>
+  <arg name="arm_controllers" default="right_arm/pos_traj_controller left_arm/pos_traj_controller"/> <!-- controllers can be listed seprated by a blank space -->
+  <arg name="load_kinematics_file" default="$(arg launch_arm_control)"/> <!-- Necesary for ur_description compatible with official ur drivers--> 
+  
+  <!-- Gripper configuration-->
+  <arg name="launch_gripper_control" default="false"/>
+  <arg name="gripper_controllers" default="gripper/gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
 
-		<!--arg name="hq_model_a" value="$(arg hq_model_a)"/>
-		<arg name="ros_planar_move_plugin" value="$(arg ros_planar_move_plugin)"/>
-		<arg name="sim_a" value="$(arg sim_a)"/-->
+  <!-- RViz configuration -->
+  <arg name="rviz_config_file" default="rviz/rbsherpa.rviz"/>
+  <arg name="rviz_config_path" default="$(eval find(config_package) + '/' + rviz_config_file)"/>
 
+  <!-- launch simulation -->
+  <include if="$(arg run_simulation)" file="$(eval find(sim_bringup_package) + '/launch/run_simulation.launch')">
+    <arg name="simulation_package" value="$(arg simulation_package)"/>
+    <arg name="config_package" value="$(arg config_package)"/>
+    <arg name="world" value="$(arg world)"/>
+    <arg name="world_file" value="$(arg world_file)"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
 
-	</include>
+  <!-- launch robot -->
+  <include if="$(arg run_robot)" file="$(eval find(sim_bringup_package) + '/launch/run_robot.launch')">
+    <arg name="simulation_package" value="$(arg simulation_package)"/>
+    <arg name="config_package" value="$(arg config_package)"/>
+    <arg name="robot_id" value="$(arg robot_id)"/>
+    <arg name="prefix" value="$(arg prefix)" />
+    <arg name="robot_xacro" value="$(arg robot_xacro)"/>
+    <arg name="x_init_pose" value="$(arg x_init_pose)"/>
+    <arg name="y_init_pose" value="$(arg y_init_pose)"/>
+    <arg name="z_init_pose" value="$(arg z_init_pose)"/>
+    <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/>
+  	<arg name="launch_arm_control" value="$(arg launch_arm_control)"/>
+    <arg name="load_kinematics_file" value="$(arg load_kinematics_file)"/>
+    <arg name="arm_controllers" value="$(arg arm_controllers)"/>
+    <arg name="launch_gripper_control" value="$(arg launch_gripper_control)"/>
+    <arg name="gripper_controllers" value="$(arg gripper_controllers)"/>
+    <arg name="kinematics" value="$(arg kinematics)"/>
+    <arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
+  </include>
 
+  <!-- launch rviz -->
+  <include if="$(arg run_rviz)" file="$(eval find(sim_bringup_package) + '/launch/run_rviz.launch')">
+    <arg name="rviz_config_file" value="$(arg rviz_config_file)" />
+    <arg name="rviz_config_path" value="$(arg rviz_config_path)" />
+    <arg name="config_package" value="$(arg config_package)"/>
+  </include>
 
 </launch>

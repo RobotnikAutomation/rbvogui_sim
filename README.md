@@ -43,19 +43,37 @@ Launch files that execute the complete simulation of the robot
   roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch kinematics:=omni twist2ackermann:=false
   ```
 
-  In case you want to launch the rbsherpa with an UR arm (right now `default_arm_model` only supports '_ur10'), you can type the following command:
+  In case you want to launch the rbsherpa with an UR arm you can type the following command:
   ```bash
-  roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch launch_arm:=true
+  roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch robot_xacro:=rbsherpa_std_ur10.urdf.xacro launch_arm_control:=true arm_controllers:=arm_controller
   ```
 
-  You can play with the arm by using the rqt_joint_trajectory:
+  Or you can play with the arm by using the rqt_joint_trajectory:
   ```bash
   ROS_NAMESPACE=robot rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
   ```
 
   Or even use moveit to plan trajectories:
   ```bash
-  roslaunch rbsherpa_moveit_ur10 demo.launch
+  ROS_NAMESPACE=robot roslaunch rbsherpa_moveit_ur10 demo.launch
   ```
+
+  If you prefer to launch the rbsherpa XL, you can type:
+  ```bash
+  roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch robot_xacro:=rbsherpa_xl.urdf.xacro
+  ```
+
+  The rbsherpa Xl can be launched with two UR arms, only this bi-arm option is available actually:
+  ```bash
+  roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch robot_xacro:=rbsherpa_xl.urdf.xacro launch_arm_control:=true
+  ``` 
+
+  To plan trajectories with the bi-arm robot you can type:
+
+  ```bash
+  ROS_NAMESPACE=robot roslaunch rbsherpa_xl_2ur10_moveit_config rbsherpa_xl_moveit_config.launch
+  ```
+
+To switch between arms on RViz look for MotionPlanning > Planning Request > Planning Group and it will show you all the available groups (left_arm and right_arm).
 
 3) Enjoy! You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Sherpa robot.
