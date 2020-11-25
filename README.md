@@ -44,7 +44,11 @@ rosdep install --from-paths src --ignore-src -y
 3) Install the controllers:
 
 ```bash
-TODO: Create the libraries of the controllers.
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-ackermann-drive-controller_0.0.0-0xenial_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-omni-drive-controller_0.0.0-0xenial_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-rcomponent_1.1.0-0xenial_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-robotnik-msgs_1.0.0-0xenial_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-robotnik-twist2ackermann_0.0.0-0xenial_amd64.deb
 ```
 
 4) Compile:
