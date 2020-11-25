@@ -3,21 +3,7 @@ rbsherpa_sim
 
 Packages for the simulation of the RB-Sherpa
 
-Please note that we are using Gazebo 9 for this simulation and default version in kinetic is Gazebo 7. You will need to install Gazebo 9 to make simulation work.
-
-Before installing Gazebo 9 you should unistall Gazebo 7:
-
-```bash
->$ sudo apt-get remove ros-kinetic-gazebo* 
->$ sudo apt-get remove libgazebo* 
->$ sudo apt-get remove gazebo*
-```
-
-[Here](http://gazebosim.org/tutorials?tut=install_ubuntu&cat=install) you will find how to install Gazebo 9. Moreover, you will need to install manually some gazebo9 dependencies:
-
-```bash
->$ sudo apt-get install ros-kinetic-gazebo9-ros-pkgs ros-kinetic-gazebo9-ros-control ros-kinetic-gazebo9*
-```
+This packages contains: 
 
 <h2>rbsherpa_gazebo</h2>
 
@@ -31,12 +17,45 @@ Launch files that execute the complete simulation of the robot
 <h2>Simulating RB-Sherpa</h2>
 
 1) Install the following dependencies:
-  - [rbsherpa_common](https://github.com/RobotnikAutomation/rbsherpa_common)
-  - [robotnik_sensors](https://github.com/RobotnikAutomation/robotnik_sensors)
-  - [hector_gazebo](https://github.com/tu-darmstadt-ros-pkg/hector_gazebo)
 
-2) Launch RB-Sherpa simulation:
-<br>
+This simulation has been tested using Gazebo 9.0 version, probably you will need to install manually some gazebo9 dependencies and the wstool:
+
+```bash
+sudo apt-get install ros-kinetic-gazebo9-ros-pkgs ros-kinetic-gazebo9-ros-control ros-kinetic-gazebo9*
+sudo apt-get install -y python-wstool python3-rosdep
+```
+
+2) Create a workspace and clone the repository:
+
+```bash
+mkdir ~/catkin_ws
+cd ~/catkin_ws
+wstool init src
+wstool merge -t src https://raw.githubusercontent.com/RobotnikAutomation/rbsherpa_sim/melodic-devel/rbsherpa_sim.rosinstall
+wstool update -t src
+rosdep install --from-paths src --ignore-src -y
+```
+
+3) Install the controllers, robotnik_msgs and the rcomponent:
+
+```bash
+sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-ackermann-drive-controller_0.0.0-0bionic_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-omni-drive-controller_0.0.0-0bionic_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-rcomponent_1.1.0-0bionic_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-robotnik-msgs_1.1.0-0bionic_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-robotnik-twist2ackermann_0.0.0-0bionic_amd64.deb
+```
+
+4) Compile:
+
+```bash
+cd ~/catkin_ws
+catkin build
+source ~/catkin_ws/devel/setup.bash
+```
+
+5) Run RB-Sherpa simulation:
+
   Set your robot kinematics to omni/ackermann (In case of ackermann, you will need twist2ackermann node enabled)
   
   ```bash
@@ -63,7 +82,7 @@ Launch files that execute the complete simulation of the robot
   roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch robot_xacro:=rbsherpa_xl.urdf.xacro
   ```
 
-  The rbsherpa Xl can be launched with two UR arms, only this bi-arm option is available actually:
+  The rbsherpa Xl can be launched with two UR arms, only this bi-arm (UR-10e) option is available:
   ```bash
   roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch launch_arm_control:=true robot_xacro:=rbsherpa_xl.urdf.xacro
   ``` 
@@ -76,4 +95,4 @@ Launch files that execute the complete simulation of the robot
 
 To switch between arms on RViz look for MotionPlanning > Planning Request > Planning Group and it will show you all the available groups (left_arm and right_arm).
 
-3) Enjoy! You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Sherpa robot.
+6) Enjoy! You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Sherpa robot.
