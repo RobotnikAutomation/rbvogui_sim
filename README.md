@@ -17,6 +17,7 @@ Before installing Gazebo 9 you should unistall Gazebo 7:
 
 ```bash
 >$ sudo apt-get install ros-kinetic-gazebo9-ros-pkgs ros-kinetic-gazebo9-ros-control ros-kinetic-gazebo9*
+sudo apt-get install -y python-wstool python3-rosdep
 ```
 
 <h2>rbsherpa_gazebo</h2>
@@ -30,12 +31,34 @@ Launch files that execute the complete simulation of the robot
 
 <h2>Simulating RB-Sherpa</h2>
 
-1) Install the following dependencies:
-  - [rbsherpa_common](https://github.com/RobotnikAutomation/rbsherpa_common)
-  - [robotnik_sensors](https://github.com/RobotnikAutomation/robotnik_sensors)
-  - [hector_gazebo](https://github.com/tu-darmstadt-ros-pkg/hector_gazebo)
+1) Create a workspace and clone the repository:
 
-2) Launch RB-Sherpa simulation:
+```bash
+mkdir catkin_ws
+cd catkin_ws
+wstool init src
+wstool merge -t src https://raw.githubusercontent.com/RobotnikAutomation/rbsherpa_sim/kinetic-devel/rbsherpa_sim.rosinstall
+wstool update -t src
+rosdep install --from-paths src --ignore-src -y
+```
+3) Install the controllers:
+
+```bash
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-ackermann-drive-controller_0.0.0-0xenial_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-omni-drive-controller_0.0.0-0xenial_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-rcomponent_1.1.0-0xenial_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-robotnik-msgs_1.0.0-0xenial_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/ros-kinetic-robotnik-twist2ackermann_0.0.0-0xenial_amd64.deb
+```
+
+4) Compile:
+
+```bash
+catkin build
+source devel/setup.bash
+```
+
+5) Launch RB-Sherpa simulation:
 <br>
   Set your robot kinematics to omni/ackermann (In case of ackermann, you will need twist2ackermann node enabled)
   
@@ -76,4 +99,4 @@ Launch files that execute the complete simulation of the robot
 
 To switch between arms on RViz look for MotionPlanning > Planning Request > Planning Group and it will show you all the available groups (left_arm and right_arm).
 
-3) Enjoy! You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Sherpa robot.
+6) Enjoy! You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Sherpa robot.

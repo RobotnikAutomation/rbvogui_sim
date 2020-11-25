@@ -1,0 +1,8 @@
+- git: {local-name: rbsherpa_sim, uri: 'https://github.com/RobotnikAutomation/rbsherpa_sim', version: 'kinetic-devel'}
+- git: {local-name: robotnik_sensors, uri: 'https://github.com/RobotnikAutomation/robotnik_sensors', version: 'kinetic-devel'}
+- git: {local-name: joint_read_command_controller, uri: 'https://github.com/RobotnikAutomation/joint_read_command_controller', version: 'master'}
+- git: {local-name: rbsherpa_common, uri: 'https://github.com/RobotnikAutomation/rbsherpa_common', version: 'kinetic-devel'}
+- git: {local-name: robotnik_msgs, uri: 'https://github.com/RobotnikAutomation/robotnik_msgs', version: 'kinetic-devel'}
+- git: {local-name: universal_robot, uri: 'https://github.com/fmauch/universal_robot.git', version: 'calibration_devel'}
+- git: {local-name: velodyne_simulator, uri: 'https://github.com/RobotnikAutomation/velodyne_simulator', version: 'master'}
+- git: {local-name: rcomponent, uri: 'https://github.com/RobotnikAutomation/rcomponent', version: 'master'}
