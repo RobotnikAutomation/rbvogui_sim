@@ -28,8 +28,8 @@ sudo apt-get install -y python-wstool python3-rosdep
 2) Create a workspace and clone the repository:
 
 ```bash
-mkdir ~/catkin_ws
-cd ~/catkin_ws
+mkdir catkin_ws
+cd catkin_ws
 wstool init src
 wstool merge -t src https://raw.githubusercontent.com/RobotnikAutomation/rbsherpa_sim/melodic-devel/rbsherpa_sim.rosinstall
 wstool update -t src
