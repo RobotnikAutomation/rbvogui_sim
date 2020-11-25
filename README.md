@@ -49,9 +49,8 @@ sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-robotnik-twist2ackermann_
 4) Compile:
 
 ```bash
-cd ~/catkin_ws
 catkin build
-source ~/catkin_ws/devel/setup.bash
+source devel/setup.bash
 ```
 
 5) Run RB-Sherpa simulation:
