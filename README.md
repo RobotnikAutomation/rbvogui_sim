@@ -31,7 +31,7 @@ sudo apt-get install -y python-wstool python3-rosdep
 mkdir catkin_ws
 cd catkin_ws
 wstool init src
-wstool merge -t src https://raw.githubusercontent.com/RobotnikAutomation/rbsherpa_sim/master-melodic/rbsherpa_sim.rosinstall
+wstool merge -t src https://raw.githubusercontent.com/RobotnikAutomation/rbsherpa_sim/melodic-master/rbsherpa_sim.rosinstall
 wstool update -t src
 rosdep install --from-paths src --ignore-src -y
 ```
