@@ -6,3 +6,4 @@
 - git: {local-name: universal_robot, uri: 'https://github.com/fmauch/universal_robot.git', version: 'calibration_devel'}
 - git: {local-name: velodyne_simulator, uri: 'https://github.com/RobotnikAutomation/velodyne_simulator', version: 'master'}
 - git: {local-name: rcomponent, uri: 'https://github.com/RobotnikAutomation/rcomponent', version: 'master'}
+- git: {local-name: hector_gazebo, uri: 'https://github.com/RobotnikAutomation/hector_gazebo', version: 'kinetic-devel'}
