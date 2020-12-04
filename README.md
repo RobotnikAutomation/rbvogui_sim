@@ -1,5 +1,4 @@
 <h1>rbsherpa_sim</h1>
-=====================
 
 Packages for the simulation of the RB-Sherpa
 
@@ -29,7 +28,7 @@ This simulation has been tested using Gazebo 9.0 version, probably you will need
 
 ```bash
 sudo apt-get install ros-kinetic-gazebo9-ros-pkgs ros-kinetic-gazebo9-ros-control ros-kinetic-gazebo9*
-sudo apt-get install -y python3-vcstool python3-rosdep
+sudo apt-get install -y python3-vcstool
 ```
 
 <h2> 2) Create a workspace and clone the repository: </h2>
