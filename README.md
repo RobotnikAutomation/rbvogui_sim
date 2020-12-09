@@ -24,10 +24,9 @@ Launch files that execute the complete simulation of the robot
 
 <h2> 1) Install the following dependencies: </h2>
 
-This simulation has been tested using Gazebo 9.0 version, probably you will need to install manually some gazebo9 dependencies and the wstool:
+This simulation has been tested using Gazebo 9 version. To facilitate the installation you can use the vcstool:
 
 ```bash
-sudo apt-get install ros-kinetic-gazebo9-ros-pkgs ros-kinetic-gazebo9-ros-control ros-kinetic-gazebo9*
 sudo apt-get install -y python3-vcstool
 ```
 
@@ -44,10 +43,10 @@ rosdep install --from-paths src --ignore-src -y
 
 
 ```bash
+sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-robotnik-msgs_1.1.0-0bionic_amd64.deb
 sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-ackermann-drive-controller_0.0.0-0bionic_amd64.deb
 sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-omni-drive-controller_0.0.0-0bionic_amd64.deb
 sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-rcomponent_1.1.0-0bionic_amd64.deb
-sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-robotnik-msgs_1.1.0-0bionic_amd64.deb
 sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-robotnik-twist2ackermann_0.0.0-0bionic_amd64.deb
 ```
 
