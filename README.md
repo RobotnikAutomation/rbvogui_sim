@@ -57,6 +57,14 @@ catkin build
 source devel/setup.bash
 ```
 
+Note: The package catkin-tools is need to compile with catkin build:
+```bash
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install python-catkin-tools
+```
+
 <h2> 5) Run RB-Sherpa simulation: </h2>
 
 
@@ -117,7 +125,7 @@ source devel/setup.bash
   To plan trajectories with the bi-arm robot you can type:
 
   ```bash
-  ROS_NAMESPACE=robot roslaunch rbsherpa_xl_2ur10_e_moveit_config rbsherpa_xl_moveit_config.launch
+  ROS_NAMESPACE=robot roslaunch rbsherpa_xl_2ur10_e_moveit rbsherpa_xl_moveit_config.launch
   ```
 
 To switch between arms on RViz look for MotionPlanning > Planning Request > Planning Group and it will show you all the available groups (left_arm and right_arm).
