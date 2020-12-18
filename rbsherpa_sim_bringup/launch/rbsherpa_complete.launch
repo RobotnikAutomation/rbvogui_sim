@@ -44,7 +44,8 @@
   <arg name="gripper_controllers" default="gripper/gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
 
   <!-- RViz configuration -->
-  <arg name="rviz_config_file" default="rviz/rbsherpa.rviz"/>
+  <arg name="rviz_config_file" if="$(arg run_localization)" default="rviz/rbsherpa_world.rviz"/>
+  <arg name="rviz_config_file" unless="$(arg run_localization)" default="rviz/rbsherpa.rviz"/>
   <arg name="rviz_config_path" default="$(eval find(config_package) + '/' + rviz_config_file)"/>
 
   <!-- launch simulation -->
