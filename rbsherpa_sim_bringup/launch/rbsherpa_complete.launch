@@ -10,6 +10,8 @@
   <arg name="run_simulation" default="true"/>
   <arg name="run_robot" default="true"/>
   <arg name="run_rviz" default="true"/>
+  <arg name="run_localization" default="false"/>
+  <arg name="run_navigation" default="false"/>
 
   <!-- Simulation configuration -->
   <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
@@ -42,7 +44,8 @@
   <arg name="gripper_controllers" default="gripper/gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
 
   <!-- RViz configuration -->
-  <arg name="rviz_config_file" default="rviz/rbsherpa.rviz"/>
+  <arg name="rviz_config_file" if="$(arg run_localization)" default="rviz/rbsherpa_world.rviz"/>
+  <arg name="rviz_config_file" unless="$(arg run_localization)" default="rviz/rbsherpa.rviz"/>
   <arg name="rviz_config_path" default="$(eval find(config_package) + '/' + rviz_config_file)"/>
 
   <!-- launch simulation -->
@@ -83,5 +86,17 @@
     <arg name="rviz_config_path" value="$(arg rviz_config_path)" />
     <arg name="config_package" value="$(arg config_package)"/>
   </include>
+
+  <!-- gps_localization launch file -->
+  <group if="$(arg run_localization)" ns="$(arg robot_id)">  
+  	<include file="$(find rbsherpa_localization)/launch/robot_localization_world.launch">
+		<arg name="prefix" value="$(arg prefix)"/>
+	</include>
+  </group>
+
+  <!-- navigation launch file -->
+  <include if="$(arg run_navigation)" file="$(find rbsherpa_navigation)/launch/navigation_complete.launch">
+		<arg name="prefix" value="$(arg prefix)"/>
+	</include>
 
 </launch>
