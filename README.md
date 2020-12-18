@@ -43,11 +43,7 @@ rosdep install --from-paths src --ignore-src -y
 
 
 ```bash
-sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-robotnik-msgs_1.1.0-0bionic_amd64.deb
-sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-ackermann-drive-controller_0.0.0-0bionic_amd64.deb
-sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-omni-drive-controller_0.0.0-0bionic_amd64.deb
-sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-rcomponent_1.1.0-0bionic_amd64.deb
-sudo dpkg -i src/rbsherpa_common/libraries/ros-melodic-robotnik-twist2ackermann_0.0.0-0bionic_amd64.deb
+sudo dpkg -i src/rbsherpa_common/libraries/*
 ```
 
 <h2> 4) Compile: </h2>
