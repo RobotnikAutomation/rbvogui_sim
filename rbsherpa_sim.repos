@@ -2,23 +2,23 @@ repositories:
   src/joint_read_command_controller:
     type: git
     url: https://github.com/RobotnikAutomation/joint_read_command_controller
-    version: master
+    version: v1.0.0
   src/rbsherpa_common:
     type: git
     url: https://github.com/RobotnikAutomation/rbsherpa_common
-    version: melodic-devel
+    version: melodic-1.0.0
   src/rbsherpa_sim:
     type: git
     url: https://github.com/RobotnikAutomation/rbsherpa_sim
-    version: melodic-devel
+    version: melodic-1.0.0
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs
-    version: melodic-devel
+    version: melodic-1.0.0
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors
-    version: melodic-devel
+    version: melodic-1.0.1
   src/universal_robot:
     type: git
     url: https://github.com/fmauch/universal_robot.git
@@ -26,4 +26,4 @@ repositories:
   src/velodyne_simulator:
     type: git
     url: https://github.com/RobotnikAutomation/velodyne_simulator
-    version: master
+    version: 1.0.0
