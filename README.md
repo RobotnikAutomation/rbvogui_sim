@@ -3,10 +3,10 @@
 Packages for the simulation of the RB-Sherpa
 
 <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-devel/rbsherpa_base.png" height="275" />
-  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-devel/rbsherpa_one_arm.png" height="275" />
-  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-devel/rbsherpa_xl_base.png" height="275" />
-  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-devel/rbsherpa_xl_gazebo.png" height="275" />
+  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-master/doc/rbsherpa_base.png" height="275" />
+  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-master/doc/rbsherpa_one_arm.png" height="275" />
+  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-master/doc/rbsherpa_xl_base.png" height="275" />
+  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-master/doc/rbsherpa_xl_gazebo.png" height="275" />
 
 </p>
 
@@ -35,7 +35,7 @@ sudo apt-get install -y python3-vcstool
 ```bash
 mkdir catkin_ws
 cd catkin_ws
-vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbsherpa_sim/melodic-devel/rbsherpa_sim.repos
+vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbsherpa_sim/melodic-master/doc/rbsherpa_sim.repos
 rosdep install --from-paths src --ignore-src -y
 ```
 
@@ -72,7 +72,7 @@ sudo apt-get install python-catkin-tools
   roslaunch rbsherpa_sim_bringup rbsherpa_complete.launch kinematics:=omni twist2ackermann:=false
   ```
  <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-devel/rbsherpa_base.png" height="275" />
+  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-master/doc/rbsherpa_base.png" height="275" />
 </p>
 
 <h3>RB-Sherpa with one UR arm</h3>
@@ -83,7 +83,7 @@ sudo apt-get install python-catkin-tools
   ```
 
  <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-devel/rbsherpa_one_arm.png" height="275" />
+  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-master/doc/rbsherpa_one_arm.png" height="275" />
 </p>
 
   You can play with the arm by using the rqt_joint_trajectory:
@@ -104,7 +104,7 @@ sudo apt-get install python-catkin-tools
   ```
 
 <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-devel/rbsherpa_xl_base.png" height="275" />
+  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-master/doc/rbsherpa_xl_base.png" height="275" />
 </p>
 
 <h3>RB-Sherpa XL with two UR arm</h3>
@@ -115,7 +115,7 @@ sudo apt-get install python-catkin-tools
   ``` 
 
 <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-devel/rbsherpa_xl_gazebo.png" height="275" />
+  <img src="https://github.com/RobotnikAutomation/rbsherpa_sim/blob/melodic-master/doc/rbsherpa_xl_gazebo.png" height="275" />
 </p>
 
   To plan trajectories with the bi-arm robot you can type:
