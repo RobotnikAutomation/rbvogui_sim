@@ -21,6 +21,7 @@
   <arg name="paused" default="false"/>
   <arg name="headless" default="false"/>
   <arg name="gui" default="true"/>
+  <arg name="gpu" default="false"/>
 
   <!-- Robot configuration -->
   <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
@@ -73,6 +74,7 @@
     <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/>
   	<arg name="launch_arm_control" value="$(arg launch_arm_control)"/>
     <arg name="load_kinematics_file" value="$(arg load_kinematics_file)"/>
+    <arg name="gpu" value="$(arg gpu)"/>
     <arg name="arm_controllers" value="$(arg arm_controllers)"/>
     <arg name="launch_gripper_control" value="$(arg launch_gripper_control)"/>
     <arg name="gripper_controllers" value="$(arg gripper_controllers)"/>
