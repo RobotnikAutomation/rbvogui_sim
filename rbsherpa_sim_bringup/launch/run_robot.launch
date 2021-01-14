@@ -9,6 +9,7 @@
   <!-- arg to config the launch file-->
   <arg name="robot_model" default="$(optenv ROBOT_MODEL rbsherpa)"/> 
   <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbsherpa_xl_std.urdf.xacro)"/>
+  <arg name="gpu" default="false"/>
 
   <!-- Robot configuration -->
   <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
@@ -50,6 +51,7 @@
       <arg name="robot_xacro" value="$(arg robot_xacro)" />
       <arg name="launch_arm" value="$(arg launch_arm)" />
       <arg name="load_kinematics_file" value="$(arg load_kinematics_file)"/>
+      <arg name="gpu" value="$(arg gpu)"/>
     </include>
 
     <!-- Start control nodes -->
