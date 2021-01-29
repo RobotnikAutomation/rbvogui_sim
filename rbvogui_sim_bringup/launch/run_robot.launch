@@ -2,13 +2,13 @@
 <launch>
 
   <!-- What simulator to use -->
-  <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
-  <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbsherpa_gazebo)"/>
+  <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbvogui_gazebo)"/>
+  <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbvogui_gazebo)"/>
   <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
 
   <!-- arg to config the launch file-->
-  <arg name="robot_model" default="$(optenv ROBOT_MODEL rbsherpa)"/> 
-  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbsherpa_xl_std.urdf.xacro)"/>
+  <arg name="robot_model" default="$(optenv ROBOT_MODEL rbvogui)"/> 
+  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui_xl_std.urdf.xacro)"/>
   <arg name="gpu" default="false"/>
 
   <!-- Robot configuration -->
@@ -46,7 +46,7 @@
   <group ns="$(arg robot_id)">
 
     <!-- Load the URDF into the ROS Parameter Server -->
-    <include file="$(find rbsherpa_description)/launch/rbsherpa_state.launch" >
+    <include file="$(find rbvogui_description)/launch/rbvogui_state.launch" >
       <arg name="robot_id" value="$(arg robot_id)" />
       <arg name="robot_xacro" value="$(arg robot_xacro)" />
       <arg name="launch_arm" value="$(arg launch_arm)" />
@@ -55,7 +55,7 @@
     </include>
 
     <!-- Start control nodes -->
-    <include file="$(find rbsherpa_control)/launch/rbsherpa_control.launch">
+    <include file="$(find rbvogui_control)/launch/rbvogui_control.launch">
       <arg name="robot_id" value="$(arg robot_id)"/>
       <arg name="sim" value="true"/>
       <arg name="kinematics" value="$(arg kinematics)"/>
@@ -64,7 +64,7 @@
     </include>
 
     <!-- pad -->
-		<include file="$(find rbsherpa_pad)/launch/rbsherpa_pad.launch">
+		<include file="$(find rbvogui_pad)/launch/rbvogui_pad.launch">
 			<arg name="kinematics" value="$(arg kinematics)"/>
 		</include>
 

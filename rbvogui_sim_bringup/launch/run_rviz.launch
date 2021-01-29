@@ -2,10 +2,10 @@
 <launch>
 
   <!-- What simulator to use -->
-  <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbsherpa_gazebo)"/>
+  <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbvogui_gazebo)"/>
   
   <!-- Rviz arguments -->
-  <arg name="rviz_config_file" default="rviz/rbsherpa.rviz"/>
+  <arg name="rviz_config_file" default="rviz/rbvogui.rviz"/>
   <arg name="rviz_config_path" default="$(eval find(config_package) + '/' + rviz_config_file)"/>
 
   <!-- Run rviz -->

@@ -3,13 +3,13 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/joint_read_command_controller
     version: v1.0.0
-  src/rbsherpa_common:
+  src/rbvogui_common:
     type: git
-    url: https://github.com/RobotnikAutomation/rbsherpa_common
+    url: https://github.com/RobotnikAutomation/rbvogui_common
     version: melodic-devel
-  src/rbsherpa_sim:
+  src/rbvogui_sim:
     type: git
-    url: https://github.com/RobotnikAutomation/rbsherpa_sim
+    url: https://github.com/RobotnikAutomation/rbvogui_sim
     version: melodic-devel
   src/robotnik_msgs:
     type: git

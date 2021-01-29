@@ -2,11 +2,11 @@
 <launch>
 
  <!-- What simulator to use -->
- <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
- <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbsherpa_gazebo)"/>
+ <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbvogui_gazebo)"/>
+ <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbvogui_gazebo)"/>
  
  <!-- Simulation arguments -->
- <arg name="world" default="worlds/rbsherpa.world" /> <!-- relative path to config_package -->
+ <arg name="world" default="worlds/rbvogui.world" /> <!-- relative path to config_package -->
  <arg name="world_file" default="$(eval find(config_package) + '/' + world)"/> <!-- absolute path -->
  <arg name="debug" default="false"/>
  <arg name="paused" default="false"/>

@@ -2,9 +2,9 @@
 <launch>
 
   <!-- What simulator config package to use -->
-  <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbsherpa_gazebo)"/>
-  <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbsherpa_gazebo)"/>
-  <arg name="sim_bringup_package" default="$(optenv SIM_BRINGUP_PACKAGE rbsherpa_sim_bringup)"/>
+  <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbvogui_gazebo)"/>
+  <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbvogui_gazebo)"/>
+  <arg name="sim_bringup_package" default="$(optenv SIM_BRINGUP_PACKAGE rbvogui_sim_bringup)"/>
 
   <!-- What to execute -->
   <arg name="run_simulation" default="true"/>
@@ -15,7 +15,7 @@
 
   <!-- Simulation configuration -->
   <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
-  <arg name="world" default="worlds/rbsherpa.world" /> <!-- relative path to config_package -->
+  <arg name="world" default="worlds/rbvogui.world" /> <!-- relative path to config_package -->
   <arg name="world_file" default="$(eval find(config_package) + '/' + world)"/> <!-- absolute path -->
   <arg name="debug" default="false"/>
   <arg name="paused" default="false"/>
@@ -26,8 +26,8 @@
   <!-- Robot configuration -->
   <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
   <arg name="prefix" default="$(arg robot_id)_"/>
-  <arg name="robot_model" default="$(optenv ROBOT_MODEL rbsherpa)"/>
-  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbsherpa_std.urdf.xacro)"/>
+  <arg name="robot_model" default="$(optenv ROBOT_MODEL rbvogui)"/>
+  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui_std.urdf.xacro)"/>
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
   <arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
   <arg name="x_init_pose" default="0"/>
@@ -45,8 +45,8 @@
   <arg name="gripper_controllers" default="gripper/gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
 
   <!-- RViz configuration -->
-  <arg name="rviz_config_file" if="$(arg run_localization)" default="rviz/rbsherpa_world.rviz"/>
-  <arg name="rviz_config_file" unless="$(arg run_localization)" default="rviz/rbsherpa.rviz"/>
+  <arg name="rviz_config_file" if="$(arg run_localization)" default="rviz/rbvogui_world.rviz"/>
+  <arg name="rviz_config_file" unless="$(arg run_localization)" default="rviz/rbvogui.rviz"/>
   <arg name="rviz_config_path" default="$(eval find(config_package) + '/' + rviz_config_file)"/>
 
   <!-- launch simulation -->
@@ -91,13 +91,13 @@
 
   <!-- gps_localization launch file -->
   <group if="$(arg run_localization)" ns="$(arg robot_id)">  
-  	<include file="$(find rbsherpa_localization)/launch/robot_localization_world.launch">
+  	<include file="$(find rbvogui_localization)/launch/robot_localization_world.launch">
 		<arg name="prefix" value="$(arg prefix)"/>
 	</include>
   </group>
 
   <!-- navigation launch file -->
-  <include if="$(arg run_navigation)" file="$(find rbsherpa_navigation)/launch/navigation_complete.launch">
+  <include if="$(arg run_navigation)" file="$(find rbvogui_navigation)/launch/navigation_complete.launch">
 		<arg name="prefix" value="$(arg prefix)"/>
 	</include>
 
