@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(rbsherpa_sim_bringup)
+project(rbvogui_sim_bringup)
 
 find_package(catkin REQUIRED COMPONENTS roslaunch)
 

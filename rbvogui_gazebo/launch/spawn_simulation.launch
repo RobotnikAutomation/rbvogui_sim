@@ -2,7 +2,7 @@
 <launch>
 
  <!-- Simulation arguments -->
- <arg name="world_name" default="$(find rbsherpa_gazebo)/worlds/rbsherpa.world"/>
+ <arg name="world_name" default="$(find rbvogui_gazebo)/worlds/rbvogui.world"/>
  <arg name="debug" default="false"/>
  <arg name="paused" default="false"/>
  <arg name="headless" default="false"/>
