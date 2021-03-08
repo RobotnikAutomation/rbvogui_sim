@@ -37,7 +37,7 @@ sudo apt-get install -y python3-vcstool
 mkdir catkin_ws
 cd catkin_ws
 vcs import --input \
-  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-master/doc/rbvogui_sim.repos
+  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
 rosdep install --from-paths src --ignore-src -y
 ```
 
