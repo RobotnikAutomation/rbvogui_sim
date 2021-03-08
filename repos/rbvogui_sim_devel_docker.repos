@@ -7,14 +7,6 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_common
     version: melodic-devel
-  src/rbvogui_sim:
-    type: git
-    url: https://github.com/RobotnikAutomation/rbvogui_sim
-    version: melodic-devel
-  src/robotnik_msgs:
-    type: git
-    url: https://github.com/RobotnikAutomation/robotnik_msgs
-    version: melodic-devel
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors
