@@ -152,6 +152,7 @@ In order to run this simulation you will need nvidia graphical accelation
 ```bash
 git clone https://github.com/RobotnikAutomation/rbvogui_sim.git
 cd rbvogui_sim
+git checkout melodic-devel
 docker/simulation-in-container-run.sh
 
 ```
