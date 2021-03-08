@@ -35,47 +35,34 @@ RUN apt-get update \
 RUN apt-get update \
 	&& apt-get install -q -y \
 		python3-vcstool \
+		python-catkin-tools \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
 
-# RUN apt-get update \
-# 	&& apt-get install -q -y \
-# 		ros-melodic-global-planner \
-# 		ros-melodic-moveit-fake-controller-manager \
-# 		ros-melodic-hector-gazebo-plugins \
-# 		ros-melodic-moveit-planners-ompl \
-# 		ros-melodic-teb-local-planner \
-# 		ros-melodic-mavros-msgs \
-# 		ros-melodic-ros-control \
-# 		ros-melodic-imu-complementary-filter \
-# 		ros-melodic-pr2-moveit-config \
-# 		ros-melodic-moveit-ros-planning-interface \
-# 		ros-melodic-velocity-controllers \
-# 		ros-melodic-pr2-moveit-plugins \
-# 		ros-melodic-moveit-ros-visualization \
-# 		ros-melodic-move-base \
-# 		ros-melodic-geometric-shapes \
-# 		ros-melodic-eband-local-planner \
-# 		ros-melodic-map-server \
-# 		ros-melodic-moveit-kinematics \
-# 		ros-melodic-costmap-2d \
-# 		ros-melodic-twist-mux \
-# 		ros-melodic-moveit-ros-perception \
-# 		ros-melodic-moveit-ros-move-group \
-# 		ros-melodic-gmapping \
-# 		ros-melodic-moveit-setup-assistant \
-# 		ros-melodic-moveit-core \
-# 		ros-melodic-pr2-arm-kinematics \
-# 		ros-melodic-robot-localization \
-# 		ros-melodic-amcl \
-# 		ros-melodic-joy \
-# 		ros-melodic-geographic-msgs \
-# 		ros-melodic-ros-controllers \
-# 		ros-melodic-effort-controllers \
-# 	&& apt-get clean -q -y \
-# 	&& apt-get autoremove -q -y \
-# 	&& rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+	&& apt-get install -q -y \
+		ros-melodic-ackermann-msgs \
+		ros-melodic-ros-control \
+		ros-melodic-hector-gazebo-plugins \
+		ros-melodic-moveit-planners-ompl \
+		ros-melodic-moveit-ros-planning \
+		python-lxml \
+		ros-melodic-moveit-ros-visualization \
+		ros-melodic-moveit-setup-assistant \
+		ros-melodic-joy \
+		ros-melodic-moveit-fake-controller-manager \
+		ros-melodic-moveit-kinematics \
+		ros-melodic-twist-mux \
+		ros-melodic-moveit-ros-move-group \
+		ros-melodic-moveit-simple-controller-manager \
+		ros-melodic-moveit-core \
+		ros-melodic-joint-trajectory-controller \
+		ros-melodic-ros-controllers \
+		ros-melodic-effort-controllers \
+	&& apt-get clean -q -y \
+	&& apt-get autoremove -q -y \
+	&& rm -rf /var/lib/apt/lists/*
 
 
 COPY docker/ros_entrypoint.sh /
@@ -134,7 +121,7 @@ RUN true \
 RUN true \
 	&& . /opt/ros/melodic/setup.sh \
 	&& export ROS_PARALLEL_JOBS=-j$(nproc --all) \
-	&& catkin_make
+	&& catkin build
 
 ARG ign_version=4_4.0.0
 ARG ign_cfg_url=https://raw.githubusercontent.com/ignitionrobotics/ign-fuel-tools/ignition-fuel-tools$ign_version/conf/config.yaml
