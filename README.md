@@ -136,3 +136,98 @@ To switch between arms on RViz look for MotionPlanning > Planning Request > Plan
 
 ### 6) Enjoy! 
 You can use the topic `/robot/robotnik_base_control/cmd_vel` to control the RB-Vogui robot.
+
+
+## Docker usage
+
+In order to run this simulation you will need nvidia graphical accelation
+
+### Installation of required files
+- [docker](https://docs.docker.com/engine/install/ubuntu/)
+- [nvidia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+- nvidia-drivers
+
+### Usage
+
+```bash
+git clone https://github.com/RobotnikAutomation/rbvogui_sim.git
+cd rbvogui_sim
+docker/simulation-in-container-run.sh
+
+```
+
+#### Selecting the robot model
+
+You can select the robot, the launch file of package using the optional arguments on launch
+By default the selected robot is `rbvogui`
+
+```bash
+docker/simulation-in-container-run.sh --help
+```
+
+```
+ROBOTNIK AUTOMATION S.L.L. 2021
+
+Simulation of RB VOGUI using docker
+
+Usage:
+docker/simulation-in-container-run.sh [OPTIONS]
+
+Optional arguments:
+ --robot -r ROBOT       Select robot to simulate
+                        Valid robots:
+                            rb_vogui_one_ur_arm rb_vogui_xl_two_ur_arms rb_vogui rb_vogui_xl
+                        default: rb_vogui
+
+ --launch -l            Select launch file
+                        default: rbvogui_complete.launch kinematics:=omni twist2ackermann:=false
+
+ --package -p           Select ros package
+                        default: rbvogui_sim_bringup
+
+ -h, --help             Shows this help
+
+```
+
+**RB Vogui with one UR arm**
+```bash
+docker/simulation-in-container-run.sh --robot rb_vogui_one_ur_arm
+```
+
+**RB Vogui XL**
+```bash
+docker/simulation-in-container-run.sh --robot rb_vogui_xl
+```
+
+**RB Vogui XL with UR arms**
+```bash
+docker/simulation-in-container-run.sh --robot rb_vogui_xl_two_ur_arms
+```
+
+#### Manual Build
+
+If you wish to build manually the image without the use of the script use one the following commands:
+
+**Optiona A**
+```bash
+cd docker
+docker build -f Dockerfile ..
+```
+**Option B**
+```bash
+docker build -f docker/Dockerfile .
+```
+
+#### Notes
+
+- This is docker requires a graphical interface
+- if you want to enter on the container use the following command in another terminal
+```bash
+docker container exec -it rb_vogui_sim_instance bash
+```
+- In order to exit you have to 2 options
+1. Close `gazebo` and `rviz` and wait a bit
+2. execute in another terminal:
+```bash
+docker container rm --force rb_vogui_sim_instance
+```
