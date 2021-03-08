@@ -3,10 +3,10 @@
 Packages for the simulation of the RB-Vogui
 
 <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_base.png" height="275" />
-  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_one_arm.png" height="275" />
-  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_base.png" height="275" />
-  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_gazebo.png" height="275" />
+  <img src="doc/rbvogui_base.png" height="275" />
+  <img src="doc/rbvogui_one_arm.png" height="275" />
+  <img src="doc/rbvogui_xl_base.png" height="275" />
+  <img src="doc/rbvogui_xl_gazebo.png" height="275" />
 
 </p>
 
@@ -74,7 +74,7 @@ Set your robot kinematics to omni/ackermann (In case of ackermann, you will need
 roslaunch rbvogui_sim_bringup rbvogui_complete.launch kinematics:=omni twist2ackermann:=false
 ```
  <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_base.png" height="275" />
+  <img src="doc/rbvogui_base.png" height="275" />
 </p>
 
 #### RB-Vogui with one UR arm
@@ -85,7 +85,7 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_std_u
 ```
 
  <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_one_arm.png" height="275" />
+  <img src="doc/rbvogui_one_arm.png" height="275" />
 </p>
 
 You can play with the arm by using the rqt_joint_trajectory:
@@ -106,7 +106,7 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl.ur
 ```
 
 <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_base.png" height="275" />
+  <img src="doc/rbvogui_xl_base.png" height="275" />
 </p>
 
 #### RB-Vogui XL with two UR arm
@@ -117,7 +117,7 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch launch_arm_control:=true r
 ``` 
 
 <p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_gazebo.png" height="275" />
+  <img src="doc/rbvogui_xl_gazebo.png" height="275" />
 </p>
 
 To plan trajectories with the bi-arm robot you can type:
