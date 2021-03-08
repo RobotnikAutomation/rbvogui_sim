@@ -122,6 +122,7 @@ ARG fresh_download_of_git_repos=no
 
 RUN true \
 	&& vcs import --input $repo_file_list_to_use \
+	&& sudo dpkg -i $ck_src_dir/rbvogui_common/libraries/* \
 	&& rosdep update \
 	&& echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections \
 	&& sudo apt-get update \
