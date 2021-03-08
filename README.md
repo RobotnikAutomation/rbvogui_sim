@@ -7,7 +7,6 @@ Packages for the simulation of the RB-Vogui
   <img src="doc/rbvogui_one_arm.png" height="275" />
   <img src="doc/rbvogui_xl_base.png" height="275" />
   <img src="doc/rbvogui_xl_gazebo.png" height="275" />
-
 </p>
 
 ## Packages
@@ -37,7 +36,8 @@ sudo apt-get install -y python3-vcstool
 ```bash
 mkdir catkin_ws
 cd catkin_ws
-vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-master/doc/rbvogui_sim.repos
+vcs import --input \
+  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-master/doc/rbvogui_sim.repos
 rosdep install --from-paths src --ignore-src -y
 ```
 
@@ -73,7 +73,7 @@ Set your robot kinematics to omni/ackermann (In case of ackermann, you will need
 ```bash
 roslaunch rbvogui_sim_bringup rbvogui_complete.launch kinematics:=omni twist2ackermann:=false
 ```
- <p align="center">
+<p align="center">
   <img src="doc/rbvogui_base.png" height="275" />
 </p>
 
@@ -81,10 +81,13 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch kinematics:=omni twist2ack
 
 In case you want to launch the rbvogui with an UR arm you can type the following command:
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_std_ur10.urdf.xacro launch_arm_control:=true arm_controllers:=arm_controller
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch \
+  robot_xacro:=rbvogui_std_ur10.urdf.xacro \
+  launch_arm_control:=true \
+  arm_controllers:=arm_controller
 ```
 
- <p align="center">
+<p align="center">
   <img src="doc/rbvogui_one_arm.png" height="275" />
 </p>
 
@@ -102,7 +105,8 @@ ROS_NAMESPACE=robot roslaunch rbvogui_moveit_ur10 demo.launch
 
 If you prefer to launch the rbvogui XL, you can type:
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl.urdf.xacro
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch \
+  robot_xacro:=rbvogui_xl.urdf.xacro
 ```
 
 <p align="center">
@@ -113,7 +117,9 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl.ur
 
 The rbvogui Xl can be launched with two UR arms, only this bi-arm (UR-10e) option is available:
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch launch_arm_control:=true robot_xacro:=rbvogui_xl.urdf.xacro
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch \
+  launch_arm_control:=true \
+  robot_xacro:=rbvogui_xl.urdf.xacro
 ``` 
 
 <p align="center">
@@ -129,4 +135,4 @@ ROS_NAMESPACE=robot roslaunch rbvogui_xl_2ur10_e_moveit rbvogui_xl_moveit_config
 To switch between arms on RViz look for MotionPlanning > Planning Request > Planning Group and it will show you all the available groups (left_arm and right_arm).
 
 ### 6) Enjoy! 
-You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Vogui robot.
+You can use the topic `/robot/robotnik_base_control/cmd_vel` to control the RB-Vogui robot.
