@@ -1,0 +1,29 @@
+repositories:
+  src/joint_read_command_controller:
+    type: git
+    url: https://github.com/RobotnikAutomation/joint_read_command_controller
+    version: v1.0.0
+  src/rbvogui_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/rbvogui_common
+    version: melodic-devel
+  src/rbvogui_sim:
+    type: git
+    url: https://github.com/RobotnikAutomation/rbvogui_sim
+    version: melodic-devel
+  src/robotnik_msgs:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_msgs
+    version: melodic-devel
+  src/robotnik_sensors:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_sensors
+    version: melodic-devel
+  src/universal_robot:
+    type: git
+    url: https://github.com/fmauch/universal_robot.git
+    version: calibration_devel
+  src/velodyne_simulator:
+    type: git
+    url: https://github.com/RobotnikAutomation/velodyne_simulator
+    version: 1.0.0
