@@ -62,6 +62,8 @@ tool_list=(\
     wget \
 )
 
+robot_name="RB VOGUI"
+
 instance_name=rb_vogui_sim_instance
 
 image_name_org="robotnik"
