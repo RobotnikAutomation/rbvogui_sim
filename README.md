@@ -186,6 +186,12 @@ Optional arguments:
  --package -p           Select ros package
                         default: rbvogui_sim_bringup
 
+ --ros-port -u PORT     Host ros port
+                        default: 11345
+
+ --gazebo-port -g PORT  Host ros port
+                        default: 11345
+
  -h, --help             Shows this help
 
 ```
@@ -222,6 +228,8 @@ docker build -f docker/Dockerfile .
 #### Notes
 
 - This is docker requires a graphical interface
+- The ros master uri is accesible outside the container, so in the host any ros command should work
+- You could also run a roscore previous to launch the simulation in order to have some processes on the host running
 - if you want to enter on the container use the following command in another terminal
 ```bash
 docker container exec -it rb_vogui_sim_instance bash
