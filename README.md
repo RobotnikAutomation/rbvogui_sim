@@ -200,16 +200,19 @@ Optional arguments:
 ```bash
 docker/simulation-in-container-run.sh --robot rb_vogui_one_ur_arm
 ```
+<span style="color:red">***IMPORTANT: *** </span> This simulation starts paused, please remember to press play button on gazebo after few seconds
 
 **RB Vogui XL**
 ```bash
 docker/simulation-in-container-run.sh --robot rb_vogui_xl
 ```
+<span style="color:red">***IMPORTANT: *** </span> This simulation starts paused, please remember to press play button on gazebo after few seconds
 
 **RB Vogui XL with UR arms**
 ```bash
 docker/simulation-in-container-run.sh --robot rb_vogui_xl_two_ur_arms
 ```
+<span style="color:red">***IMPORTANT: *** </span> This simulation starts paused, please remember to press play button on gazebo after few seconds
 
 #### Manual Build
 
