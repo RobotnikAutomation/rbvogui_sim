@@ -88,13 +88,28 @@ declare -A ros_bringup_package_array
 declare -A ros_launch_file_array
 
 ros_bringup_package_array[rb_vogui]="rbvogui_sim_bringup"
-ros_launch_file_array[rb_vogui]="rbvogui_complete.launch kinematics:=omni twist2ackermann:=false"
+ros_launch_file_array[rb_vogui]="rbvogui_complete.launch \
+kinematics:=omni \
+twist2ackermann:=false \
+"
 
 ros_bringup_package_array[rb_vogui_one_ur_arm]="rbvogui_sim_bringup"
-ros_launch_file_array[rb_vogui_one_ur_arm]="rbvogui_complete.launch robot_xacro:=rbvogui_std_ur10.urdf.xacro launch_arm_control:=true arm_controllers:=arm_controller paused:=true"
+ros_launch_file_array[rb_vogui_one_ur_arm]="rbvogui_complete.launch \
+robot_xacro:=rbvogui_std_ur10.urdf.xacro \
+launch_arm_control:=true \
+arm_controllers:=arm_controller \
+paused:=true \
+"
 
 ros_bringup_package_array[rb_vogui_xl]="rbvogui_sim_bringup"
-ros_launch_file_array[rb_vogui_xl]="rbvogui_complete.launch robot_xacro:=rbvogui_xl.urdf.xacro paused:=true"
+ros_launch_file_array[rb_vogui_xl]="rbvogui_complete.launch \
+robot_xacro:=rbvogui_xl.urdf.xacro \
+paused:=true\
+"
 
 ros_bringup_package_array[rb_vogui_xl_two_ur_arms]="rbvogui_sim_bringup"
-ros_launch_file_array[rb_vogui_xl_two_ur_arms]="rbvogui_complete.launch robot_xacro:=rbvogui_xl.urdf.xacro launch_arm_control:=true paused:=true"
+ros_launch_file_array[rb_vogui_xl_two_ur_arms]="rbvogui_complete.launch \
+robot_xacro:=rbvogui_xl.urdf.xacro \
+launch_arm_control:=true \
+paused:=true \
+"
