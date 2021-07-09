@@ -126,4 +126,24 @@ sudo apt-get install python-catkin-tools
 
 To switch between arms on RViz look for MotionPlanning > Planning Request > Planning Group and it will show you all the available groups (left_arm and right_arm).
 
-6) Enjoy! You can use the topic "/robot/robotnik_base_control/cmd_vel" to control the RB-Vogui robot.
+<h3>RB-Vogui XL with UR arm and Ewellix lift</h3>
+
+The rbvogui Xl can also be launched with an UR-10e arm and an Ewellix lift:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl_lift_ur10e.urdf.xacro launch_arm_control:=true arm_controllers:="arm_controller lift_controller"
+``` 
+
+To control the lift, you can type:
+
+```
+rostopic pub /robot/lift_controller/command std_msgs/Float64 "data: 0.2"
+```
+
+<p align="center">
+  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_lift.png" height="275" />
+</p>
+
+<h2> 6) Enjoy! </h2>
+
+You can use the topic ```/robot/robotnik_base_control/cmd_vel ``` to control the RB-Vogui robot.
