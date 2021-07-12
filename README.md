@@ -7,7 +7,7 @@ Packages for the simulation of the RB-Vogui
   <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_one_arm.png" height="275" />
   <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_base.png" height="275" />
   <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_gazebo.png" height="275" />
-
+  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_lift.png" height="275" />
 </p>
 
 This packages contains: 
@@ -134,15 +134,15 @@ The rbvogui Xl can also be launched with an UR-10e arm and an Ewellix lift:
 roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl_lift_ur10e.urdf.xacro launch_arm_control:=true arm_controllers:="arm_controller lift_controller"
 ``` 
 
+<p align="center">
+  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_lift.png" height="275" />
+</p>
+
 To control the lift, you can type:
 
 ```
 rostopic pub /robot/lift_controller/command std_msgs/Float64 "data: 0.2"
 ```
-
-<p align="center">
-  <img src="https://github.com/RobotnikAutomation/rbvogui_sim/blob/melodic-master/doc/rbvogui_xl_lift.png" height="275" />
-</p>
 
 <h2> 6) Enjoy! </h2>
 
