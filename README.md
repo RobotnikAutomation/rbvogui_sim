@@ -7,6 +7,7 @@ Packages for the simulation of the RB-Vogui
   <img src="doc/rbvogui_one_arm.png" height="275" />
   <img src="doc/rbvogui_xl_base.png" height="275" />
   <img src="doc/rbvogui_xl_gazebo.png" height="275" />
+  <img src="doc/rbvogui_xl_lift.png" height="275" />
 </p>
 
 ## Packages
@@ -36,8 +37,25 @@ sudo apt-get install -y python3-vcstool
 ```bash
 mkdir catkin_ws
 cd catkin_ws
+```
+
+For the latest version:
+
+```bash
+mkdir catkin_ws
+cd catkin_ws
 vcs import --input \
   https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
+rosdep install --from-paths src --ignore-src -y
+```
+
+For the stable version (some latest features may be not available):
+
+```bash
+mkdir catkin_ws
+cd catkin_ws
+vcs import --input \
+  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-master/repos/rbvogui_sim.repos
 rosdep install --from-paths src --ignore-src -y
 ```
 
@@ -134,9 +152,27 @@ ROS_NAMESPACE=robot roslaunch rbvogui_xl_2ur10_e_moveit rbvogui_xl_moveit_config
 
 To switch between arms on RViz look for MotionPlanning > Planning Request > Planning Group and it will show you all the available groups (left_arm and right_arm).
 
-### 6) Enjoy! 
-You can use the topic `/robot/robotnik_base_control/cmd_vel` to control the RB-Vogui robot.
+### RB-Vogui XL with UR arm and Ewellix lift
 
+The rbvogui Xl can also be launched with an UR-10e arm and an Ewellix lift:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl_lift_ur10e.urdf.xacro launch_arm_control:=true arm_controllers:="arm_controller lift_controller"
+``` 
+
+To control the lift, you can type:
+
+```bash
+rostopic pub /robot/lift_controller/command std_msgs/Float64 "data: 0.2"
+```
+
+<p align="center">
+  <img src="doc/rbvogui_xl_lift.png" height="275" />
+</p>
+
+### 6) Enjoy!
+
+You can use the topic ```/robot/robotnik_base_control/cmd_vel ``` to control the RB-Vogui robot.
 
 ## Docker usage
 
