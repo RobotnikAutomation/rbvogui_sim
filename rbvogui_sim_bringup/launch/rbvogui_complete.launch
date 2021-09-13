@@ -5,6 +5,9 @@
   <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbvogui_gazebo)"/>
   <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbvogui_gazebo)"/>
   <arg name="sim_bringup_package" default="$(optenv SIM_BRINGUP_PACKAGE rbvogui_sim_bringup)"/>
+  <arg name="world_package" default="$(optenv WORLD_PACKAGE summit_xl_gazebo)"/>
+  <arg name="rviz_package" default="$(optenv RVIZ_PACKAGE summit_xl_gazebo)"/>
+  <arg name="pad_package" default="$(optenv PAD_PACKAGE robotnik_pad)"/>
 
   <!-- What to execute -->
   <arg name="run_simulation" default="true"/>
@@ -15,13 +18,13 @@
 
   <!-- Simulation configuration -->
   <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
-  <arg name="world" default="worlds/rbvogui.world" /> <!-- relative path to config_package -->
-  <arg name="world_file" default="$(eval find(config_package) + '/' + world)"/> <!-- absolute path -->
+  <arg name="world" default="$(optenv ROBOT_SIM_GAZEBO_WORLD worlds/rbvogui.world)" /> <!-- relative path to config_package -->
+  <arg name="world_file" default="$(eval find(world_package) + '/' + world)"/> <!-- absolute path -->
   <arg name="debug" default="false"/>
   <arg name="paused" default="false"/>
   <arg name="headless" default="false"/>
   <arg name="gui" default="true"/>
-  <arg name="gpu" default="false"/>
+  <arg name="gpu" default="$(optenv ROBOT_SIM_GPU false)"/>
 
   <!-- Robot configuration -->
   <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
@@ -30,14 +33,17 @@
   <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui_std.urdf.xacro)"/>
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
   <arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
-  <arg name="x_init_pose" default="0"/>
-  <arg name="y_init_pose" default="0"/>
-  <arg name="z_init_pose" default="0"/>
-  <arg name="launch_base_hw_sim" default="false"/>
+  <arg name="x_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X 0)"/>
+  <arg name="y_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y 0)"/>
+  <arg name="z_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z 0)"/>
+  <arg name="a_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_A 0)"/>
+  <arg name="launch_base_hw_sim" default="$(optenv ROBOT_SIM_BASE_HW false)"/>
 
   <!-- Arm configuration-->
-  <arg name="launch_arm_control" default="false"/>
-  <arg name="arm_controllers" default="right_arm/pos_traj_controller left_arm/pos_traj_controller"/> <!-- controllers can be listed seprated by a blank space -->
+  <arg name="launch_arm" default="$(optenv ROBOT_HAS_ARM false)"/>
+  <arg name="arm_manufacturer" default="$(optenv ROBOT_ARM_MANUFACTURER ur)"/>
+  <arg name="arm_model" default="$(optenv ROBOT_ARM_MODEL ur5)"/>
+  <arg name="launch_moveit" default="false"/>
   <arg name="load_kinematics_file" default="true"/> <!-- Necesary for ur_description compatible with official ur drivers--> 
   
   <!-- Gripper configuration-->
@@ -45,9 +51,14 @@
   <arg name="gripper_controllers" default="gripper/gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
 
   <!-- RViz configuration -->
-  <arg name="rviz_config_file" if="$(arg run_localization)" default="rviz/rbvogui_world.rviz"/>
-  <arg name="rviz_config_file" unless="$(arg run_localization)" default="rviz/rbvogui.rviz"/>
-  <arg name="rviz_config_path" default="$(eval find(config_package) + '/' + rviz_config_file)"/>
+  <arg name="rviz_config_file" if="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/summitxl.rviz)"/>
+  <arg name="rviz_config_file" unless="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/summitxl_a.rviz)"/>
+  <arg name="rviz_config_path" default="$(eval find(rviz_package) + '/' + rviz_config_file)"/>
+
+  <!-- Pad configuratin -->
+  <arg name="pad_model" default="$(optenv PAD_MODEL ps4)"/>
+  <arg name="pad_config_file" default="$(optenv PAD_FILE config/robotnik_pad_plugins_$(arg pad_model).yaml)"/>
+  <arg name="pad_config_path" default="$(eval find(pad_package) + '/' + pad_config_file)"/>
 
   <!-- launch simulation -->
   <include if="$(arg run_simulation)" file="$(eval find(sim_bringup_package) + '/launch/run_simulation.launch')">
@@ -71,22 +82,27 @@
     <arg name="x_init_pose" value="$(arg x_init_pose)"/>
     <arg name="y_init_pose" value="$(arg y_init_pose)"/>
     <arg name="z_init_pose" value="$(arg z_init_pose)"/>
+    <arg name="a_init_pose" value="$(arg a_init_pose)"/>
     <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/>
-  	<arg name="launch_arm_control" value="$(arg launch_arm_control)"/>
     <arg name="load_kinematics_file" value="$(arg load_kinematics_file)"/>
     <arg name="gpu" value="$(arg gpu)"/>
-    <arg name="arm_controllers" value="$(arg arm_controllers)"/>
+    <arg name="launch_arm" value="$(arg launch_arm)"/>
+    <arg name="arm_manufacturer" value="$(arg arm_manufacturer)"/>
+    <arg name="arm_model" value="$(arg arm_model)"/>
     <arg name="launch_gripper_control" value="$(arg launch_gripper_control)"/>
     <arg name="gripper_controllers" value="$(arg gripper_controllers)"/>
     <arg name="kinematics" value="$(arg kinematics)"/>
     <arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
+    <arg name="pad_model" value="$(arg pad_model)"/>
+    <arg name="pad_config_file" value="$(arg pad_config_file)"/>
+    <arg name="pad_config_path" value="$(arg pad_config_path)"/>
   </include>
 
   <!-- launch rviz -->
   <include if="$(arg run_rviz)" file="$(eval find(sim_bringup_package) + '/launch/run_rviz.launch')">
     <arg name="rviz_config_file" value="$(arg rviz_config_file)" />
     <arg name="rviz_config_path" value="$(arg rviz_config_path)" />
-    <arg name="config_package" value="$(arg config_package)"/>
+    <arg name="config_package" value="$(arg rviz_package)"/>
   </include>
 
   <!-- gps_localization launch file -->
