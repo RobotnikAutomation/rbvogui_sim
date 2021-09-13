@@ -21,8 +21,12 @@ repositories:
     version: melodic-1.0.1
   src/universal_robot:
     type: git
-    url: https://github.com/fmauch/universal_robot.git
+    url: https://github.com/RobotnikAutomation/universal_robot.git
     version: calibration_devel
+  src/ewellix_lift:
+    type: git
+    url: https://github.com/RobotnikAutomation/ewellix_lift.git
+    version: master
   src/velodyne_simulator:
     type: git
     url: https://github.com/RobotnikAutomation/velodyne_simulator
