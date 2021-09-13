@@ -45,7 +45,7 @@ For the latest version:
 mkdir catkin_ws
 cd catkin_ws
 vcs import --input \
-  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
+  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim_devel.repos
 rosdep install --from-paths src --ignore-src -y
 ```
 
@@ -55,7 +55,7 @@ For the stable version (some latest features may be not available):
 mkdir catkin_ws
 cd catkin_ws
 vcs import --input \
-  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-master/repos/rbvogui_sim.repos
+  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
 rosdep install --from-paths src --ignore-src -y
 ```
 
