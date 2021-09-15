@@ -69,9 +69,9 @@
     </include>
 
     <!-- pad: to do: add rbvogui pad into robotnik_pad as plugin -->
-		<include file="$(find rbvogui_pad)/launch/rbvogui_pad.launch">
-			<arg name="kinematics" value="$(arg kinematics)"/>
-		</include>
+    <include file="$(find robotnik_pad)/launch/robotnik_pad.launch">
+        <arg name="pad_config" value="$(arg pad_config_path)" />
+    </include>
 
     <!-- base_hw_sim -->
 		<include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/rb1_hw_sim.launch">
