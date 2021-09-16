@@ -196,10 +196,30 @@ To control the lift, you can type:
 rostopic pub /robot/lift_controller/command std_msgs/Float64 "data: 0.2"
 ```
 
-
+<!-- 
 ### 6) Enjoy!
 
-You can use the topic ```/robot/robotnik_base_control/cmd_vel ``` to control the RB-Vogui robot.
+You can use the topic ```/robot/robotnik_base_control/cmd_vel ``` to control the RB-Vogui robot. -->
+
+### 6) Localization and navigation
+
+Launch localization and navigation:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch run_localization:=true run_navigation:=true
+```
+
+Launch mapping and create a map:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch run_localization:=true run_mapping:=true
+```
+
+Save the map
+
+```bash
+ROS_NAMESPACE=robot rosrun map_server map_saver -f demo
+```
 
 ## Docker usage
 
