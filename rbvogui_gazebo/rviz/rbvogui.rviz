@@ -62,7 +62,50 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        robot_G2_link:
+        robot_arm_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        robot_arm_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_arm_ee_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_arm_forearm_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_arm_shoulder_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_arm_tool0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        robot_arm_upper_arm_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_arm_wrist_1_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_arm_wrist_2_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_arm_wrist_3_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -98,6 +141,16 @@ Visualization Manager:
           Show Trail: false
           Value: true
         robot_base_logos_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_ewellix_lift_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_ewellix_lift_top_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -150,54 +203,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        robot_left_arm_base:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot_left_arm_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_left_arm_ee_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_left_arm_forearm_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_left_arm_shoulder_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_left_arm_tool0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot_left_arm_upper_arm_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_left_arm_wrist_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_left_arm_wrist_2_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_left_arm_wrist_3_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         robot_rear_laser_base_link:
           Alpha: 1
           Show Axes: false
@@ -207,54 +212,6 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        robot_right_arm_base:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot_right_arm_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_right_arm_ee_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_right_arm_forearm_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_right_arm_shoulder_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_right_arm_tool0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot_right_arm_upper_arm_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_right_arm_wrist_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_right_arm_wrist_2_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robot_right_arm_wrist_3_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         robot_sick_front_protectorsick_support_link:
           Alpha: 1
           Show Axes: false
@@ -374,7 +331,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 0
@@ -391,7 +348,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Class: rviz/Image
       Enabled: false
       Image Topic: /robot/robot_zed/left/image_raw
