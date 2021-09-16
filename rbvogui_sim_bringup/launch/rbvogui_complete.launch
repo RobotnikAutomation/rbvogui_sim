@@ -5,8 +5,8 @@
   <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbvogui_gazebo)"/>
   <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbvogui_gazebo)"/>
   <arg name="sim_bringup_package" default="$(optenv SIM_BRINGUP_PACKAGE rbvogui_sim_bringup)"/>
-  <arg name="world_package" default="$(optenv WORLD_PACKAGE summit_xl_gazebo)"/>
-  <arg name="rviz_package" default="$(optenv RVIZ_PACKAGE summit_xl_gazebo)"/>
+  <arg name="world_package" default="$(optenv WORLD_PACKAGE rbvogui_gazebo)"/>
+  <arg name="rviz_package" default="$(optenv RVIZ_PACKAGE rbvogui_gazebo)"/>
   <arg name="pad_package" default="$(optenv PAD_PACKAGE robotnik_pad)"/>
 
   <!-- What to execute -->
@@ -44,21 +44,17 @@
   <arg name="arm_manufacturer" default="$(optenv ROBOT_ARM_MANUFACTURER ur)"/>
   <arg name="arm_model" default="$(optenv ROBOT_ARM_MODEL ur5)"/>
   <arg name="launch_moveit" default="false"/>
-  <arg name="load_kinematics_file" default="true"/> <!-- Necesary for ur_description compatible with official ur drivers--> 
+  <arg name="load_kinematics_file" default="true"/>
   
-  <!-- Gripper configuration-->
-  <arg name="launch_gripper_control" default="false"/>
-  <arg name="gripper_controllers" default="gripper/gripper_controller"/> <!-- controllers can be listed seprated by a blank space -->
-
   <!-- RViz configuration -->
-  <arg name="rviz_config_file" if="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/summitxl.rviz)"/>
-  <arg name="rviz_config_file" unless="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/summitxl_a.rviz)"/>
+  <arg name="rviz_config_file" if="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui.rviz)"/>
+  <arg name="rviz_config_file" unless="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui.rviz)"/>
   <arg name="rviz_config_path" default="$(eval find(rviz_package) + '/' + rviz_config_file)"/>
 
   <!-- Pad configuratin -->
-  <arg name="pad_model" default="$(optenv PAD_MODEL ps4)"/>
-  <arg name="pad_config_file" default="$(optenv PAD_FILE config/robotnik_pad_plugins_$(arg pad_model).yaml)"/>
-  <arg name="pad_config_path" default="$(eval find(pad_package) + '/' + pad_config_file)"/>
+  <arg name="pad_config_file" default="$(optenv PAD_FILE robotnik_pad_plugins_ps4.yaml)"/>
+  <arg name="pad_config_relative_path" default="$(optenv PAD_RELATIVE_PATH /config/)" />
+  <arg name="pad_config_path" default="$(eval find(pad_package) + pad_config_relative_path + pad_config_file)"/>
 
   <!-- launch simulation -->
   <include if="$(arg run_simulation)" file="$(eval find(sim_bringup_package) + '/launch/run_simulation.launch')">
@@ -89,11 +85,8 @@
     <arg name="launch_arm" value="$(arg launch_arm)"/>
     <arg name="arm_manufacturer" value="$(arg arm_manufacturer)"/>
     <arg name="arm_model" value="$(arg arm_model)"/>
-    <arg name="launch_gripper_control" value="$(arg launch_gripper_control)"/>
-    <arg name="gripper_controllers" value="$(arg gripper_controllers)"/>
     <arg name="kinematics" value="$(arg kinematics)"/>
     <arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
-    <arg name="pad_model" value="$(arg pad_model)"/>
     <arg name="pad_config_file" value="$(arg pad_config_file)"/>
     <arg name="pad_config_path" value="$(arg pad_config_path)"/>
   </include>
