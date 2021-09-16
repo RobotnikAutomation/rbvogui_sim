@@ -27,6 +27,10 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_pad.git
     version: master
+  src/teleop_panel:
+    type: git
+    url: https://github.com/RobotnikAutomation/teleop_panel.git
+    version: master
   src/ewellix_description:
     type: git
     url: https://github.com/RobotnikAutomation/ewellix_description.git
