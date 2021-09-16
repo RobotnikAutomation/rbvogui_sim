@@ -26,10 +26,25 @@ Launch files that execute the complete simulation of the robot
 
 ### 1) Install the following dependencies:
 
-This simulation has been tested using Gazebo 9 version. To facilitate the installation you can use the vcstool:
+This simulation has been tested using Gazebo 9 version. To facilitate the installation you can use the ```vcstool```:
 
 ```bash
 sudo apt-get install -y python3-vcstool
+```
+
+Install ```catkin_tools``` in order to compile the workspace
+
+```bash
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
+wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install python-catkin-tools
+```
+
+Install ```rqt_joint_trajectory_controller``` to move the arm joint by joint
+
+```bash
+ROS_NAMESPACE=robot rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
 ```
 
 ### 2) Create a workspace and clone the repository:
@@ -44,41 +59,33 @@ For the latest version:
 ```bash
 mkdir catkin_ws
 cd catkin_ws
-vcs import --input \
-  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim_devel.repos
+vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim_devel.repos
 rosdep install --from-paths src --ignore-src -y
 ```
-
+<!--
 For the stable version (some latest features may be not available):
 
 ```bash
 mkdir catkin_ws
 cd catkin_ws
-vcs import --input \
-  https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
+vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
 rosdep install --from-paths src --ignore-src -y
-```
+``` -->
 
 ### 3) Install the controllers, robotnik_msgs and the rcomponent:
 
 
 ```bash
+cd ~/catkin_ws
 sudo dpkg -i src/rbvogui_common/libraries/*
 ```
 
 ### 4) Compile:
 
 ```bash
+cd ~/catkin_ws
 catkin build
 source devel/setup.bash
-```
-
-Note: The package catkin-tools is need to compile with catkin build:
-```bash
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
-wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install python-catkin-tools
 ```
 
 ### 5) Run RB-Vogui simulation:
