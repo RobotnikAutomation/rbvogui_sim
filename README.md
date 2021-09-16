@@ -83,8 +83,15 @@ sudo apt-get install python-catkin-tools
 
 ### 5) Run RB-Vogui simulation:
 
+These are the different configurations available:
 
-#### RB-Vogui
+- Vogui
+- Vogui with UR-10e arm
+- Vogui XL
+- Vogui XL with left and right UR10e arm
+- Vogui XL with UR-10e arm and Ewellix lift
+
+### 5.1 RB-Vogui
 
 Set your robot kinematics to omni/ackermann (In case of ackermann, you will need twist2ackermann node enabled)
   
@@ -95,14 +102,11 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch kinematics:=omni twist2ack
   <img src="doc/rbvogui_base.png" height="275" />
 </p>
 
-#### RB-Vogui with one UR arm
+### 5.2 RB-Vogui with UR10e arm
 
 In case you want to launch the rbvogui with an UR arm you can type the following command:
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch \
-  robot_xacro:=rbvogui_std_ur10.urdf.xacro \
-  launch_arm_control:=true \
-  arm_controllers:=arm_controller
+  roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_std_ur10.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=ur10
 ```
 
 <p align="center">
@@ -119,30 +123,33 @@ Or even use moveit to plan trajectories:
 ROS_NAMESPACE=robot roslaunch rbvogui_moveit_ur10 demo.launch
 ```
 
-#### RB-Vogui XL model
+### 5.3 RB-Vogui XL
 
 If you prefer to launch the rbvogui XL, you can type:
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch \
-  robot_xacro:=rbvogui_xl.urdf.xacro
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl.urdf.xacro
 ```
 
 <p align="center">
   <img src="doc/rbvogui_xl_base.png" height="275" />
 </p>
 
-#### RB-Vogui XL with two UR arm
+### 5.4 RB-Vogui XL with two UR10e arm
 
 The rbvogui Xl can be launched with two UR arms, only this bi-arm (UR-10e) option is available:
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch \
-  launch_arm_control:=true \
-  robot_xacro:=rbvogui_xl.urdf.xacro
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=bi_ur10e
 ``` 
 
 <p align="center">
   <img src="doc/rbvogui_xl_gazebo.png" height="275" />
 </p>
+
+
+You can play with the arms by using the rqt_joint_trajectory:
+```bash
+ROS_NAMESPACE=robot rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
+```
 
 To plan trajectories with the bi-arm robot you can type:
 
@@ -152,13 +159,29 @@ ROS_NAMESPACE=robot roslaunch rbvogui_xl_2ur10_e_moveit rbvogui_xl_moveit_config
 
 To switch between arms on RViz look for MotionPlanning > Planning Request > Planning Group and it will show you all the available groups (left_arm and right_arm).
 
-### RB-Vogui XL with UR arm and Ewellix lift
+### 5.5 RB-Vogui XL with UR10e arm and Ewellix lift
 
 The rbvogui Xl can also be launched with an UR-10e arm and an Ewellix lift:
 
+
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl_lift_ur10e.urdf.xacro launch_arm_control:=true arm_controllers:="arm_controller lift_controller"
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl_lift_ur10e.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=lift_ur10e
 ``` 
+
+<p align="center">
+  <img src="doc/rbvogui_xl_lift.png" height="275" />
+</p>
+
+You can play with the arm by using the rqt_joint_trajectory:
+```bash
+ROS_NAMESPACE=robot rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
+```
+
+To plan trajectories with the robot you can type:
+
+```bash
+ROS_NAMESPACE=robot roslaunch rbvogui_xl_lift_ur10e_moveit demo.launch
+```
 
 To control the lift, you can type:
 
@@ -166,9 +189,6 @@ To control the lift, you can type:
 rostopic pub /robot/lift_controller/command std_msgs/Float64 "data: 0.2"
 ```
 
-<p align="center">
-  <img src="doc/rbvogui_xl_lift.png" height="275" />
-</p>
 
 ### 6) Enjoy!
 
