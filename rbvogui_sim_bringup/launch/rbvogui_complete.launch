@@ -14,12 +14,13 @@
   <arg name="run_robot" default="true"/>
   <arg name="run_rviz" default="true"/>
   <arg name="run_localization" default="false"/>
+  <arg name="run_mapping" default="false"/>
   <arg name="run_navigation" default="false"/>
 
   <!-- Simulation configuration -->
   <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
-  <arg name="world" default="$(optenv ROBOT_SIM_GAZEBO_WORLD worlds/rbvogui.world)" /> <!-- relative path to config_package -->
-  <arg name="world_file" default="$(eval find(world_package) + '/' + world)"/> <!-- absolute path -->
+  <arg name="world" default="$(optenv ROBOT_SIM_GAZEBO_WORLD worlds/demo.world)" /> <!-- demo.world, rbvogui.world -->
+  <arg name="world_file" default="$(eval find(world_package) + '/' + world)"/> 
   <arg name="debug" default="false"/>
   <arg name="paused" default="false"/>
   <arg name="headless" default="false"/>
@@ -39,6 +40,9 @@
   <arg name="a_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_A 0)"/>
   <arg name="launch_base_hw_sim" default="$(optenv ROBOT_SIM_BASE_HW false)"/>
 
+  <!-- Localization configuration -->
+  <arg name="map" default="demo/demo.yaml"/>
+  
   <!-- Arm configuration-->
   <arg name="launch_arm" default="$(optenv ROBOT_HAS_ARM false)"/>
   <arg name="arm_manufacturer" default="$(optenv ROBOT_ARM_MANUFACTURER ur)"/>
@@ -47,7 +51,7 @@
   <arg name="load_kinematics_file" default="true"/>
   
   <!-- RViz configuration -->
-  <arg name="rviz_config_file" if="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui.rviz)"/>
+  <arg name="rviz_config_file" if="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui_map.rviz)"/>
   <arg name="rviz_config_file" unless="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui.rviz)"/>
   <arg name="rviz_config_path" default="$(eval find(rviz_package) + '/' + rviz_config_file)"/>
 
@@ -98,12 +102,12 @@
     <arg name="config_package" value="$(arg rviz_package)"/>
   </include>
 
-  <!-- gps_localization launch file -->
-  <group if="$(arg run_localization)" ns="$(arg robot_id)">  
-  	<include file="$(find rbvogui_localization)/launch/robot_localization_world.launch">
+  <!-- localization launch file -->  
+  <include if="$(arg run_localization)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
 		<arg name="prefix" value="$(arg prefix)"/>
+    <arg name="map" value="$(arg map)"/>
+    <arg name="run_mapping" value="$(arg run_mapping)"/>
 	</include>
-  </group>
 
   <!-- navigation launch file -->
   <include if="$(arg run_navigation)" file="$(find rbvogui_navigation)/launch/navigation_complete.launch">
