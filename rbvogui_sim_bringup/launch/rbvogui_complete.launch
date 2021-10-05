@@ -56,6 +56,7 @@
   <arg name="rviz_config_path" default="$(eval find(rviz_package) + '/' + rviz_config_file)"/>
 
   <!-- Pad configuratin -->
+  <arg name="launch_pad" default="false"/>
   <arg name="pad_config_file" default="$(optenv PAD_FILE robotnik_pad_plugins_ps4.yaml)"/>
   <arg name="pad_config_relative_path" default="$(optenv PAD_RELATIVE_PATH /config/)" />
   <arg name="pad_config_path" default="$(eval find(pad_package) + pad_config_relative_path + pad_config_file)"/>
@@ -91,6 +92,7 @@
     <arg name="arm_model" value="$(arg arm_model)"/>
     <arg name="kinematics" value="$(arg kinematics)"/>
     <arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
+    <arg name="launch_pad" value="$(arg launch_pad)"/>
     <arg name="pad_config_file" value="$(arg pad_config_file)"/>
     <arg name="pad_config_path" value="$(arg pad_config_path)"/>
   </include>

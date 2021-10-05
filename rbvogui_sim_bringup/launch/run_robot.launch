@@ -30,6 +30,7 @@
   <arg name="load_kinematics_file" default="true"/> <!-- Necesary for ur_description compatible with official ur drivers--> 
   
   <!-- Pad configuratin -->
+  <arg name="launch_pad" default="false"/>
   <arg name="pad_model" default="ps4"/>
   <arg name="pad_config_file" default="config/robotnik_pad_plugins_$(arg pad_model).yaml"/>
   <arg name="pad_config_path" default="$(eval find(pad_package) + '/' + pad_config_file)"/>
@@ -69,7 +70,7 @@
     </include>
 
     <!-- pad: to do: add rbvogui pad into robotnik_pad as plugin -->
-    <include file="$(find robotnik_pad)/launch/robotnik_pad.launch">
+    <include if="$(arg launch_pad)" file="$(find robotnik_pad)/launch/robotnik_pad.launch">
         <arg name="pad_config" value="$(arg pad_config_path)" />
     </include>
 
