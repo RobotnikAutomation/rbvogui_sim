@@ -49,26 +49,28 @@ sudo apt-get install ros-melodic-rqt-joint-trajectory-controller
 
 ### 2) Create a workspace and clone the repository:
 
+Create a new workspace
+
 ```bash
 mkdir catkin_ws
 cd catkin_ws
 ```
 
-For the latest version:
+Install one of these versions. Keep in mind  that on the stable version the latest features may be not available.
+
+Install stable version:
+
+```bash
+vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
+rosdep install --from-paths src --ignore-src -y
+``` 
+
+Or install developer version:
 
 ```bash
 vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim_devel.repos
 rosdep install --from-paths src --ignore-src -y
 ```
-<!--
-For the stable version (some latest features may be not available):
-
-```bash
-mkdir catkin_ws
-cd catkin_ws
-vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
-rosdep install --from-paths src --ignore-src -y
-``` -->
 
 ### 3) Install the controllers, robotnik_msgs and the rcomponent:
 
