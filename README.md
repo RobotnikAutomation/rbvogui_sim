@@ -44,7 +44,7 @@ sudo apt-get install python-catkin-tools
 Install ```rqt_joint_trajectory_controller``` to move the arm joint by joint
 
 ```bash
-ROS_NAMESPACE=robot rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
+sudo apt-get install ros-melodic-rqt-joint-trajectory-controller 
 ```
 
 ### 2) Create a workspace and clone the repository:
@@ -57,8 +57,6 @@ cd catkin_ws
 For the latest version:
 
 ```bash
-mkdir catkin_ws
-cd catkin_ws
 vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim_devel.repos
 rosdep install --from-paths src --ignore-src -y
 ```
