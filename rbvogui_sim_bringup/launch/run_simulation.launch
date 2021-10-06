@@ -11,7 +11,7 @@
  <arg name="debug" default="false"/>
  <arg name="paused" default="false"/>
  <arg name="headless" default="false"/>
- <arg name="gui" default="true"/>
+ <arg name="use_gui" default="true"/>
 
  <!-- Launch gazebo -->
  <include file="$(eval find(simulation_package) + '/launch/spawn_simulation.launch')">
@@ -19,7 +19,7 @@
    <arg name="debug" value="$(arg debug)" />
    <arg name="paused" value="$(arg paused)" />
    <arg name="headless" value="$(arg headless)"/>
-   <arg name="gui" value="$(arg gui)"/>
+   <arg name="gui" value="$(arg use_gui)"/>
  </include>
 
 </launch>

@@ -24,8 +24,8 @@
   <arg name="debug" default="false"/>
   <arg name="paused" default="false"/>
   <arg name="headless" default="false"/>
-  <arg name="gui" default="true"/>
-  <arg name="gpu" default="$(optenv ROBOT_SIM_GPU false)"/>
+  <arg name="use_gui" default="true"/>
+  <arg name="use_gpu" default="$(optenv ROBOT_SIM_GPU true)"/>
 
   <!-- Robot configuration -->
   <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
@@ -70,7 +70,7 @@
     <arg name="debug" value="$(arg debug)" />
     <arg name="paused" value="$(arg paused)" />
     <arg name="headless" value="$(arg headless)"/>
-    <arg name="gui" value="$(arg gui)"/>
+    <arg name="use_gui" value="$(arg use_gui)"/>
   </include>
 
   <!-- launch robot -->
@@ -86,7 +86,7 @@
     <arg name="a_init_pose" value="$(arg a_init_pose)"/>
     <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim)"/>
     <arg name="load_kinematics_file" value="$(arg load_kinematics_file)"/>
-    <arg name="gpu" value="$(arg gpu)"/>
+    <arg name="use_gpu" value="$(arg use_gpu)"/>
     <arg name="launch_arm" value="$(arg launch_arm)"/>
     <arg name="arm_manufacturer" value="$(arg arm_manufacturer)"/>
     <arg name="arm_model" value="$(arg arm_model)"/>
