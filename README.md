@@ -22,6 +22,12 @@ Launch files and world files to start the models in gazebo
 
 Launch files that execute the complete simulation of the robot
 
+## Requirements
+
+- Ubuntu 18.04
+- ROS Melodic
+- Python 2.7 or higher
+
 ## Simulating RB-Vogui
 
 ### 1) Install the following dependencies:
@@ -103,7 +109,7 @@ These are the different configurations available:
 Set your robot kinematics to omni/ackermann (In case of ackermann, you will need twist2ackermann node enabled)
   
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch kinematics:=omni twist2ackermann:=false
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui
 ```
 <p align="center">
   <img src="doc/rbvogui_base.png" height="275" />
@@ -113,7 +119,7 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch kinematics:=omni twist2ack
 
 In case you want to launch the rbvogui with an UR arm you can type the following command:
 ```bash
-  roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_std_ur10.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=ur10
+  roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot_xacro:=rbvogui_std_ur10.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=ur10
 ```
 
 <p align="center">
@@ -134,7 +140,7 @@ ROS_NAMESPACE=robot roslaunch rbvogui_moveit_ur10 demo.launch
 
 If you prefer to launch the rbvogui XL, you can type:
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl.urdf.xacro
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl robot_xacro:=rbvogui_xl_std.urdf.xacro
 ```
 
 <p align="center">
@@ -145,7 +151,7 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl.ur
 
 The rbvogui Xl can be launched with two UR arms, only this bi-arm (UR-10e) option is available:
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=bi_ur10e
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl robot_xacro:=rbvogui_xl_std.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=bi_ur10e
 ``` 
 
 <p align="center">
@@ -172,7 +178,7 @@ The rbvogui Xl can also be launched with an UR-10e arm and an Ewellix lift:
 
 
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_xacro:=rbvogui_xl_lift_ur10e.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=lift_ur10e
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl robot_xacro:=rbvogui_xl_lift_ur10e.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=lift_ur10e
 ``` 
 
 <p align="center">
@@ -201,24 +207,194 @@ rostopic pub /robot/lift_controller/command std_msgs/Float64 "data: 0.2"
 
 You can use the topic ```/robot/robotnik_base_control/cmd_vel ``` to control the RB-Vogui robot. -->
 
-### 6) Localization and navigation
+## Mappping, localization and navigation
 
-Launch localization and navigation:
+You can use these features with any of the above configurations of the robot. **Just add to the command that launches the robot the following parameters:**
+
+Param | Type | Description | Requirements
+------------ | -------------  | ------------- | -------------
+run_mapping | Boolean  | Launch gmapping mapping | Localization must be running
+run_localization | Boolean  | Launch amcl localization. | Mapping can not be running
+map | String | Set the map for localization | Format: map_folder/map_name.yaml
+run_navigation | Boolean  | Launch TEB navigation | Localization must be running
+
+### 1. Create a map
+
+Launch rbvogui robot with gmapping:
 
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch run_localization:=true run_navigation:=true
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui run_mapping:=true run_localization:=true
 ```
 
-Launch mapping and create a map:
+When the map is fine, open a terminal and go to the ```rbvogui_localization``` package
 
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch run_localization:=true run_mapping:=true
+cd ~/catkin_ws && source devel/setup.bash
+roscd rbvogui_localization && cd maps
 ```
 
-Save the map
+Create a folder with the name of the map. For example:
+
+``` bash
+mkdir demo_map
+cd demo_map
+```
+
+Finally, save the map inside that folder
 
 ```bash
-ROS_NAMESPACE=robot rosrun map_server map_saver -f demo
+ROS_NAMESPACE=robot rosrun map_server map_saver -f demo_map
+```
+
+
+### 2. Use a map
+
+Navigate with the rbvogui_xl using the default map:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl run_localization:=true run_navigation:=true
+```
+
+Or use your own map:
+
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl run_localization:=true run_navigation:=true map:=demo_map/demo_map.yaml
+```
+
+
+## Examples
+
+**Disclaimer**: **these examples have only been tested in the simulation. They work with the real robot but have been simplificated, therefore the security is not managed. For the real robot you must use the robot_local_control package.**
+
+The robot can be commanded from a script via the standard ROS interface like move_base or moveit_commander.
+
+### 1. Move robot script
+
+Launch the robot, localization and navigation
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui run_localization:=true run_navigation:=true
+```
+
+Then, run the script. The robot will move to (1,1) position
+
+```bash
+ROS_NAMESPACE=robot rosrun rbvogui_gazebo move_robot.py
+```
+
+You can set your own position by editing the script:
+
+```bash
+point.target_pose.pose.position.x = 1.0
+point.target_pose.pose.position.y = 1.0
+point.target_pose.pose.position.z = 0.0
+```
+
+### 2. Move arm script
+
+Launch the robot with the arm:
+```bash
+  roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot_xacro:=rbvogui_std_ur10.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=ur10
+```
+
+Launch moveit:
+```bash
+ROS_NAMESPACE=robot roslaunch rbvogui_moveit_ur10 demo.launch
+```
+
+Then run one of these scripts:
+
+#### Joint by joint 
+
+It moves the arm joint by joint
+
+```bash
+ROS_NAMESPACE=robot rosrun rbvogui_gazebo move_arm_joint_by_joint.py
+```
+
+You can set your own joints positions by editing the script:
+
+```bash
+joint_goal[0] = 0
+joint_goal[1] = -pi/4
+joint_goal[2] = 0
+joint_goal[3] = -pi/2
+joint_goal[4] = 0
+joint_goal[5] = pi/3
+```
+
+#### To point
+
+It moves the arm to a point
+
+```bash
+ROS_NAMESPACE=robot rosrun rbvogui_gazebo move_arm_to_point.py
+```
+
+You can set your own point by editing the script:
+```bash
+pose_goal.orientation.w = 1.0
+pose_goal.position.x = 0.7
+pose_goal.position.y = 0.4
+pose_goal.position.z = 1.5
+```
+
+## Pad teleoperation
+
+The robot can be controlled with a ps4 controller using the ```robotnik_pad``` package. It reads from the IMU of the ps4 and it is able to stop the robot safetly when the connection is lost. 
+
+### 1. Installation
+
+The standard linux driver for ps4 driver cannot give IMU data, therfeore we need the ds4drv driver.
+
+Install the ds4drv pip script
+
+```bash
+sudo pip install ds4drv
+```
+
+Install PS4 controller config for ds4drv
+```bash
+cd /etc && sudo wget https://raw.githubusercontent.com/RobotnikAutomation/robotnik_pad/master/ds4drv.conf
+```
+
+Add the udev rules for PS4 controller
+```bash
+cd && sudo echo 'KERNEL=="js[0-9]*", SUBSYSTEM=="input", SYMLINK+="input/js_base", ATTRS{name}=="Sony Computer Entertainment Wireless Controller"' >> /etc/udev/rules.d/55-ds4drv.rules
+```
+
+Enable the execution of the ds4drv service on boot:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable ds4drv.service
+sudo systemctl start ds4drv.service
+```
+
+### 2. Pairing 
+
+Pair the PS4 controller to your computer via bluetooth
+
+When the connection is done you can check if the data is receiving
+
+```bash
+cd /dev/input
+jstest js_base
+```
+
+Data must be constantly updated, otherwise something is wrong.
+
+### 3. Usage
+
+Param | Type | Description | Requirements
+------------ | -------------  | ------------- | -------------
+launch_pad | boolean  | It launches the robotnik_pad packages | ds4drv installed, ps4 controller, bluetooth connection
+
+In order to use the pad on the simulation add the parameter ```launch_pad:=true```
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui launch_pad:=true
 ```
 
 ## Docker usage
