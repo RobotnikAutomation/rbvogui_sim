@@ -31,9 +31,12 @@
   <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
   <arg name="prefix" default="$(arg robot_id)_"/>
   <arg name="robot_model" default="$(optenv ROBOT_MODEL rbvogui)"/>
-  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui_std.urdf.xacro)"/>
+  <arg name="robot_xacro" default="$(arg robot_model)_std.urdf.xacro"/>
+  <arg name="robot_use_custom_xacro_path" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH false)"/>
+  <arg name="robot_custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/"/>
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
   <arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
+  <arg name="merge_lasers" default="$(optenv ROBOT_MERGE_LASERS false)"/> 
   <arg name="x_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X 0)"/>
   <arg name="y_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y 0)"/>
   <arg name="z_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z 0)"/>
@@ -79,7 +82,10 @@
     <arg name="config_package" value="$(arg config_package)"/>
     <arg name="robot_id" value="$(arg robot_id)"/>
     <arg name="prefix" value="$(arg prefix)" />
-    <arg name="robot_xacro" value="$(arg robot_xacro)"/>
+    <arg name="robot_model" value="$(arg robot_model)" />
+    <arg name="robot_xacro" value="$(arg robot_xacro)" />
+    <arg name="robot_use_custom_xacro_path" value="$(arg robot_use_custom_xacro_path)" />
+    <arg name="robot_custom_xacro_path" value="$(arg robot_custom_xacro_path)" />
     <arg name="x_init_pose" value="$(arg x_init_pose)"/>
     <arg name="y_init_pose" value="$(arg y_init_pose)"/>
     <arg name="z_init_pose" value="$(arg z_init_pose)"/>
@@ -92,6 +98,7 @@
     <arg name="arm_model" value="$(arg arm_model)"/>
     <arg name="kinematics" value="$(arg kinematics)"/>
     <arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
+    <arg name="merge_lasers" value="$(arg merge_lasers)"/>
     <arg name="launch_pad" value="$(arg launch_pad)"/>
     <arg name="pad_config_file" value="$(arg pad_config_file)"/>
     <arg name="pad_config_path" value="$(arg pad_config_path)"/>
@@ -107,6 +114,8 @@
   <!-- localization launch file -->  
   <include if="$(arg run_localization)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
 		<arg name="prefix" value="$(arg prefix)"/>
+    <arg if="$(arg merge_lasers)" name="scan_topic" value="merged_laser/scan"/>
+    <arg unless="$(arg merge_lasers)" name="scan_topic" value="front_laser/scan"/>
     <arg name="map" value="$(arg map)"/>
     <arg name="run_mapping" value="$(arg run_mapping)"/>
 	</include>

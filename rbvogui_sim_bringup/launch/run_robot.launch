@@ -10,6 +10,8 @@
   <!-- arg to config the launch file-->
   <arg name="robot_model" default="$(optenv ROBOT_MODEL rbvogui)"/> 
   <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui_xl_std.urdf.xacro)"/>
+  <arg name="robot_use_custom_xacro_path" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH false)"/>
+  <arg name="robot_custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/"/>
   <arg name="use_gpu" default="true"/>
 
   <!-- Robot configuration -->
@@ -22,6 +24,7 @@
   <arg name="launch_base_hw_sim" default="false"/>
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
 	<arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
+  <arg name="merge_lasers" default="$(optenv ROBOT_MERGE_LASERS true)"/>
 
   <!-- Arm configuration-->
   <arg name="launch_arm" default="$(optenv ROBOT_HAS_ARM false)"/>
@@ -53,7 +56,10 @@
     <!-- Load the URDF into the ROS Parameter Server -->
     <include file="$(find rbvogui_description)/launch/rbvogui_state.launch" >
       <arg name="robot_id" value="$(arg robot_id)" />
+      <arg name="robot_model" value="$(arg robot_model)" />
       <arg name="robot_xacro" value="$(arg robot_xacro)" />
+      <arg name="robot_use_custom_xacro_path" value="$(arg robot_use_custom_xacro_path)" />
+      <arg name="robot_custom_xacro_path" value="$(arg robot_custom_xacro_path)" />
       <arg name="launch_arm" value="$(arg launch_arm)" />
       <arg name="load_kinematics_file" value="$(arg load_kinematics_file)"/>
       <arg name="gpu" value="$(arg use_gpu)"/>
@@ -67,6 +73,14 @@
       <arg name="sim_arm_control" value="$(arg launch_arm)"/>
       <arg name="arm_manufacturer" value="$(arg arm_manufacturer)"/>
       <arg name="arm_model" value="$(arg arm_model)"/>
+      <!-- rbvogui sizes -->
+      <arg if="$(eval arg('robot_model') == 'rbvogui')" name="wheel_diameter" value ="0.22" />
+      <arg if="$(eval arg('robot_model') == 'rbvogui')" name="track_width" value ="0.439" />
+      <arg if="$(eval arg('robot_model') == 'rbvogui')" name="wheel_base" value ="0.439" />
+      <!-- rbvogui xl sizes -->
+      <arg if="$(eval arg('robot_model') == 'rbvogui_xl')" name="wheel_diameter" value ="0.36" />
+      <arg if="$(eval arg('robot_model') == 'rbvogui_xl')" name="track_width" value ="0.585" />
+      <arg if="$(eval arg('robot_model') == 'rbvogui_xl')" name="wheel_base" value ="0.959" />
     </include>
 
     <!-- pad: to do: add rbvogui pad into robotnik_pad as plugin -->
@@ -78,6 +92,19 @@
 		<include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/rb1_hw_sim.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
+
+    <!-- Merge lasers -->
+    <node if="$(arg merge_lasers)" pkg="ira_laser_tools" type="laserscan_multi_merger" name="merged_laser">
+      <param name="angle_min" value="-3.1415" />
+      <param name="angle_max" value="3.1415" />
+      <param name="fixed_frame" value="$(arg prefix)base_footprint"/>
+      <param name="destination_frame" value="$(arg prefix)base_link"/>
+      <param name="cloud_destination_topic" value="cloud"/>
+      <param name="scan_destination_topic" value="scan"/>
+      <param name="check_topic_type" value="false" />
+      <param name="laserscan_topics" value="front_laser/scan rear_laser/scan" />
+    </node>
+
   </group>
   
 </launch>
