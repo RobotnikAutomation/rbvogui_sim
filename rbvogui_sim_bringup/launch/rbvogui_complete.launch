@@ -31,9 +31,9 @@
   <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
   <arg name="prefix" default="$(arg robot_id)_"/>
   <arg name="robot_model" default="$(optenv ROBOT_MODEL rbvogui)"/>
-  <arg name="robot_xacro" default="$(arg robot_model)_std.urdf.xacro"/>
+  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui.urdf.xacro)"/>
   <arg name="robot_use_custom_xacro_path" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH false)"/>
-  <arg name="robot_custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/"/>
+  <arg name="robot_custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/)"/>
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
   <arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
   <arg name="merge_lasers" default="$(optenv ROBOT_MERGE_LASERS false)"/> 
@@ -58,8 +58,8 @@
   <arg name="rviz_config_file" unless="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui.rviz)"/>
   <arg name="rviz_config_path" default="$(eval find(rviz_package) + '/' + rviz_config_file)"/>
 
-  <!-- Pad configuratin -->
-  <arg name="launch_pad" default="false"/>
+  <!-- Pad configuration -->
+  <arg name="launch_pad" default="$(optenv HAS_PAD false)"/>
   <arg name="pad_config_file" default="$(optenv PAD_FILE robotnik_pad_plugins_ps4.yaml)"/>
   <arg name="pad_config_relative_path" default="$(optenv PAD_RELATIVE_PATH /config/)" />
   <arg name="pad_config_path" default="$(eval find(pad_package) + pad_config_relative_path + pad_config_file)"/>

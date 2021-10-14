@@ -11,7 +11,7 @@
   <arg name="robot_model" default="$(optenv ROBOT_MODEL rbvogui)"/> 
   <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui_xl_std.urdf.xacro)"/>
   <arg name="robot_use_custom_xacro_path" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH false)"/>
-  <arg name="robot_custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/"/>
+  <arg name="robot_custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/)"/>
   <arg name="use_gpu" default="true"/>
 
   <!-- Robot configuration -->
