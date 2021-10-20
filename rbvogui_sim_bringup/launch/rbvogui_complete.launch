@@ -31,7 +31,7 @@
   <arg name="robot_id" default="$(optenv ROBOT_ID robot)"/>
   <arg name="prefix" default="$(arg robot_id)_"/>
   <arg name="robot_model" default="$(optenv ROBOT_MODEL rbvogui)"/>
-  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui.urdf.xacro)"/>
+  <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui_std.urdf.xacro)"/>
   <arg name="robot_use_custom_xacro_path" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH false)"/>
   <arg name="robot_custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/)"/>
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
