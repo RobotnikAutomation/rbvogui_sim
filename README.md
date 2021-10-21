@@ -47,10 +47,11 @@ sudo apt-get update
 sudo apt-get install python-catkin-tools
 ```
 
-Install ```rqt_joint_trajectory_controller``` to move the arm joint by joint
+Install ```rqt_joint_trajectory_controller``` to move the arm joint by joint and ```moveit_commander``` to move it via script
 
 ```bash
 sudo apt-get install ros-melodic-rqt-joint-trajectory-controller 
+sudo apt-get install ros-melodic-moveit-commander
 ```
 
 ### 2) Create a workspace and clone the repository:
@@ -64,14 +65,14 @@ cd catkin_ws
 
 Install one of these versions. Keep in mind  that on the stable version the latest features may be not available.
 
-Install stable version:
+**Install stable version:**
 
 ```bash
 vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
 rosdep install --from-paths src --ignore-src -y
 ``` 
 
-Or install developer version:
+**Or install developer version:**
 
 ```bash
 vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim_devel.repos
@@ -209,7 +210,7 @@ You can use the topic ```/robot/robotnik_base_control/cmd_vel ``` to control the
 
 ## Mappping, localization and navigation
 
-You can use these features with any of the above configurations of the robot. **Just add to the command that launches the robot the following parameters:**
+You can use these features with any of the above configurations of the robot. **Just add the following parameters to the robot:**
 
 Param | Type | Description | Requirements
 ------------ | -------------  | ------------- | -------------
@@ -223,7 +224,7 @@ run_navigation | Boolean  | Launch TEB navigation | Localization must be running
 Launch rbvogui robot with gmapping:
 
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui run_mapping:=true run_localization:=true
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot_xacro:=rbvogui_std.urdf.xacro run_localization:=true run_navigation:=true
 ```
 
 When the map is fine, open a terminal and go to the ```rbvogui_localization``` package
@@ -252,16 +253,24 @@ ROS_NAMESPACE=robot rosrun map_server map_saver -f demo_map
 Navigate with the rbvogui_xl using the default map:
 
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl run_localization:=true run_navigation:=true
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl robot_xacro:=rbvogui_xl_std.urdf.xacro run_localization:=true run_navigation:=true
 ```
 
 Or use your own map:
 
-
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl run_localization:=true run_navigation:=true map:=demo_map/demo_map.yaml
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl robot_xacro:=rbvogui_xl_std.urdf.xacro run_localization:=true run_navigation:=true map:=demo_map/demo_map.yaml
 ```
 
+### 3. Troubleshooting
+
+### 3.1  Laser visualization
+
+If the laser does not display via RVIZ is probably because the computer does not use the GPU. You can disable the GPU for the rbvogui simulation. Just add this parameter to the robot:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui use_gpu:=false
+```
 
 ## Examples
 
