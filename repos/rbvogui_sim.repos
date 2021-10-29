@@ -6,11 +6,11 @@ repositories:
   src/rbvogui_common:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_common
-    version: ade379057200194449a73bcdd6d2d8d3ecfaa6c1
+    version: f8fe7ce840893e391a46319bca5fe0a471431388
   src/rbvogui_sim:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_sim
-    version: e9d4354a2b16ab97cd421757f3927c241d180bd5
+    version: 78c6d34c4407d1eb998604b51df2f4c5cded8a06
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs
@@ -21,8 +21,8 @@ repositories:
     version: 03c2918d09f579b35a5aa654207e7dec0d0996d2
   src/universal_robot:
     type: git
-    url: https://github.com/RobotnikAutomation/universal_robot.git
-    version: calibration_devel
+    url: https://github.com/fmauch/universal_robot.git
+    version: 1ffdd69181389b14b7d6342f0c5bad3b45c5e32f
   src/robotnik_pad:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_pad.git
