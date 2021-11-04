@@ -100,7 +100,9 @@ source devel/setup.bash
 These are the different configurations available:
 
 - Vogui
-- Vogui with UR-10e arm
+- Vogui with UR-10 arm
+- Vogui with UR-10 arm and RG2 gripper
+- Vogui with UR-10 arm and EGH gripper
 - Vogui XL
 - Vogui XL with left and right UR10e arm
 - Vogui XL with UR-10e arm and Ewellix lift
@@ -116,7 +118,7 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui
   <img src="doc/rbvogui_base.png" height="275" />
 </p>
 
-### 5.2 RB-Vogui with UR10e arm
+### 5.2 RB-Vogui with UR10 arm
 
 In case you want to launch the rbvogui with an UR arm you can type the following command:
 ```bash
@@ -137,7 +139,35 @@ Or even use moveit to plan trajectories:
 ROS_NAMESPACE=robot roslaunch rbvogui_moveit_ur10 demo.launch
 ```
 
-### 5.3 RB-Vogui XL
+### 5.3 RB-Vogui with UR10 arm and RG2 gripper
+
+```bash
+  roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot_xacro:=rbvogui_std_ur10_rg2.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=ur10 launch_gripper:=true gripper_manufacturer:=onrobot gripper_model:=rg2
+```
+<p align="center">
+  <img src="doc/rbvogui_ur10_rg2.png" height="275" />
+</p>
+
+
+```bash
+ROS_NAMESPACE=robot roslaunch rbvogui_ur10_rg2_moveit demo.launch
+```
+
+### 5.4 RB-Vogui with UR10 arm and EGH gripper
+
+```bash
+  roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot_xacro:=rbvogui_std_ur10_egh.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=ur10 launch_gripper:=true gripper_manufacturer:=schunk gripper_model:=egh
+```
+
+<p align="center">
+  <img src="doc/rbvogui_ur10_egh.png" height="275" />
+</p>
+
+```bash
+ROS_NAMESPACE=robot roslaunch rbvogui_ur10_egh_moveit demo.launch
+```
+
+### 5.5 RB-Vogui XL
 
 If you prefer to launch the rbvogui XL, you can type:
 ```bash
@@ -148,7 +178,7 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl ro
   <img src="doc/rbvogui_xl_base.png" height="275" />
 </p>
 
-### 5.4 RB-Vogui XL with two UR10e arm
+### 5.6 RB-Vogui XL with two UR10e arm
 
 The rbvogui Xl can be launched with two UR arms, only this bi-arm (UR-10e) option is available:
 ```bash
@@ -173,7 +203,7 @@ ROS_NAMESPACE=robot roslaunch rbvogui_xl_2ur10_e_moveit rbvogui_xl_moveit_config
 
 To switch between arms on RViz look for MotionPlanning > Planning Request > Planning Group and it will show you all the available groups (left_arm and right_arm).
 
-### 5.5 RB-Vogui XL with UR10e arm and Ewellix lift
+### 5.7 RB-Vogui XL with UR10e arm and Ewellix lift
 
 The rbvogui Xl can also be launched with an UR-10e arm and an Ewellix lift:
 
