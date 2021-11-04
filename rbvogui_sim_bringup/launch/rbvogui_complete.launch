@@ -48,11 +48,16 @@
   
   <!-- Arm configuration-->
   <arg name="launch_arm" default="$(optenv ROBOT_HAS_ARM false)"/>
-  <arg name="arm_manufacturer" default="$(optenv ROBOT_ARM_MANUFACTURER ur)"/>
-  <arg name="arm_model" default="$(optenv ROBOT_ARM_MODEL ur5)"/>
+  <arg name="arm_manufacturer" default="$(optenv ROBOT_ARM_MANUFACTURER none)"/>
+  <arg name="arm_model" default="$(optenv ROBOT_ARM_MODEL none)"/>
   <arg name="launch_moveit" default="false"/>
   <arg name="load_kinematics_file" default="true"/>
-  
+
+  <!-- Gripper configuration -->
+  <arg name="launch_gripper" default="$(optenv ROBOT_HAS_GRIPPER false)"/>
+  <arg name="gripper_manufacturer" default="$(optenv ROBOT_GRIPPER_MANUFACTURER none)"/>
+  <arg name="gripper_model" default="$(optenv ROBOT_GRIPPER_MODEL none)"/>
+
   <!-- RViz configuration -->
   <arg name="rviz_config_file" if="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui_map.rviz)"/>
   <arg name="rviz_config_file" unless="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui.rviz)"/>
@@ -96,6 +101,9 @@
     <arg name="launch_arm" value="$(arg launch_arm)"/>
     <arg name="arm_manufacturer" value="$(arg arm_manufacturer)"/>
     <arg name="arm_model" value="$(arg arm_model)"/>
+    <arg name="launch_gripper" value="$(arg launch_gripper)"/>
+    <arg name="gripper_manufacturer" value="$(arg gripper_manufacturer)"/>
+    <arg name="gripper_model" value="$(arg gripper_model)"/>
     <arg name="kinematics" value="$(arg kinematics)"/>
     <arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
     <arg name="merge_lasers" value="$(arg merge_lasers)"/>
