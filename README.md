@@ -268,24 +268,94 @@ rostopic pub /robot/lift_controller/command std_msgs/Float64 "data: 0.2"
 
 You can use the topic ```/robot/robotnik_base_control/cmd_vel ``` to control the RB-Vogui robot. -->
 
-## Mappping, localization and navigation
+## 6) Teleoperation
+
+The robot can be controlled through three manual methods:
+
+- Rviz pad plugin
+- Keyboard
+- Joystick
+
+### 6.1 Rviz pad plugin
+
+When rviz is launched with the robot, this plugin is loaded automatically. It can be found on the lower left corner of rviz.
+It allows the robot to rotate and move forward/backward, but it can not perform omnidirectional movements
+
+<p align="center">
+  <img src="doc/rviz_pad_teleop_plugin.png" height="250" />
+</p>
+
+It is highly recommended to use this option with simulation because is the fastest.
+
+### 6.2 Keyboard
+
+Install the keyboard node
+
+```bash
+sudo apt-get update
+sudo apt-get install ros-melodic-teleop-twist-keyboard
+```
+
+Open a new terminal and launch the node to move the robot
+
+```bash
+ROS_NAMESPACE=robot rosrun teleop_twist_keyboard teleop_twist_keyboard.py 
+```
+
+### 6.3 Joystick
+
+The robot can also be controller by a PS4 pad controller. This option is usually used with the actual robot but, it works with the simulation too.
+
+Follow the [installation guide of the robotnik_pad](https://github.com/RobotnikAutomation/robotnik_pad)
+
+Once the required software is installed, launch the simulation with ```launch_pad:=true```
+
+Param | Type | Description | Requirements
+------------ | -------------  | ------------- | -------------
+launch_pad | boolean  | It launches the robotnik_pad package | ds4drv installed, ps4 joystick, bluetooth connection
+
+For example:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui launch_pad:=true
+```
+
+## 7) Mappping, localization and navigation
 
 You can use these features with any of the above configurations of the robot. **Just add the following parameters to the robot:**
 
 Param | Type | Description | Requirements
 ------------ | -------------  | ------------- | -------------
-run_mapping | Boolean  | Launch gmapping mapping | Localization must be running
-run_localization | Boolean  | Launch amcl localization. | Mapping can not be running
-map | String | Set the map for localization | Format: map_folder/map_name.yaml
-run_navigation | Boolean  | Launch TEB navigation | Localization must be running
+run_mapping | Boolean  | Launch gmapping mapping | Localization can not be running
+run_localization | Boolean  | Launch amcl localization. | Mapping can not be running.
+map_file | String | Set the map for localization | Format: map_folder/map_name.yaml
+run_navigation | Boolean  | Launch TEB navigation | Localization must be running. Not compatible with mapping
 
-### 1. Create a map
+### 7.1 Quick start
 
-Launch rbvogui robot with gmapping:
+Launch a rbvogui with a default world and map for the localization and navigation
 
 ```bash
 roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot_xacro:=rbvogui_std.urdf.xacro run_localization:=true run_navigation:=true
 ```
+
+<p align="center">
+  <img src="doc/rbvogui_navigation.png" height="400" />
+</p>
+
+### 7.2 Create a map
+
+Launch rbvogui robot with gmapping:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot_xacro:=rbvogui_std.urdf.xacro run_mapping:=true rviz_config_file:=rviz/rbvogui_map.rviz
+```
+
+Move the robot by using the pad teleop plugin from rviz:
+
+<p align="center">
+  <img src="doc/rbvogui_mapping.png" height="400" />
+</p>
 
 When the map is fine, open a terminal and go to the ```rbvogui_localization``` package
 
@@ -308,23 +378,23 @@ ROS_NAMESPACE=robot rosrun map_server map_saver -f demo_map
 ```
 
 
-### 2. Use a map
+### 7.3 Use a map
 
-Navigate with the rbvogui_xl using the default map:
+Navigate with the rbvogui using the default map:
 
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl robot_xacro:=rbvogui_xl_std.urdf.xacro run_localization:=true run_navigation:=true
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot_xacro:=rbvogui_std.urdf.xacro run_localization:=true run_navigation:=true
 ```
 
 Or use your own map:
 
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl robot_xacro:=rbvogui_xl_std.urdf.xacro run_localization:=true run_navigation:=true map:=demo_map/demo_map.yaml
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot_xacro:=rbvogui_std.urdf.xacro run_localization:=true run_navigation:=true map_file:=demo_map/demo_map.yaml
 ```
 
-### 3. Troubleshooting
+### 7.4 Troubleshooting
 
-### 3.1  Laser visualization
+### 7.4.1  Laser visualization
 
 If the laser does not display via RVIZ is probably because the computer does not use the GPU. You can disable the GPU for the rbvogui simulation. Just add this parameter to the robot:
 
@@ -409,7 +479,7 @@ pose_goal.position.y = 0.4
 pose_goal.position.z = 1.5
 ```
 
-## Pad teleoperation
+<!-- ## Pad teleoperation
 
 The robot can be controlled with a ps4 controller using the ```robotnik_pad``` package. It reads from the IMU of the ps4 and it is able to stop the robot safetly when the connection is lost. 
 
@@ -464,7 +534,7 @@ In order to use the pad on the simulation add the parameter ```launch_pad:=true`
 
 ```bash
 roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui launch_pad:=true
-```
+``` -->
 
 ## Docker usage
 
