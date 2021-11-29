@@ -44,7 +44,7 @@
   <arg name="launch_base_hw_sim" default="$(optenv ROBOT_SIM_BASE_HW false)"/>
 
   <!-- Localization configuration -->
-  <arg name="map" default="demo/demo.yaml"/>
+  <arg name="map_file" default="demo/demo.yaml"/>
   
   <!-- Arm configuration-->
   <arg name="launch_arm" default="$(optenv ROBOT_HAS_ARM false)"/>
@@ -60,7 +60,7 @@
 
   <!-- RViz configuration -->
   <arg name="rviz_config_file" if="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui_map.rviz)"/>
-  <arg name="rviz_config_file" unless="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui.rviz)"/>
+  <arg name="rviz_config_file" unless="$(arg run_localization)" default="$(optenv RVIZ_FILE rviz/rbvogui_odom.rviz)"/>
   <arg name="rviz_config_path" default="$(eval find(rviz_package) + '/' + rviz_config_file)"/>
 
   <!-- Pad configuration -->
@@ -119,16 +119,21 @@
     <arg name="config_package" value="$(arg rviz_package)"/>
   </include>
 
-  <!-- localization launch file -->  
+  <!-- Mapping launch file -->
+  <group ns="$(arg robot_id)">
+    <include if="$(arg run_mapping)" file="$(find rbvogui_localization)/launch/gmapping.launch">
+    </include>
+  </group>
+
+  <!-- Localization launch file -->
   <include if="$(arg run_localization)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
 		<arg name="prefix" value="$(arg prefix)"/>
     <arg if="$(arg merge_lasers)" name="scan_topic" value="merged_laser/scan"/>
     <arg unless="$(arg merge_lasers)" name="scan_topic" value="front_laser/scan"/>
-    <arg name="map" value="$(arg map)"/>
-    <arg name="run_mapping" value="$(arg run_mapping)"/>
+    <arg name="map" value="$(arg map_file)"/>
 	</include>
 
-  <!-- navigation launch file -->
+  <!-- Navigation launch file -->
   <include if="$(arg run_navigation)" file="$(find rbvogui_navigation)/launch/navigation_complete.launch">
 		<arg name="prefix" value="$(arg prefix)"/>
 	</include>
