@@ -6,11 +6,11 @@ repositories:
   src/rbvogui_common:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_common
-    version: a1aaa8986a1db393883f906342df002235692b2c
+    version: 321f7c8fd840ecdd8a3d06d0db668f288f811027
   src/rbvogui_sim:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_sim
-    version: 51e9636af3cd205f31eb8e7b54b1817d90156c20
+    version: fedc2b31d928306fc014235e2fe05896f3a685a3
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs
