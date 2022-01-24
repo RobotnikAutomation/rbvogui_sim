@@ -104,7 +104,8 @@
     <arg name="launch_gripper" value="$(arg launch_gripper)"/>
     <arg name="gripper_manufacturer" value="$(arg gripper_manufacturer)"/>
     <arg name="gripper_model" value="$(arg gripper_model)"/>
-    <arg name="kinematics" value="$(arg kinematics)"/>
+    <arg if="$(eval arg('robot_model') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics)"/>
+    <arg if="$(eval arg('robot_model') == 'rbvogui_6w')" name="kinematics" value="diff"/> 
     <arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
     <arg name="merge_lasers" value="$(arg merge_lasers)"/>
     <arg name="launch_pad" value="$(arg launch_pad)"/>
@@ -135,6 +136,9 @@
 
   <!-- Navigation launch file -->
   <include if="$(arg run_navigation)" file="$(find rbvogui_navigation)/launch/navigation_complete.launch">
+    <arg name="robot_model" value="$(arg robot_model)" />
+    <arg if="$(eval arg('robot_model') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics)"/>
+    <arg if="$(eval arg('robot_model') == 'rbvogui_6w')" name="kinematics" value="diff"/>
 		<arg name="prefix" value="$(arg prefix)"/>
 	</include>
 
