@@ -8,6 +8,7 @@ Packages for the simulation of the RB-Vogui
   <img src="doc/rbvogui_xl_base.png" height="275" />
   <img src="doc/rbvogui_xl_gazebo.png" height="275" />
   <img src="doc/rbvogui_xl_lift.png" height="275" />
+  <img src="doc/rbvogui_6w.png" height="275" />
 </p>
 
 ## Packages
@@ -108,6 +109,7 @@ These are the different configurations available:
 - Vogui XL
 - Vogui XL with left and right UR10e arm
 - Vogui XL with UR-10e arm and Ewellix lift
+- Vogui 6W
 
 ### 5.1 RB-Vogui
 
@@ -262,6 +264,19 @@ To control the lift, you can type:
 ```bash
 rostopic pub /robot/lift_controller/command std_msgs/Float64 "data: 0.2"
 ```
+
+### 5.10 RB-Vogui 6W
+
+Launch the six wheel version of the rbvogui:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_6w robot_xacro:=rbvogui_6w_std.urdf.xacro
+```
+
+<p align="center">
+  <img src="doc/rbvogui_6w.png" height="300" />
+</p>
+
 
 <!-- 
 ### 6) Enjoy!
