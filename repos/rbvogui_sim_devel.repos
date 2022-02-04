@@ -6,11 +6,11 @@ repositories:
   src/rbvogui_common:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_common
-    version: 321f7c8fd840ecdd8a3d06d0db668f288f811027
+    version: 32cd39272cb5142db421801b6eb21a8dae370684
   src/rbvogui_sim:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_sim
-    version: fedc2b31d928306fc014235e2fe05896f3a685a3
+    version: 3062b9fa259119f55e890fbc55aaed51b8878152
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs
@@ -55,3 +55,7 @@ repositories:
     type: git
     url: https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins
     version: 0.1.0
+  src/xacro:
+    type: git
+    url: https://github.com/ros/xacro.git
+    version: 6b3d0016daf5574fd7cdefdd49ffb8c27e6cc117
