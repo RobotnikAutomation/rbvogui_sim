@@ -417,7 +417,7 @@ If the laser does not display via RVIZ is probably because the computer does not
 roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui use_gpu:=false
 ```
 
-## Examples
+## 8) Scripts
 
 **Disclaimer**: **these examples have only been tested in the simulation. They work with the real robot but have been simplificated, therefore the security is not managed. For the real robot you must use the robot_local_control package.**
 
@@ -494,62 +494,143 @@ pose_goal.position.y = 0.4
 pose_goal.position.z = 1.5
 ```
 
-<!-- ## Pad teleoperation
+<!--
+https://answers.gazebosim.org//question/12723/gpu_ray-sensors-bad-behaviour-when-increasing-samples/
+-->
 
-The robot can be controlled with a ps4 controller using the ```robotnik_pad``` package. It reads from the IMU of the ps4 and it is able to stop the robot safetly when the connection is lost. 
+## 9) Multiple robots
 
-### 1. Installation
+### 9.1 Limitations
 
-The standard linux driver for ps4 driver cannot give IMU data, therfeore we need the ds4drv driver.
+Simulating several robots at the same time in Gazebo is a complex task since it requires a powerful computer and a good structure of robots. These are the current limitations:
 
-Install the ds4drv pip script
+1. Simulation only works without GPU. The GPU plugin of the lidar laser in different robots at the same time leads to ```gazebo malloc(): memory corruption``` error in Gazebo.
+
+2. In robots with arms, the robots must be the same model. Otherwise it leads to ```gazebo malloc(): memory corruption``` error in Gazebo. For example, two rbvoguis xl with arm and a rbvogui work, but two rbvoguis xl with arm and a rbvogui with arm do not work.
+
+3. The moveit packages of the arms does not support multiple robots directly. The reason is that setup_assistant of Moveit does not take into account the prefix on frames and collisions. These packages were created for ```robot_``` prefix, but with multiple robots it changes to ```robot_a_```, ```robot_b_```, ```robot_c_``` .
+
+### 9.2 Spawn
+
+The following points are examples of the multi robot simulation. They can be combined with other configurations keeping in mind the limitations explained before.
+
+Param | Type | Description |  Requirements
+------------ | -------------   | ------------ | ------------
+link_map | boolean  | Link the robot maps using a static transformation. Useful to control all robots from rviz when localization is working. | Multiple robots enabled, localization launched 
+
+<p align="center">
+  <img src="doc/rbvoguis_link_map.png" height="100" />
+</p>
+
+
+### a) Launch three rbvogui with localization and navigation
 
 ```bash
-sudo pip install ds4drv
+roslaunch rbvogui_sim_bringup rbvoguis_complete.launch link_maps:=true run_localization_a:=true run_navigation_a:=true run_localization_b:=true run_navigation_b:=true run_localization_c:=true  run_navigation_c:=true
+ ```
+<p align="center">
+  <img src="doc/rbvoguis.png" height="280" />
+</p>
+
+robot_a |   | robot_b |   | robot_c |   |
+--------| - | ------- | - | --------| - |
+run_robot_a | true | run_robot_b | true | run_robot_c | true 
+robot_model_a | rbvogui | robot_model_b | rbvogui | robot_model_c | rbvogui 
+robot_xacro_a | rbvogui_std.urdf.xacro | robot_xacro_b | rbvogui_std.urdf.xacro | robot_xacro_c | rbvogui_std.urdf.xacro
+run_localization_a | true  | run_localization_b  | true | run_localization_c  | true 
+run_navigation_a | true  | run_navigation_b| true | run_navigation_c| true
+
+From rviz, use the pad_teleop of each robot to control them or set a navigation goal to navigate autonomously.
+
+<p align="center">
+  <img src="doc/rbvoguis_rviz.png" height="400" />
+</p>
+
+From the Tool Properties panel, change the ```2D Pose Estimate``` and ```2D Nav Goal``` topic to the namespace of the robot which will receive initalposes and goals .
+
+<p align="center">
+  <img src="doc/rbvoguis_tool_rviz.png" height="170" />
+</p>
+
+### b) Launch a rbvogui, a rbvogui xl and a rbvogui 6w with localization and navigation
+ 
+```bash
+roslaunch rbvogui_sim_bringup rbvoguis_complete.launch link_maps:=true  robot_model_a:=rbvogui robot_xacro_a:=rbvogui_std.urdf.xacro run_localization_a:=true run_navigation_a:=true robot_model_b:=rbvogui_xl robot_xacro_b:=rbvogui_xl_std.urdf.xacro run_localization_b:=true run_navigation_b:=true robot_model_c:=rbvogui_6w robot_xacro_c:=rbvogui_6w_std.urdf.xacro run_localization_c:=true run_navigation_c:=true
 ```
 
-Install PS4 controller config for ds4drv
+<p align="center">
+  <img src="doc/rbvoguis_models.png" height="280" />
+</p>
+
+
+robot_a |   | robot_b |   | robot_c |   |
+--------| - | ------- | - | --------| - |
+run_robot_a | true | run_robot_b | true | run_robot_c | true 
+robot_model_a | rbvogui | robot_model_b | rbvogui_xl | robot_model_c | rbvogui_6w 
+robot_xacro_a | rbvogui_std.urdf.xacro | robot_xacro_b | rbvogui_xl_std.urdf.xacro | robot_xacro_c | rbvogui_6w_std.urdf.xacro
+run_localization_a | true  | run_localization_b  | true | run_localization_c  | true 
+run_navigation_a | true  | run_navigation_b| true | run_navigation_c| true
+
+<br/>
+
+### c) Launch a rbvogui with UR-10 arm and EGH gripper and rbvogui with UR-5e arm and RG2 gripper
+
 ```bash
-cd /etc && sudo wget https://raw.githubusercontent.com/RobotnikAutomation/robotnik_pad/master/ds4drv.conf
+roslaunch rbvogui_sim_bringup rbvoguis_complete.launch robot_model_a:=rbvogui robot_xacro_a:=rbvogui_std_ur10_egh.urdf.xacro launch_arm_a:=true arm_manufacturer_a:=ur arm_model_a:=ur10 launch_gripper_a:=true gripper_manufacturer_a:=schunk gripper_model_a:=egh robot_model_b:=rbvogui robot_xacro_b:=rbvogui_std_ur5_rg2.urdf.xacro launch_arm_b:=true arm_manufacturer_b:=ur arm_model_b:=ur5 launch_gripper_b:=true gripper_manufacturer_b:=onrobot gripper_model_b:=rg2 run_robot_c:=false
 ```
 
-Add the udev rules for PS4 controller
+<p align="center">
+  <img src="doc/rbvoguis_arms.png" height="240" />
+</p>
+
+
+robot_a |   | robot_b |   | robot_c |   |
+--------| - | ------- | - | --------| - |
+run_robot_a | true | run_robot_b | true | run_robot_c | false 
+robot_model_a | rbvogui | robot_model_b | rbvogui | robot_model_c | ---- 
+robot_xacro_a | rbvogui_std_ur10_egh.urdf.xacro | robot_xacro_b | rbvogui_std_ur5_rg2.urdf.xacro | robot_xacro_c | ----
+launch_arm_a | true | launch_arm_b | true | launch_arm_c | ----
+arm_manufacturer_a | ur | arm_manufacturer_b | ur | arm_manufacturer_c | ----  
+arm_model_a | ur10 | arm_model_b | ur10 | arm_model_c | ----
+launch_gripper_a | true | launch_gripper_b | true | launch_gripper_c | ----
+gripper_manufacturer_a | schunk | gripper_manufacturer_b | onrobot | gripper_manufacturer_c | ----  
+gripper_model_a | egh | gripper_model_b | egh | gripper_model_c | ----
+
+
+Since this example is launched without localization and navigation, the default fixed frame is ```robot_a_odom```. Change the fixed frame to the robot namespace and enable its folder on rviz.
+
+<p align="center">
+  <img src="doc/rbvoguis_frame_rviz.png" height="200" />
+</p>
+
+### d) Launch a rbvogui xl with UR-10e arm and ewellix lift and rbvogui xl with two UR10e 
+
 ```bash
-cd && sudo echo 'KERNEL=="js[0-9]*", SUBSYSTEM=="input", SYMLINK+="input/js_base", ATTRS{name}=="Sony Computer Entertainment Wireless Controller"' >> /etc/udev/rules.d/55-ds4drv.rules
+roslaunch rbvogui_sim_bringup rbvoguis_complete.launch robot_model_a:=rbvogui_xl robot_xacro_a:=rbvogui_xl_lift_ur10e.urdf.xacro launch_arm_a:=true arm_manufacturer_a:=ur arm_model_a:=lift_ur10e robot_model_b:=rbvogui_xl robot_xacro_b:=rbvogui_xl_std.urdf.xacro launch_arm_b:=true arm_manufacturer_b:=ur arm_model_b:=bi_ur10e  run_robot_c:=false 
 ```
 
-Enable the execution of the ds4drv service on boot:
+<p align="center">
+  <img src="doc/rbvoguis_xl_arms.png" height="250" />
+</p>
 
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable ds4drv.service
-sudo systemctl start ds4drv.service
+robot_a |   | robot_b |   | robot_c |   |
+--------| - | ------- | - | --------| - |
+run_robot_a | true | run_robot_b | true | run_robot_c | false 
+robot_model_a | rbvogui_xl | robot_model_b | rbvogui_xl | robot_model_c | ---- 
+robot_xacro_a | rbvogui_xl_lift_ur10e.urdf.xacro | robot_xacro_b | rbvogui_xl_std.urdf.xacro | robot_xacro_c | ----
+launch_arm_a | true | launch_arm_b | true | launch_arm_c | ----
+arm_manufacturer_a | ur | arm_manufacturer_b | ur | arm_manufacturer_c | ----  
+arm_model_a | lift_ur10e | arm_model_b | bi_ur10e | arm_model_c | ----
+
+Tha arms can be controlled joint by joint by using the ```rqt_joint_trajectory``` plugin.  Set the namespace depending on the robot selected.
+
+```
+ROS_NAMESPACE=robot_a rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
 ```
 
-### 2. Pairing 
-
-Pair the PS4 controller to your computer via bluetooth
-
-When the connection is done you can check if the data is receiving
-
-```bash
-cd /dev/input
-jstest js_base
 ```
-
-Data must be constantly updated, otherwise something is wrong.
-
-### 3. Usage
-
-Param | Type | Description | Requirements
------------- | -------------  | ------------- | -------------
-launch_pad | boolean  | It launches the robotnik_pad packages | ds4drv installed, ps4 controller, bluetooth connection
-
-In order to use the pad on the simulation add the parameter ```launch_pad:=true```
-
-```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui launch_pad:=true
-``` -->
+ROS_NAMESPACE=robot_b rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
+```
 
 ## Docker usage
 
@@ -567,7 +648,6 @@ git clone https://github.com/RobotnikAutomation/rbvogui_sim.git
 cd rbvogui_sim
 git checkout melodic-devel
 docker/simulation-in-container-run.sh
-
 ```
 
 #### Selecting the robot model

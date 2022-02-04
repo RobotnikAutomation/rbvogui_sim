@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- What simulator config package to use -->
+  <arg name="simulation_package" default="$(optenv SIMULATION_CONFIG_PACKAGE rbvogui_gazebo)"/>
+  <arg name="config_package" default="$(optenv CONFIG_PACKAGE rbvogui_gazebo)"/>
+  <arg name="sim_bringup_package" default="$(optenv SIM_BRINGUP_PACKAGE rbvogui_sim_bringup)"/>
+  <arg name="world_package" default="$(optenv WORLD_PACKAGE rbvogui_gazebo)"/>
+  <arg name="rviz_package" default="$(optenv RVIZ_PACKAGE rbvogui_gazebo)"/>
+  <arg name="pad_package" default="$(optenv PAD_PACKAGE robotnik_pad)"/>
+
+  <!-- What to execute -->
+  <arg name="run_simulation" default="true"/>
+  <arg name="run_robot_a" default="true"/>
+  <arg name="run_robot_b" default="true"/>
+  <arg name="run_robot_c" default="true"/>
+  <arg name="run_rviz" default="true"/>
+  <arg name="run_localization_a" default="false"/>
+  <arg name="run_localization_b" default="false"/>
+  <arg name="run_localization_c" default="false"/>
+  <arg name="run_mapping_a" default="false"/>
+  <arg name="run_mapping_b" default="false"/>
+  <arg name="run_mapping_c" default="false"/>
+  <arg name="run_navigation_a" default="false"/>
+  <arg name="run_navigation_b" default="false"/>
+  <arg name="run_navigation_c" default="false"/>
+
+  <!-- Multiple robot configuration -->
+  <arg name="link_maps" default="false" />
+
+  <!-- Simulation configuration -->
+  <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
+  <arg name="world" default="$(optenv ROBOT_SIM_GAZEBO_WORLD worlds/demo.world)" /> <!-- demo.world, rbvogui.world -->
+  <arg name="world_file" default="$(eval find(world_package) + '/' + world)"/> 
+  <arg name="debug" default="false"/>
+  <arg name="paused" default="false"/>
+  <arg name="headless" default="false"/>
+  <arg name="use_gui" default="true"/>
+  <arg name="use_gpu" default="$(optenv ROBOT_SIM_GPU false)"/>
+
+  <!-- RViz configuration -->
+  <arg name="rviz_config_file" if="$(arg run_localization_a)" default="$(optenv RVIZ_FILE rviz/rbvoguis_map.rviz)"/>
+  <arg name="rviz_config_file" unless="$(arg run_localization_a)" default="$(optenv RVIZ_FILE rviz/rbvoguis_odom.rviz)"/>
+  <arg name="rviz_config_path" default="$(eval find(rviz_package) + '/' + rviz_config_file)"/>
+
+
+  <!-- Robot A configuration -->
+  <arg name="robot_id_a" default="$(optenv ROBOT_ID robot_a)"/>
+  <arg name="prefix_a" default="$(arg robot_id_a)_"/>
+  <arg name="robot_model_a" default="$(optenv ROBOT_MODEL_A rbvogui)"/>
+  <arg name="robot_xacro_a" default="$(optenv ROBOT_XACRO_A rbvogui_std.urdf.xacro)"/>
+  <arg name="robot_use_custom_xacro_path_a" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH_A false)"/>
+  <arg name="robot_custom_xacro_path_a" default="$(optenv ROBOT_CUSTOM_XACRO_PATH_A /home/robot/)"/>
+  <arg name="kinematics_a" default="$(optenv ROBOT_KINEMATICS_A omni)"/>
+  <arg name="twist2ackermann_a" default="$(optenv ROBOT_ACKERMANN_A false)"/>
+  <arg name="merge_lasers_a" default="$(optenv ROBOT_MERGE_LASERS_A false)"/> 
+  <arg name="x_init_pose_a" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X_A 0)"/>
+  <arg name="y_init_pose_a" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y_A 0)"/>
+  <arg name="z_init_pose_a" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z_A 0)"/>
+  <arg name="a_init_pose_a" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_A_A 0)"/>
+  <arg name="launch_base_hw_sim_a" default="$(optenv ROBOT_SIM_BASE_HW_A false)"/>
+
+  <!-- Robot A Localization configuration -->
+  <arg name="map_file_a" default="demo/demo.yaml"/>
+
+  <!-- Robot A Arm configuration-->
+  <arg name="launch_arm_a" default="$(optenv ROBOT_HAS_ARM_A false)"/>
+  <arg name="arm_manufacturer_a" default="$(optenv ROBOT_ARM_MANUFACTURER_A none)"/>
+  <arg name="arm_model_a" default="$(optenv ROBOT_ARM_MODEL_A none)"/>
+  <arg name="launch_moveit_a" default="false"/>
+  <arg name="load_kinematics_file_a" default="true"/>
+
+  <!-- Robot A Gripper configuration -->
+  <arg name="launch_gripper_a" default="$(optenv ROBOT_HAS_GRIPPER_A false)"/>
+  <arg name="gripper_manufacturer_a" default="$(optenv ROBOT_GRIPPER_MANUFACTURER_A none)"/>
+  <arg name="gripper_model_a" default="$(optenv ROBOT_GRIPPER_MODEL_A none)"/>
+
+  <!-- Robot A pad configuration -->
+  <arg name="launch_pad_a" default="$(optenv HAS_PAD_A false)"/>
+  <arg name="pad_config_file_a" default="$(optenv PAD_FILE_A robotnik_pad_plugins_ps4.yaml)"/>
+  <arg name="pad_config_relative_path_a" default="$(optenv PAD_RELATIVE_PATH_A /config/)" />
+  <arg name="pad_config_path_a" default="$(eval find(pad_package) + pad_config_relative_path_a + pad_config_file_a)"/>
+
+
+  <!-- Robot B configuration -->
+  <arg name="robot_id_b" default="$(optenv ROBOT_ID robot_b)"/>
+  <arg name="prefix_b" default="$(arg robot_id_b)_"/>
+  <arg name="robot_model_b" default="$(optenv ROBOT_MODEL_B rbvogui)"/>
+  <arg name="robot_xacro_b" default="$(optenv ROBOT_XACRO_B rbvogui_std.urdf.xacro)"/>
+  <arg name="robot_use_custom_xacro_path_b" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH_B false)"/>
+  <arg name="robot_custom_xacro_path_b" default="$(optenv ROBOT_CUSTOM_XACRO_PATH_B /home/robot/)"/>
+  <arg name="kinematics_b" default="$(optenv ROBOT_KINEMATICS_B omni)"/>
+  <arg name="twist2ackermann_b" default="$(optenv ROBOT_ACKERMANN_B false)"/>
+  <arg name="merge_lasers_b" default="$(optenv ROBOT_MERGE_LASERS_B false)"/> 
+  <arg name="x_init_pose_b" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X_B 0)"/>
+  <arg name="y_init_pose_b" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y_B 1.5)"/>
+  <arg name="z_init_pose_b" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z_B 0)"/>
+  <arg name="a_init_pose_b" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_A_B 0)"/>
+  <arg name="launch_base_hw_sim_b" default="$(optenv ROBOT_SIM_BASE_HW_B false)"/>
+
+  <!-- Robot B Localization configuration -->
+  <arg name="map_file_b" default="demo/demo.yaml"/>
+
+  <!-- Robot B Arm configuration-->
+  <arg name="launch_arm_b" default="$(optenv ROBOT_HAS_ARM_B false)"/>
+  <arg name="arm_manufacturer_b" default="$(optenv ROBOT_ARM_MANUFACTURER_B none)"/>
+  <arg name="arm_model_b" default="$(optenv ROBOT_ARM_MODEL_B none)"/>
+  <arg name="launch_moveit_b" default="false"/>
+  <arg name="load_kinematics_file_b" default="true"/>
+
+  <!-- Robot B Gripper configuration -->
+  <arg name="launch_gripper_b" default="$(optenv ROBOT_HAS_GRIPPER_B false)"/>
+  <arg name="gripper_manufacturer_b" default="$(optenv ROBOT_GRIPPER_MANUFACTURER_B none)"/>
+  <arg name="gripper_model_b" default="$(optenv ROBOT_GRIPPER_MODEL_B none)"/>
+
+  <!-- Robot B pad configuration -->
+  <arg name="launch_pad_b" default="$(optenv HAS_PAD_B false)"/>
+  <arg name="pad_config_file_b" default="$(optenv PAD_FILE_B robotnik_pad_plugins_ps4.yaml)"/>
+  <arg name="pad_config_relative_path_b" default="$(optenv PAD_RELATIVE_PATH_B /config/)" />
+  <arg name="pad_config_path_b" default="$(eval find(pad_package) + pad_config_relative_path_b + pad_config_file_b)"/>
+
+
+  <!-- Robot C configuration -->
+  <arg name="robot_id_c" default="$(optenv ROBOT_ID robot_c)"/>
+  <arg name="prefix_c" default="$(arg robot_id_c)_"/>
+  <arg name="robot_model_c" default="$(optenv ROBOT_MODEL_C rbvogui)"/>
+  <arg name="robot_xacro_c" default="$(optenv ROBOT_XACRO_C rbvogui_std.urdf.xacro)"/>
+  <arg name="robot_use_custom_xacro_path_c" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH_C false)"/>
+  <arg name="robot_custom_xacro_path_c" default="$(optenv ROBOT_CUSTOM_XACRO_PATH_C /home/robot/)"/>
+  <arg name="kinematics_c" default="$(optenv ROBOT_KINEMATICS_C omni)"/>
+  <arg name="twist2ackermann_c" default="$(optenv ROBOT_ACKERMANN_C false)"/>
+  <arg name="merge_lasers_c" default="$(optenv ROBOT_MERGE_LASERS_C false)"/> 
+  <arg name="x_init_pose_c" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X_C 0)"/>
+  <arg name="y_init_pose_c" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y_C 3.0)"/>
+  <arg name="z_init_pose_c" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z_C 0)"/>
+  <arg name="a_init_pose_c" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_A_C 0)"/>
+  <arg name="launch_base_hw_sim_c" default="$(optenv ROBOT_SIM_BASE_HW_C false)"/>
+
+
+  <!-- Robot C Localization configuration -->
+  <arg name="map_file_c" default="demo/demo.yaml"/>
+
+  <!-- Robot C Arm configuration-->
+  <arg name="launch_arm_c" default="$(optenv ROBOT_HAS_ARM_C false)"/>
+  <arg name="arm_manufacturer_c" default="$(optenv ROBOT_ARM_MANUFACTURER_C none)"/>
+  <arg name="arm_model_c" default="$(optenv ROBOT_ARM_MODEL_C none)"/>
+  <arg name="launch_moveit_c" default="false"/>
+  <arg name="load_kinematics_file_c" default="true"/>
+
+  <!-- Robot C Gripper configuration -->
+  <arg name="launch_gripper_c" default="$(optenv ROBOT_HAS_GRIPPER_C false)"/>
+  <arg name="gripper_manufacturer_c" default="$(optenv ROBOT_GRIPPER_MANUFACTURER_C none)"/>
+  <arg name="gripper_model_c" default="$(optenv ROBOT_GRIPPER_MODEL_C none)"/>
+
+  <!-- Robot C pad configuration -->
+  <arg name="launch_pad_c" default="$(optenv HAS_PAD_C false)"/>
+  <arg name="pad_config_file_c" default="$(optenv PAD_FILE_C robotnik_pad_plugins_ps4.yaml)"/>
+  <arg name="pad_config_relative_path_c" default="$(optenv PAD_RELATIVE_PATH_C /config/)" />
+  <arg name="pad_config_path_c" default="$(eval find(pad_package) + pad_config_relative_path_c + pad_config_file_c)"/>
+
+  <group if="$(arg link_maps)"> 
+    <node pkg="tf" type="static_transform_publisher" name="tf_1" args="0 0 0 0 0 0 robot_map $(arg prefix_a)map 5" /> 
+    <node pkg="tf" type="static_transform_publisher" name="tf_2" args="0 0 0 0 0 0 robot_map $(arg prefix_b)map 5" /> 
+    <node pkg="tf" type="static_transform_publisher" name="tf_3" args="0 0 0 0 0 0 robot_map $(arg prefix_c)map 5" /> 
+  </group>
+
+  <!-- launch robot a -->
+  <include if="$(arg run_robot_a)" file="$(eval find(sim_bringup_package) + '/launch/run_robot.launch')">
+    <arg name="simulation_package" value="$(arg simulation_package)"/>
+    <arg name="config_package" value="$(arg config_package)"/>
+    <arg name="robot_id" value="$(arg robot_id_a)"/>
+    <arg name="prefix" value="$(arg prefix_a)" />
+    <arg name="robot_model" value="$(arg robot_model_a)" />
+    <arg name="robot_xacro" value="$(arg robot_xacro_a)" />
+    <arg name="robot_use_custom_xacro_path" value="$(arg robot_use_custom_xacro_path_a)" />
+    <arg name="robot_custom_xacro_path" value="$(arg robot_custom_xacro_path_a)" />
+    <arg name="x_init_pose" value="$(arg x_init_pose_a)"/>
+    <arg name="y_init_pose" value="$(arg y_init_pose_a)"/>
+    <arg name="z_init_pose" value="$(arg z_init_pose_a)"/>
+    <arg name="a_init_pose" value="$(arg a_init_pose_a)"/>
+    <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim_a)"/>
+    <arg name="load_kinematics_file" value="$(arg load_kinematics_file_a)"/>
+    <arg name="use_gpu" value="$(arg use_gpu)"/>
+    <arg name="launch_arm" value="$(arg launch_arm_a)"/>
+    <arg name="arm_manufacturer" value="$(arg arm_manufacturer_a)"/>
+    <arg name="arm_model" value="$(arg arm_model_a)"/>
+    <arg name="launch_gripper" value="$(arg launch_gripper_a)"/>
+    <arg name="gripper_manufacturer" value="$(arg gripper_manufacturer_a)"/>
+    <arg name="gripper_model" value="$(arg gripper_model_a)"/>
+    <arg if="$(eval arg('robot_model_a') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics_a)"/>
+    <arg if="$(eval arg('robot_model_a') == 'rbvogui_6w')" name="kinematics" value="diff"/> 
+    <arg name="twist2ackermann" value="$(arg twist2ackermann_a)"/>
+    <arg name="merge_lasers" value="$(arg merge_lasers_a)"/>
+    <arg name="launch_pad" value="$(arg launch_pad_a)"/>
+    <arg name="pad_config_file" value="$(arg pad_config_file_a)"/>
+    <arg name="pad_config_path" value="$(arg pad_config_path_a)"/>
+  </include>
+
+  <!-- launch robot b -->
+  <include if="$(arg run_robot_b)" file="$(eval find(sim_bringup_package) + '/launch/run_robot.launch')">
+    <arg name="simulation_package" value="$(arg simulation_package)"/>
+    <arg name="config_package" value="$(arg config_package)"/>
+    <arg name="robot_id" value="$(arg robot_id_b)"/>
+    <arg name="prefix" value="$(arg prefix_b)" />
+    <arg name="robot_model" value="$(arg robot_model_b)" />
+    <arg name="robot_xacro" value="$(arg robot_xacro_b)" />
+    <arg name="robot_use_custom_xacro_path" value="$(arg robot_use_custom_xacro_path_b)" />
+    <arg name="robot_custom_xacro_path" value="$(arg robot_custom_xacro_path_b)" />
+    <arg name="x_init_pose" value="$(arg x_init_pose_b)"/>
+    <arg name="y_init_pose" value="$(arg y_init_pose_b)"/>
+    <arg name="z_init_pose" value="$(arg z_init_pose_b)"/>
+    <arg name="a_init_pose" value="$(arg a_init_pose_b)"/>
+    <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim_b)"/>
+    <arg name="load_kinematics_file" value="$(arg load_kinematics_file_b)"/>
+    <arg name="use_gpu" value="$(arg use_gpu)"/>
+    <arg name="launch_arm" value="$(arg launch_arm_b)"/>
+    <arg name="arm_manufacturer" value="$(arg arm_manufacturer_b)"/>
+    <arg name="arm_model" value="$(arg arm_model_b)"/>
+    <arg name="launch_gripper" value="$(arg launch_gripper_b)"/>
+    <arg name="gripper_manufacturer" value="$(arg gripper_manufacturer_b)"/>
+    <arg name="gripper_model" value="$(arg gripper_model_b)"/>
+    <arg if="$(eval arg('robot_model_b') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics_b)"/>
+    <arg if="$(eval arg('robot_model_b') == 'rbvogui_6w')" name="kinematics" value="diff"/> 
+    <arg name="twist2ackermann" value="$(arg twist2ackermann_b)"/>
+    <arg name="merge_lasers" value="$(arg merge_lasers_b)"/>
+    <arg name="launch_pad" value="$(arg launch_pad_b)"/>
+    <arg name="pad_config_file" value="$(arg pad_config_file_b)"/>
+    <arg name="pad_config_path" value="$(arg pad_config_path_b)"/>
+  </include>
+
+
+  <!-- launch robot c -->
+  <include if="$(arg run_robot_c)" file="$(eval find(sim_bringup_package) + '/launch/run_robot.launch')">
+    <arg name="simulation_package" value="$(arg simulation_package)"/>
+    <arg name="config_package" value="$(arg config_package)"/>
+    <arg name="robot_id" value="$(arg robot_id_c)"/>
+    <arg name="prefix" value="$(arg prefix_c)" />
+    <arg name="robot_model" value="$(arg robot_model_c)" />
+    <arg name="robot_xacro" value="$(arg robot_xacro_c)" />
+    <arg name="robot_use_custom_xacro_path" value="$(arg robot_use_custom_xacro_path_c)" />
+    <arg name="robot_custom_xacro_path" value="$(arg robot_custom_xacro_path_c)" />
+    <arg name="x_init_pose" value="$(arg x_init_pose_c)"/>
+    <arg name="y_init_pose" value="$(arg y_init_pose_c)"/>
+    <arg name="z_init_pose" value="$(arg z_init_pose_c)"/>
+    <arg name="a_init_pose" value="$(arg a_init_pose_c)"/>
+    <arg name="launch_base_hw_sim" value="$(arg launch_base_hw_sim_c)"/>
+    <arg name="load_kinematics_file" value="$(arg load_kinematics_file_c)"/>
+    <arg name="use_gpu" value="$(arg use_gpu)"/>
+    <arg name="launch_arm" value="$(arg launch_arm_c)"/>
+    <arg name="arm_manufacturer" value="$(arg arm_manufacturer_c)"/>
+    <arg name="arm_model" value="$(arg arm_model_c)"/>
+    <arg name="launch_gripper" value="$(arg launch_gripper_c)"/>
+    <arg name="gripper_manufacturer" value="$(arg gripper_manufacturer_c)"/>
+    <arg name="gripper_model" value="$(arg gripper_model_c)"/>
+    <arg if="$(eval arg('robot_model_c') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics_c)"/>
+    <arg if="$(eval arg('robot_model_c') == 'rbvogui_6w')" name="kinematics" value="diff"/> 
+    <arg name="twist2ackermann" value="$(arg twist2ackermann_c)"/>
+    <arg name="merge_lasers" value="$(arg merge_lasers_c)"/>
+    <arg name="launch_pad" value="$(arg launch_pad_c)"/>
+    <arg name="pad_config_file" value="$(arg pad_config_file_c)"/>
+    <arg name="pad_config_path" value="$(arg pad_config_path_c)"/>
+  </include>
+
+  <!-- Robot A mapping -->
+  <group ns="$(arg robot_id_a)">
+    <include if="$(arg run_mapping_a)" file="$(find rbvogui_localization)/launch/gmapping.launch">
+    </include>
+  </group>
+
+  <!-- Robot B mapping -->
+  <group ns="$(arg robot_id_b)">
+    <include if="$(arg run_mapping_b)" file="$(find rbvogui_localization)/launch/gmapping.launch">
+    </include>
+  </group>
+
+  <!-- Robot C mapping -->
+  <group ns="$(arg robot_id_c)">
+    <include if="$(arg run_mapping_c)" file="$(find rbvogui_localization)/launch/gmapping.launch">
+    </include>
+  </group>
+
+  <!-- Robot A localization -->
+  <include if="$(arg run_localization_a)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
+		<arg name="robot_id" value="$(arg robot_id_a)"/>
+    <arg if="$(arg merge_lasers_a)" name="scan_topic" value="merged_laser/scan"/>
+    <arg unless="$(arg merge_lasers_a)" name="scan_topic" value="front_laser/scan"/>
+    <arg name="map" value="$(arg map_file_a)"/>
+    <arg name="x_init_pose" value="$(arg x_init_pose_a)" />
+    <arg name="y_init_pose" value="$(arg y_init_pose_a)" />
+    <arg name="z_init_pose" value="$(arg z_init_pose_a)" />
+    <arg name="a_init_pose" value="$(arg a_init_pose_a)" />
+	</include>
+
+
+  <!-- Robot B localization -->
+  <include if="$(arg run_localization_b)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
+		<arg name="robot_id" value="$(arg robot_id_b)"/>
+    <arg if="$(arg merge_lasers_b)" name="scan_topic" value="merged_laser/scan"/>
+    <arg unless="$(arg merge_lasers_b)" name="scan_topic" value="front_laser/scan"/>
+    <arg name="map" value="$(arg map_file_b)"/>
+    <arg name="x_init_pose" value="$(arg x_init_pose_b)" />
+    <arg name="y_init_pose" value="$(arg y_init_pose_b)" />
+    <arg name="z_init_pose" value="$(arg z_init_pose_b)" />
+    <arg name="a_init_pose" value="$(arg a_init_pose_b)" />
+	</include>
+
+
+  <!-- Robot C localization -->
+  <include if="$(arg run_localization_c)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
+		<arg name="robot_id" value="$(arg robot_id_c)"/>
+    <arg if="$(arg merge_lasers_c)" name="scan_topic" value="merged_laser/scan"/>
+    <arg unless="$(arg merge_lasers_c)" name="scan_topic" value="front_laser/scan"/>
+    <arg name="map" value="$(arg map_file_c)"/>
+    <arg name="x_init_pose" value="$(arg x_init_pose_c)" />
+    <arg name="y_init_pose" value="$(arg y_init_pose_c)" />
+    <arg name="z_init_pose" value="$(arg z_init_pose_c)" />
+    <arg name="a_init_pose" value="$(arg a_init_pose_c)" />
+	</include>
+
+  <!-- Robot A navigation -->
+  <include if="$(arg run_navigation_a)" file="$(find rbvogui_navigation)/launch/navigation_complete.launch">
+    <arg name="robot_id" value="$(arg robot_id_a)"/>
+    <arg name="robot_model" value="$(arg robot_model_a)" />
+    <arg if="$(eval arg('robot_model_a') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics_a)"/>
+    <arg if="$(eval arg('robot_model_a') == 'rbvogui_6w')" name="kinematics" value="diff"/>
+		<arg name="prefix" value="$(arg prefix_a)"/>
+	</include>
+
+
+  <!-- Robot B navigation -->
+  <include if="$(arg run_navigation_b)" file="$(find rbvogui_navigation)/launch/navigation_complete.launch">
+  	<arg name="robot_id" value="$(arg robot_id_b)"/>
+    <arg name="robot_model" value="$(arg robot_model_b)" />
+    <arg if="$(eval arg('robot_model_b') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics_b)"/>
+    <arg if="$(eval arg('robot_model_b') == 'rbvogui_6w')" name="kinematics" value="diff"/>
+		<arg name="prefix" value="$(arg prefix_b)"/>
+	</include>
+
+  <!-- Robot C navigation -->
+  <include if="$(arg run_navigation_c)" file="$(find rbvogui_navigation)/launch/navigation_complete.launch">
+  	<arg name="robot_id" value="$(arg robot_id_c)"/>
+    <arg name="robot_model" value="$(arg robot_model_c)" />
+    <arg if="$(eval arg('robot_model_c') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics_c)"/>
+    <arg if="$(eval arg('robot_model_c') == 'rbvogui_6w')" name="kinematics" value="diff"/>
+		<arg name="prefix" value="$(arg prefix_c)"/>
+	</include>
+
+  <!-- Launch simulation -->
+  <include if="$(arg run_simulation)" file="$(eval find(sim_bringup_package) + '/launch/run_simulation.launch')">
+    <arg name="simulation_package" value="$(arg simulation_package)"/>
+    <arg name="config_package" value="$(arg config_package)"/>
+    <arg name="world" value="$(arg world)"/>
+    <arg name="world_file" value="$(arg world_file)"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="paused" value="$(arg paused)" />
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="use_gui" value="$(arg use_gui)"/>
+  </include>
+
+  <!-- launch rviz -->
+  <include if="$(arg run_rviz)" file="$(eval find(sim_bringup_package) + '/launch/run_rviz.launch')">
+    <arg name="rviz_config_file" value="$(arg rviz_config_file)" />
+    <arg name="rviz_config_path" value="$(arg rviz_config_path)" />
+    <arg name="config_package" value="$(arg rviz_package)"/>
+  </include>
+
+
+</launch>
