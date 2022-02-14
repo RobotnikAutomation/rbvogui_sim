@@ -2866,8 +2866,8 @@
     <gui fullscreen='0'>
       <camera name='user_camera'>
         <pose frame=''>10.4424 7.27736 7.91302 0 0.5498 -2.56</pose>
-        <view_controller>ortho</view_controller>
-        <projection_type>orthographic</projection_type>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
       </camera>
     </gui>
   </world>
