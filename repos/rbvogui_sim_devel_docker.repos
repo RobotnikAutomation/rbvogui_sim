@@ -6,20 +6,52 @@ repositories:
   src/rbvogui_common:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_common
-    version: melodic-devel
-  src/robotnik_sensors:
-    type: git
-    url: https://github.com/RobotnikAutomation/robotnik_sensors
-    version: melodic-devel
+    version: 32cd39272cb5142db421801b6eb21a8dae370684
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs
-    version: melodic-devel
+    version: melodic-1.0.0
+  src/robotnik_sensors:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_sensors
+    version: 03c2918d09f579b35a5aa654207e7dec0d0996d2
   src/universal_robot:
     type: git
     url: https://github.com/fmauch/universal_robot.git
-    version: calibration_devel
+    version: 1ffdd69181389b14b7d6342f0c5bad3b45c5e32f
+  src/robotnik_pad:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_pad.git
+    version: bc1683e20ec7f109ff9540b65de03b182516bfc9
+  src/rcomponent:
+    type: git
+    url: https://github.com/RobotnikAutomation/rcomponent.git
+    version: eca8716c73509b2676b3e5b290b1311b9f6fe081
+  src/teleop_panel:
+    type: git
+    url: https://github.com/RobotnikAutomation/teleop_panel.git
+    version: 350b052147b8fe7406ddbc656e2aea4c2ab67216
+  src/ewellix_description:
+    type: git
+    url: https://github.com/RobotnikAutomation/ewellix_description.git
+    version: d21c40e5fcbe86cdddbecbf320a92717fc895cdc
   src/velodyne_simulator:
     type: git
     url: https://github.com/RobotnikAutomation/velodyne_simulator
     version: 1.0.0
+  src/egh_gripper_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/egh_gripper_common.git
+    version: 4c4e50b338cf72852d5a62424be5d6b3a2c49337
+  src/rg2_gripper_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/rg2_gripper_common.git
+    version: 681336ae6f2c83de637668c7437438eca3c00859
+  src/roboticsgroup_gazebo_plugins:
+    type: git
+    url: https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins
+    version: 0.1.0
+  src/xacro:
+    type: git
+    url: https://github.com/ros/xacro.git
+    version: 6b3d0016daf5574fd7cdefdd49ffb8c27e6cc117
