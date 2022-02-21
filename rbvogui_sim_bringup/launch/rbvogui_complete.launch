@@ -24,7 +24,7 @@
   <arg name="debug" default="false"/>
   <arg name="paused" default="false"/>
   <arg name="headless" default="false"/>
-  <arg name="use_gui" default="true"/>
+  <arg name="use_gui" default="$(optenv ROBOT_SIM_GAZEBO_GUI true)"/>
   <arg name="use_gpu" default="$(optenv ROBOT_SIM_GPU true)"/>
 
   <!-- Robot configuration -->
