@@ -16,7 +16,7 @@
     <model name='ground_plane'>
       <static>1</static>
       <link name='link'>
-        <collision name='collision'>
+        <!--collision name='collision'>
           <geometry>
             <plane>
               <normal>0 0 1</normal>
@@ -40,7 +40,7 @@
             <bounce/>
           </surface>
           <max_contacts>10</max_contacts>
-        </collision>
+        </collision-->
         <visual name='visual'>
           <cast_shadows>0</cast_shadows>
           <geometry>
@@ -61,7 +61,7 @@
         <kinematic>0</kinematic>
       </link>
     </model>
-    <gravity>0 0 -9.8</gravity>
+    <gravity>0 0 0</gravity>
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
     <atmosphere type='adiabatic'/>
     <physics name='default_physics' default='0' type='ode'>
