@@ -214,7 +214,7 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl ro
 
 The rbvogui Xl can be launched with two UR arms, only this bi-arm (UR-10e) option is available:
 ```bash
-roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl robot_xacro:=rbvogui_xl_std.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=bi_ur10e
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui_xl robot_xacro:=rbvogui_xl_biarm.urdf.xacro launch_arm:=true arm_manufacturer:=ur arm_model:=bi_ur10e
 ``` 
 
 <p align="center">
