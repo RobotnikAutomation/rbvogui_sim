@@ -6,7 +6,7 @@ repositories:
   src/rbvogui_common:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_common
-    version: 321f7c8fd840ecdd8a3d06d0db668f288f811027
+    version: noetic-devel
   src/rbvogui_sim:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_sim

@@ -6,7 +6,7 @@ repositories:
   src/rbvogui_common:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_common
-    version: f8fe7ce840893e391a46319bca5fe0a471431388
+    version: noetic-devel
   src/rbvogui_sim:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_sim
@@ -43,3 +43,11 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/velodyne_simulator
     version: 1.0.0
+  src/rg2_gripper_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/rg2_gripper_common.git
+    version: 681336ae6f2c83de637668c7437438eca3c00859
+  src/egh_gripper_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/egh_gripper_common.git
+    version: 4c4e50b338cf72852d5a62424be5d6b3a2c49337

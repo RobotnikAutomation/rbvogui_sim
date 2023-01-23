@@ -1,5 +1,5 @@
-FROM osrf/ros:melodic-desktop-full
-MAINTAINER Guillem Gari <ggari@robontik.es>
+FROM osrf/ros:noetic-desktop-full
+MAINTAINER Nuria Diaz <ndiaz@robontik.es>
 
 # Non Root user
 ARG user_name=ros
@@ -35,31 +35,34 @@ RUN apt-get update \
 RUN apt-get update \
 	&& apt-get install -q -y \
 		python3-vcstool \
-		python-catkin-tools \
+    && apt-get install -q -y \
+		git \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
 
+
 RUN apt-get update \
 	&& apt-get install -q -y \
-		ros-melodic-ackermann-msgs \
-		ros-melodic-ros-control \
-		ros-melodic-hector-gazebo-plugins \
-		ros-melodic-moveit-planners-ompl \
-		ros-melodic-moveit-ros-planning \
+		ros-noetic-ackermann-msgs \
+		ros-noetic-ros-control \
+		ros-noetic-hector-gazebo-plugins \
+		ros-noetic-moveit-planners-ompl \
+		ros-noetic-moveit-ros-planning \
 		python-lxml \
-		ros-melodic-moveit-ros-visualization \
-		ros-melodic-moveit-setup-assistant \
-		ros-melodic-joy \
-		ros-melodic-moveit-fake-controller-manager \
-		ros-melodic-moveit-kinematics \
-		ros-melodic-twist-mux \
-		ros-melodic-moveit-ros-move-group \
-		ros-melodic-moveit-simple-controller-manager \
-		ros-melodic-moveit-core \
-		ros-melodic-joint-trajectory-controller \
-		ros-melodic-ros-controllers \
-		ros-melodic-effort-controllers \
+		ros-noetic-moveit-ros-visualization \
+		ros-noetic-moveit-setup-assistant \
+		ros-noetic-joy \
+		ros-noetic-moveit-fake-controller-manager \
+		ros-noetic-moveit-kinematics \
+		ros-noetic-twist-mux \
+		ros-noetic-moveit-ros-move-group \
+		ros-noetic-moveit-simple-controller-manager \
+		ros-noetic-moveit-core \
+		ros-noetic-joint-trajectory-controller \
+		ros-noetic-ros-controllers \
+		ros-noetic-effort-controllers \
+		ros-noetic-topic-tools \
 	&& apt-get clean -q -y \
 	&& apt-get autoremove -q -y \
 	&& rm -rf /var/lib/apt/lists/*
@@ -72,7 +75,7 @@ USER $user_name
 RUN mkdir -p $ck_src_dir
 RUN true \
 	&& echo "PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]@\[\033[01;31m\]\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> ~/.bashrc \
-	&& echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc \
+	&& echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc \
 	&& echo "source $ck_dir/devel/setup.bash" >> ~/.bashrc
 
 ARG gazebo_model_path=$user_home/.gazebo/
@@ -108,20 +111,20 @@ ARG repo_file_list_to_use=/tmp/$repo_file
 ARG fresh_download_of_git_repos=no
 
 RUN true \
-	&& vcs import --input $repo_file_list_to_use \
+	&& vcs import --input $repo_file_list_to_use --retry 10 --skip-existing\
 	&& sudo dpkg -i $ck_src_dir/rbvogui_common/libraries/* \
 	&& rosdep update \
 	&& echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections \
 	&& sudo apt-get update \
-	&& rosdep install --from-paths src --ignore-src -y \
+	&& rosdep install --from-paths src --ignore-src -y -r\
 	&& sudo apt-get clean -q -y \
 	&& sudo apt-get autoremove -q -y \
 	&& sudo rm -rf /var/lib/apt/lists/*
 
 RUN true \
-	&& . /opt/ros/melodic/setup.sh \
+	&& . /opt/ros/noetic/setup.sh \
 	&& export ROS_PARALLEL_JOBS=-j$(nproc --all) \
-	&& catkin build
+	&& catkin_make
 
 ARG ign_version=4_4.0.0
 ARG ign_cfg_url=https://raw.githubusercontent.com/ignitionrobotics/ign-fuel-tools/ignition-fuel-tools$ign_version/conf/config.yaml
@@ -143,4 +146,5 @@ ENV ROS_BU_LAUNCH "rbvogui_complete.launch kinematics:=omni twist2ackermann:=fal
 ENV CATKIN_WS $ck_dir
 ENV RBK_CATKIN_PATH $ck_dir
 
-CMD bash -c "/ros_entrypoint.sh roslaunch ${ROS_BU_PKG} ${ROS_BU_LAUNCH}"
+
+#CMD bash -c "/ros_entrypoint.sh roslaunch ${ROS_BU_PKG} ${ROS_BU_LAUNCH}"

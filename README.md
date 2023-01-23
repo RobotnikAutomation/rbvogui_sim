@@ -26,7 +26,7 @@ Launch files that execute the complete simulation of the robot
 ## Requirements
 
 - Ubuntu 18.04
-- ROS Melodic
+- ROS Noetic
 - Python 2.7 or higher
 
 ## Simulating RB-Vogui
@@ -45,14 +45,14 @@ Install ```catkin_tools``` in order to compile the workspace
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list'
 wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
 sudo apt-get update
-sudo apt-get install python-catkin-tools
+sudo apt-get install python3-catkin-tools
 ```
 
 Install ```rqt_joint_trajectory_controller``` to move the arm joint by joint and ```moveit_commander``` to move it via script
 
 ```bash
-sudo apt-get install ros-melodic-rqt-joint-trajectory-controller 
-sudo apt-get install ros-melodic-moveit-commander
+sudo apt-get install ros-noetic-rqt-joint-trajectory-controller 
+sudo apt-get install ros-noetic-moveit-commander
 ```
 
 ### 2) Create a workspace and clone the repository:
@@ -69,15 +69,15 @@ Install one of these versions. Keep in mind  that on the stable version the late
 **Install stable version:**
 
 ```bash
-vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim.repos
-rosdep install --from-paths src --ignore-src -y
+vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/noetic-devel/repos/rbvogui_sim.repos
+rosdep install --from-paths src --ignore-src -y -r
 ``` 
 
 **Or install developer version:**
 
 ```bash
-vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/melodic-devel/repos/rbvogui_sim_devel.repos
-rosdep install --from-paths src --ignore-src -y
+vcs import --input https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/noetic-devel/repos/rbvogui_sim_devel.repos
+rosdep install --from-paths src --ignore-src -y -r
 ```
 
 ### 3) Install the controllers, robotnik_msgs and the rcomponent:
@@ -308,7 +308,7 @@ Install the keyboard node
 
 ```bash
 sudo apt-get update
-sudo apt-get install ros-melodic-teleop-twist-keyboard
+sudo apt-get install ros-noetic-teleop-twist-keyboard
 ```
 
 Open a new terminal and launch the node to move the robot
@@ -646,8 +646,11 @@ In order to run this simulation you will need nvidia graphical accelation
 ```bash
 git clone https://github.com/RobotnikAutomation/rbvogui_sim.git
 cd rbvogui_sim
-git checkout melodic-devel
-docker/simulation-in-container-run.sh
+git checkout noetic-devel
+export ROS_BU_PKG="rbvogui_sim_bringup"
+export ROS_BU_LAUNCH="rbvogui_complete.launch"
+cd docker
+docker compose up
 ```
 
 #### Selecting the robot model

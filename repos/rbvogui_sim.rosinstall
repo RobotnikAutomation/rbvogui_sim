@@ -1,7 +1,7 @@
 - git: {local-name: rbvogui_sim, uri: 'https://github.com/RobotnikAutomation/rbvogui_sim', version: 'melodic-1.0.0'}
 - git: {local-name: robotnik_sensors, uri: 'https://github.com/RobotnikAutomation/robotnik_sensors', version: 'melodic-1.0.1'}
 - git: {local-name: joint_read_command_controller, uri: 'https://github.com/RobotnikAutomation/joint_read_command_controller', version: 'v1.0.0'}
-- git: {local-name: rbvogui_common, uri: 'https://github.com/RobotnikAutomation/rbvogui_common', version: 'melodic-1.0.0'}
+- git: {local-name: rbvogui_common, uri: 'https://github.com/RobotnikAutomation/rbvogui_common', version: 'noetic-devel'}
 - git: {local-name: robotnik_msgs, uri: 'https://github.com/RobotnikAutomation/robotnik_msgs', version: 'melodic-1.0.0'}
 - git: {local-name: universal_robot, uri: 'https://github.com/fmauch/universal_robot.git', version: 'calibration_devel'}
 - git: {local-name: velodyne_simulator, uri: 'https://github.com/RobotnikAutomation/velodyne_simulator', version: '1.0.0'}
