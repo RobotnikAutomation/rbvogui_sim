@@ -649,11 +649,7 @@ cd rbvogui_sim
 git checkout melodic-devel
 export ROS_BU_PKG="rbvogui_sim_bringup"
 export ROS_BU_LAUNCH="rbvogui_complete.launch"
-<<<<<<< HEAD
 cd docker 
-=======
-cd docker
->>>>>>> f2999e7a042979904ca60bfe44448939d5e6ef9c
 docker compose up
 ```
 
