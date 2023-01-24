@@ -647,7 +647,10 @@ In order to run this simulation you will need nvidia graphical accelation
 git clone https://github.com/RobotnikAutomation/rbvogui_sim.git
 cd rbvogui_sim
 git checkout melodic-devel
-docker/simulation-in-container-run.sh
+export ROS_BU_PKG="rbvogui_sim_bringup"
+export ROS_BU_LAUNCH="rbvogui_complete.launch"
+cd docker
+docker compose up
 ```
 
 #### Selecting the robot model
