@@ -23,3 +23,11 @@ repositories:
     type: git
     url: https://github.com/RobotnikAutomation/velodyne_simulator
     version: 1.0.0
+  src/robotnik_pad:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_pad.git
+    version: bc1683e20ec7f109ff9540b65de03b182516bfc9
+  src/teleop_panel:
+    type: git
+    url: https://github.com/RobotnikAutomation/teleop_panel.git
+    version: 350b052147b8fe7406ddbc656e2aea4c2ab67216

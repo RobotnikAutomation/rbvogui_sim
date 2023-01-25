@@ -147,4 +147,4 @@ ENV CATKIN_WS $ck_dir
 ENV RBK_CATKIN_PATH $ck_dir
 
 
-#CMD bash -c "/ros_entrypoint.sh roslaunch ${ROS_BU_PKG} ${ROS_BU_LAUNCH}"
+CMD bash -c "/ros_entrypoint.sh roslaunch ${ROS_BU_PKG} ${ROS_BU_LAUNCH}"
