@@ -94,10 +94,10 @@
         <arg name="pad_config" value="$(arg pad_config_path)" />
     </include>
 
-    <!-- base_hw_sim -->
+    <!-- base_hw_sim 
 		<include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/rbvogui_hw_sim.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
-		</include>
+		</include> -->
 
     <!-- Merge lasers -->
     <node if="$(arg merge_lasers_sim)" pkg="ira_laser_tools" type="laserscan_multi_merger" name="merged_laser">

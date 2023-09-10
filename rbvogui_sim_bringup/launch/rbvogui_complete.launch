@@ -20,7 +20,7 @@
   <!-- Simulation configuration -->
   <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
   <arg name="world" default="$(optenv ROBOT_SIM_GAZEBO_WORLD worlds/demo.world)" /> <!-- demo.world, rbvogui.world -->
-  <arg name="world_file" default="$(eval find(world_package) + '/' + world)"/> 
+  <arg name="gazebo_world" default="$(eval find(world_package) + '/' + world)"/> 
   <arg name="debug" default="false"/>
   <arg name="paused" default="false"/>
   <arg name="headless" default="false"/>
@@ -74,7 +74,7 @@
     <arg name="simulation_package" value="$(arg simulation_package)"/>
     <arg name="config_package" value="$(arg config_package)"/>
     <arg name="world" value="$(arg world)"/>
-    <arg name="world_file" value="$(arg world_file)"/>
+    <arg name="world_file" value="$(arg gazebo_world)"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="paused" value="$(arg paused)" />
     <arg name="headless" value="$(arg headless)"/>
