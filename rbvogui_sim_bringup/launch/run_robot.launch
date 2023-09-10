@@ -24,7 +24,7 @@
   <arg name="launch_base_hw_sim" default="false"/>
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
 	<arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
-  <arg name="merge_lasers" default="$(optenv ROBOT_MERGE_LASERS true)"/>
+  <arg name="merge_lasers_sim" default="$(optenv ROBOT_SIM_MERGE_LASERS true)"/>
 
   <!-- Arm configuration-->
   <arg name="launch_arm" default="$(optenv ROBOT_HAS_ARM false)"/>
@@ -38,7 +38,6 @@
   <arg name="gripper_model" default="$(optenv ROBOT_GRIPPER_MODEL none)"/>
 
   <!-- Pad configuratin -->
-  <arg name="launch_pad" default="false"/>
   <arg name="pad_model" default="ps4"/>
   <arg name="pad_config_file" default="config/robotnik_pad_plugins_$(arg pad_model).yaml"/>
   <arg name="pad_config_path" default="$(eval find(pad_package) + '/' + pad_config_file)"/>
@@ -91,17 +90,17 @@
     </include>
 
     <!-- pad: to do: add rbvogui pad into robotnik_pad as plugin -->
-    <include if="$(arg launch_pad)" file="$(find robotnik_pad)/launch/robotnik_pad.launch">
+    <include if="$(eval pad_model != 'none')" file="$(find robotnik_pad)/launch/robotnik_pad.launch">
         <arg name="pad_config" value="$(arg pad_config_path)" />
     </include>
 
     <!-- base_hw_sim -->
-		<include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/rb1_hw_sim.launch">
+		<include if="$(arg launch_base_hw_sim)" file="$(find robotnik_base_hw_sim)/launch/rbvogui_hw_sim.launch">
 			<arg name="prefix" value="$(arg prefix)"/>
 		</include>
 
     <!-- Merge lasers -->
-    <node if="$(arg merge_lasers)" pkg="ira_laser_tools" type="laserscan_multi_merger" name="merged_laser">
+    <node if="$(arg merge_lasers_sim)" pkg="ira_laser_tools" type="laserscan_multi_merger" name="merged_laser">
       <param name="angle_min" value="-3.1415" />
       <param name="angle_max" value="3.1415" />
       <param name="fixed_frame" value="$(arg prefix)base_footprint"/>

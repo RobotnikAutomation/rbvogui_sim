@@ -24,7 +24,7 @@
   <arg name="debug" default="false"/>
   <arg name="paused" default="false"/>
   <arg name="headless" default="false"/>
-  <arg name="use_gui" default="true"/>
+  <arg name="use_gui" default="$(optenv ROBOT_SIM_GAZEBO_GUI true)"/>
   <arg name="use_gpu" default="$(optenv ROBOT_SIM_GPU true)"/>
 
   <!-- Robot configuration -->
@@ -36,7 +36,7 @@
   <arg name="robot_custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/)"/>
   <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
   <arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
-  <arg name="merge_lasers" default="$(optenv ROBOT_MERGE_LASERS false)"/> 
+  <arg name="merge_lasers_sim" default="$(optenv ROBOT_SIM_MERGE_LASERS false)"/> 
   <arg name="x_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X 0)"/>
   <arg name="y_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y 0)"/>
   <arg name="z_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z 0)"/>
@@ -64,7 +64,7 @@
   <arg name="rviz_config_path" default="$(eval find(rviz_package) + '/' + rviz_config_file)"/>
 
   <!-- Pad configuration -->
-  <arg name="launch_pad" default="$(optenv HAS_PAD false)"/>
+  <arg name="pad_model" default="$(optenv ROBOT_PAD_MODEL none)"/>
   <arg name="pad_config_file" default="$(optenv PAD_FILE robotnik_pad_plugins_ps4.yaml)"/>
   <arg name="pad_config_relative_path" default="$(optenv PAD_RELATIVE_PATH /config/)" />
   <arg name="pad_config_path" default="$(eval find(pad_package) + pad_config_relative_path + pad_config_file)"/>
@@ -107,8 +107,8 @@
     <arg if="$(eval arg('robot_model') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics)"/>
     <arg if="$(eval arg('robot_model') == 'rbvogui_6w')" name="kinematics" value="diff"/> 
     <arg name="twist2ackermann" value="$(arg twist2ackermann)"/>
-    <arg name="merge_lasers" value="$(arg merge_lasers)"/>
-    <arg name="launch_pad" value="$(arg launch_pad)"/>
+    <arg name="merge_lasers_sim" value="$(arg merge_lasers_sim)"/>
+    <arg name="pad_model" value="$(arg pad_model)"/>
     <arg name="pad_config_file" value="$(arg pad_config_file)"/>
     <arg name="pad_config_path" value="$(arg pad_config_path)"/>
   </include>
@@ -129,8 +129,8 @@
   <!-- Localization launch file -->
   <include if="$(arg run_localization)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
 		<arg name="prefix" value="$(arg prefix)"/>
-    <arg if="$(arg merge_lasers)" name="scan_topic" value="merged_laser/scan"/>
-    <arg unless="$(arg merge_lasers)" name="scan_topic" value="front_laser/scan"/>
+    <arg if="$(arg merge_lasers_sim)" name="scan_topic" value="merged_laser/scan"/>
+    <arg unless="$(arg merge_lasers_sim)" name="scan_topic" value="front_laser/scan"/>
     <arg name="map" value="$(arg map_file)"/>
 	</include>
 
