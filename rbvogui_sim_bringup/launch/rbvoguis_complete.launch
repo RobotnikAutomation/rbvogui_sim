@@ -31,7 +31,7 @@
   <!-- Simulation configuration -->
   <arg name="sim" default="$(optenv SIM_CONTROLLER true)"/>
   <arg name="world" default="$(optenv ROBOT_SIM_GAZEBO_WORLD worlds/demo.world)" /> <!-- demo.world, rbvogui.world -->
-  <arg name="world_file" default="$(eval find(world_package) + '/' + world)"/> 
+  <arg name="gazebo_world" default="$(eval find(world_package) + '/' + world)"/> 
   <arg name="debug" default="false"/>
   <arg name="paused" default="false"/>
   <arg name="headless" default="false"/>
@@ -53,7 +53,7 @@
   <arg name="robot_custom_xacro_path_a" default="$(optenv ROBOT_CUSTOM_XACRO_PATH_A /home/robot/)"/>
   <arg name="kinematics_a" default="$(optenv ROBOT_KINEMATICS_A omni)"/>
   <arg name="twist2ackermann_a" default="$(optenv ROBOT_ACKERMANN_A false)"/>
-  <arg name="merge_lasers_a" default="$(optenv ROBOT_MERGE_LASERS_A false)"/> 
+  <arg name="merge_lasers_sim_a" default="$(optenv ROBOT_SIM_MERGE_LASERS_A false)"/> 
   <arg name="x_init_pose_a" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X_A 0)"/>
   <arg name="y_init_pose_a" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y_A 0)"/>
   <arg name="z_init_pose_a" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z_A 0)"/>
@@ -76,7 +76,7 @@
   <arg name="gripper_model_a" default="$(optenv ROBOT_GRIPPER_MODEL_A none)"/>
 
   <!-- Robot A pad configuration -->
-  <arg name="launch_pad_a" default="$(optenv HAS_PAD_A false)"/>
+  <arg name="pad_model_a" value="$(optenv ROBOT_PAD_MODEL_A pad_model_a)"/>
   <arg name="pad_config_file_a" default="$(optenv PAD_FILE_A robotnik_pad_plugins_ps4.yaml)"/>
   <arg name="pad_config_relative_path_a" default="$(optenv PAD_RELATIVE_PATH_A /config/)" />
   <arg name="pad_config_path_a" default="$(eval find(pad_package) + pad_config_relative_path_a + pad_config_file_a)"/>
@@ -91,7 +91,7 @@
   <arg name="robot_custom_xacro_path_b" default="$(optenv ROBOT_CUSTOM_XACRO_PATH_B /home/robot/)"/>
   <arg name="kinematics_b" default="$(optenv ROBOT_KINEMATICS_B omni)"/>
   <arg name="twist2ackermann_b" default="$(optenv ROBOT_ACKERMANN_B false)"/>
-  <arg name="merge_lasers_b" default="$(optenv ROBOT_MERGE_LASERS_B false)"/> 
+  <arg name="merge_lasers_sim_b" default="$(optenv ROBOT_SIM_MERGE_LASERS_B false)"/> 
   <arg name="x_init_pose_b" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X_B 0)"/>
   <arg name="y_init_pose_b" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y_B 1.5)"/>
   <arg name="z_init_pose_b" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z_B 0)"/>
@@ -114,7 +114,7 @@
   <arg name="gripper_model_b" default="$(optenv ROBOT_GRIPPER_MODEL_B none)"/>
 
   <!-- Robot B pad configuration -->
-  <arg name="launch_pad_b" default="$(optenv HAS_PAD_B false)"/>
+  <arg name="pad_model_b" value="$(optenv ROBOT_PAD_MODEL_B pad_model_b)"/>
   <arg name="pad_config_file_b" default="$(optenv PAD_FILE_B robotnik_pad_plugins_ps4.yaml)"/>
   <arg name="pad_config_relative_path_b" default="$(optenv PAD_RELATIVE_PATH_B /config/)" />
   <arg name="pad_config_path_b" default="$(eval find(pad_package) + pad_config_relative_path_b + pad_config_file_b)"/>
@@ -129,7 +129,7 @@
   <arg name="robot_custom_xacro_path_c" default="$(optenv ROBOT_CUSTOM_XACRO_PATH_C /home/robot/)"/>
   <arg name="kinematics_c" default="$(optenv ROBOT_KINEMATICS_C omni)"/>
   <arg name="twist2ackermann_c" default="$(optenv ROBOT_ACKERMANN_C false)"/>
-  <arg name="merge_lasers_c" default="$(optenv ROBOT_MERGE_LASERS_C false)"/> 
+  <arg name="merge_lasers_sim_c" default="$(optenv ROBOT_SIM_MERGE_LASERS_C false)"/> 
   <arg name="x_init_pose_c" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X_C 0)"/>
   <arg name="y_init_pose_c" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Y_C 3.0)"/>
   <arg name="z_init_pose_c" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z_C 0)"/>
@@ -153,7 +153,7 @@
   <arg name="gripper_model_c" default="$(optenv ROBOT_GRIPPER_MODEL_C none)"/>
 
   <!-- Robot C pad configuration -->
-  <arg name="launch_pad_c" default="$(optenv HAS_PAD_C false)"/>
+  <arg name="pad_model_c" value="$(optenv ROBOT_PAD_MODEL_C pad_model_c)"/>
   <arg name="pad_config_file_c" default="$(optenv PAD_FILE_C robotnik_pad_plugins_ps4.yaml)"/>
   <arg name="pad_config_relative_path_c" default="$(optenv PAD_RELATIVE_PATH_C /config/)" />
   <arg name="pad_config_path_c" default="$(eval find(pad_package) + pad_config_relative_path_c + pad_config_file_c)"/>
@@ -190,8 +190,8 @@
     <arg if="$(eval arg('robot_model_a') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics_a)"/>
     <arg if="$(eval arg('robot_model_a') == 'rbvogui_6w')" name="kinematics" value="diff"/> 
     <arg name="twist2ackermann" value="$(arg twist2ackermann_a)"/>
-    <arg name="merge_lasers" value="$(arg merge_lasers_a)"/>
-    <arg name="launch_pad" value="$(arg launch_pad_a)"/>
+    <arg name="merge_lasers_sim" value="$(arg merge_lasers_sim_a)"/>
+    <arg name="pad_model" value="$(arg pad_model_a)"/>
     <arg name="pad_config_file" value="$(arg pad_config_file_a)"/>
     <arg name="pad_config_path" value="$(arg pad_config_path_a)"/>
   </include>
@@ -222,8 +222,8 @@
     <arg if="$(eval arg('robot_model_b') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics_b)"/>
     <arg if="$(eval arg('robot_model_b') == 'rbvogui_6w')" name="kinematics" value="diff"/> 
     <arg name="twist2ackermann" value="$(arg twist2ackermann_b)"/>
-    <arg name="merge_lasers" value="$(arg merge_lasers_b)"/>
-    <arg name="launch_pad" value="$(arg launch_pad_b)"/>
+    <arg name="merge_lasers_sim" value="$(arg merge_lasers_sim_b)"/>
+    <arg name="pad_model" value="$(arg pad_model_b)"/>
     <arg name="pad_config_file" value="$(arg pad_config_file_b)"/>
     <arg name="pad_config_path" value="$(arg pad_config_path_b)"/>
   </include>
@@ -255,8 +255,8 @@
     <arg if="$(eval arg('robot_model_c') != 'rbvogui_6w')" name="kinematics" value="$(arg kinematics_c)"/>
     <arg if="$(eval arg('robot_model_c') == 'rbvogui_6w')" name="kinematics" value="diff"/> 
     <arg name="twist2ackermann" value="$(arg twist2ackermann_c)"/>
-    <arg name="merge_lasers" value="$(arg merge_lasers_c)"/>
-    <arg name="launch_pad" value="$(arg launch_pad_c)"/>
+    <arg name="merge_lasers_sim" value="$(arg merge_lasers_sim_c)"/>
+    <arg name="pad_model" value="$(arg pad_model_c)"/>
     <arg name="pad_config_file" value="$(arg pad_config_file_c)"/>
     <arg name="pad_config_path" value="$(arg pad_config_path_c)"/>
   </include>
@@ -350,7 +350,7 @@
     <arg name="simulation_package" value="$(arg simulation_package)"/>
     <arg name="config_package" value="$(arg config_package)"/>
     <arg name="world" value="$(arg world)"/>
-    <arg name="world_file" value="$(arg world_file)"/>
+    <arg name="world_file" value="$(arg gazebo_world)"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="paused" value="$(arg paused)" />
     <arg name="headless" value="$(arg headless)"/>
