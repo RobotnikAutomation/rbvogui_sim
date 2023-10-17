@@ -42,6 +42,8 @@
   <arg name="z_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_Z 0)"/>
   <arg name="a_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_A 0)"/>
   <arg name="launch_base_hw_sim" default="$(optenv ROBOT_SIM_BASE_HW false)"/>
+  <arg name="has_cart" default="false"/>
+  
 
   <!-- Localization configuration -->
   <arg name="map_file" default="demo/demo.yaml"/>
@@ -111,6 +113,7 @@
     <arg name="pad_model" value="$(arg pad_model)"/>
     <arg name="pad_config_file" value="$(arg pad_config_file)"/>
     <arg name="pad_config_path" value="$(arg pad_config_path)"/>
+    <arg name="has_cart" value="$(arg has_cart)"/>
   </include>
 
   <!-- launch rviz -->
