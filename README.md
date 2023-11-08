@@ -25,9 +25,9 @@ Launch files that execute the complete simulation of the robot
 
 ## Requirements
 
-- Ubuntu 18.04
+- Ubuntu 20.04
 - ROS Noetic
-- Python 2.7 or higher
+- Python 3.0 or higher
 
 ## Simulating RB-Vogui
 
@@ -411,11 +411,20 @@ roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui robot
 
 ### 7.4.1  Laser visualization
 
-If the laser does not display via RVIZ is probably because the computer does not use the GPU. You can disable the GPU for the rbvogui simulation. Just add this parameter to the robot:
+If the laser does not display via RVIZ, it is probably because the computer does not use the GPU. You can disable the GPU for the rbvogui simulation. Just add this parameter to the robot:
 
 ```bash
 roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui use_gpu:=false
 ```
+
+### 7.4.2 Laser obstacles
+
+If the laser see all the points near the sensor, it is probably because the simulation in launched with GPU in an machine without GPU.  Disable the GPU for the simulation:
+
+```bash
+roslaunch rbvogui_sim_bringup rbvogui_complete.launch robot_model:=rbvogui use_gpu:=false
+```
+
 
 ## 8) Scripts
 
