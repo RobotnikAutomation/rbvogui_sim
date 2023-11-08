@@ -18,7 +18,7 @@ repositories:
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors
-    version: 3b5c694657035ba670f6e6c9180f22fd5a6e9c59
+    version: 887ac72645bfa6ab48a7ac3a6c28a72fd3ceeeb1
   src/universal_robot:
     type: git
     url: https://github.com/fmauch/universal_robot.git
