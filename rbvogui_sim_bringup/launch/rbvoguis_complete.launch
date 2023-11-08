@@ -282,8 +282,8 @@
   <!-- Robot A localization -->
   <include if="$(arg run_localization_a)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
 		<arg name="robot_id" value="$(arg robot_id_a)"/>
-    <arg if="$(arg merge_lasers_a)" name="scan_topic" value="merged_laser/scan"/>
-    <arg unless="$(arg merge_lasers_a)" name="scan_topic" value="front_laser/scan"/>
+    <arg if="$(arg merge_lasers_sim_a)" name="scan_topic" value="merged_laser/scan"/>
+    <arg unless="$(arg merge_lasers_sim_a)" name="scan_topic" value="front_laser/scan"/>
     <arg name="map" value="$(arg map_file_a)"/>
     <arg name="x_init_pose" value="$(arg x_init_pose_a)" />
     <arg name="y_init_pose" value="$(arg y_init_pose_a)" />
@@ -295,8 +295,8 @@
   <!-- Robot B localization -->
   <include if="$(arg run_localization_b)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
 		<arg name="robot_id" value="$(arg robot_id_b)"/>
-    <arg if="$(arg merge_lasers_b)" name="scan_topic" value="merged_laser/scan"/>
-    <arg unless="$(arg merge_lasers_b)" name="scan_topic" value="front_laser/scan"/>
+    <arg if="$(arg merge_lasers_sim_b)" name="scan_topic" value="merged_laser/scan"/>
+    <arg unless="$(arg merge_lasers_sim_b)" name="scan_topic" value="front_laser/scan"/>
     <arg name="map" value="$(arg map_file_b)"/>
     <arg name="x_init_pose" value="$(arg x_init_pose_b)" />
     <arg name="y_init_pose" value="$(arg y_init_pose_b)" />
@@ -308,8 +308,8 @@
   <!-- Robot C localization -->
   <include if="$(arg run_localization_c)" file="$(find rbvogui_localization)/launch/localization_complete.launch">
 		<arg name="robot_id" value="$(arg robot_id_c)"/>
-    <arg if="$(arg merge_lasers_c)" name="scan_topic" value="merged_laser/scan"/>
-    <arg unless="$(arg merge_lasers_c)" name="scan_topic" value="front_laser/scan"/>
+    <arg if="$(arg merge_lasers_sim_c)" name="scan_topic" value="merged_laser/scan"/>
+    <arg unless="$(arg merge_lasers_sim_c)" name="scan_topic" value="front_laser/scan"/>
     <arg name="map" value="$(arg map_file_c)"/>
     <arg name="x_init_pose" value="$(arg x_init_pose_c)" />
     <arg name="y_init_pose" value="$(arg y_init_pose_c)" />
