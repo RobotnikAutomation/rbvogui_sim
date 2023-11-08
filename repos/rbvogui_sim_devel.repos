@@ -6,11 +6,11 @@ repositories:
   src/rbvogui_common:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_common
-    version: noetic-devel
+    version: 3f5346bbf4f9a981f39ad799e0e2b016617e05d6
   src/rbvogui_sim:
     type: git
     url: https://github.com/RobotnikAutomation/rbvogui_sim
-    version: fedc2b31d928306fc014235e2fe05896f3a685a3
+    version: 72fcffde654487262fe3c337cd2d968cbf950d19
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs
@@ -18,7 +18,7 @@ repositories:
   src/robotnik_sensors:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_sensors
-    version: 03c2918d09f579b35a5aa654207e7dec0d0996d2
+    version: 3b5c694657035ba670f6e6c9180f22fd5a6e9c59
   src/universal_robot:
     type: git
     url: https://github.com/fmauch/universal_robot.git
