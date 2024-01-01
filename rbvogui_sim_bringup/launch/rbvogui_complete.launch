@@ -34,7 +34,7 @@
   <arg name="robot_xacro" default="$(optenv ROBOT_XACRO rbvogui_std.urdf.xacro)"/>
   <arg name="robot_use_custom_xacro_path" default="$(optenv ROBOT_USE_CUSTOM_XACRO_PATH false)"/>
   <arg name="robot_custom_xacro_path" default="$(optenv ROBOT_CUSTOM_XACRO_PATH /home/robot/)"/>
-  <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS omni)"/>
+  <arg name="kinematics" default="$(optenv ROBOT_KINEMATICS ackermann_4s)"/>
   <arg name="twist2ackermann" default="$(optenv ROBOT_ACKERMANN false)"/>
   <arg name="merge_lasers_sim" default="$(optenv ROBOT_SIM_MERGE_LASERS false)"/> 
   <arg name="x_init_pose" default="$(optenv ROBOT_SIM_GAZEBO_INIT_POSE_X 0)"/>
