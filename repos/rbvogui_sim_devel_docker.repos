@@ -14,7 +14,7 @@ repositories:
   src/robotnik_msgs:
     type: git
     url: https://github.com/RobotnikAutomation/robotnik_msgs
-    version: melodic-devel
+    version: ros-devel
   src/universal_robot:
     type: git
     url: https://github.com/fmauch/universal_robot.git
