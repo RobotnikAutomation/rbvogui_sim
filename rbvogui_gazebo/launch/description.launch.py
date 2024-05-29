@@ -34,6 +34,7 @@ def read_params(ld : launch.LaunchDescription):
     use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
     controllers_file = launch.substitutions.LaunchConfiguration('controllers_file')
     robot_id = launch.substitutions.LaunchConfiguration('robot_id')
+    cart = launch.substitutions.LaunchConfiguration('cart')
 
     # Declare the launch options
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -55,12 +56,18 @@ def read_params(ld : launch.LaunchDescription):
         default_value='vectornav_link')
     )
 
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='cart',
+        description='bool rbvogui with cart',
+        default_value='true')
+    )
     # Parse the launch options
     return {
         'use_sim_time': use_sim_time,
         'robot_description_path': os.path.join(get_package_share_directory('rbvogui_description'), 'robots', 'rbvogui_std.urdf.xacro'),
         'robot_id': robot_id,
         'controllers_file': controllers_file,
+        'cart': cart
     }
 
 def generate_launch_description():
@@ -99,11 +106,12 @@ def generate_launch_description():
             " lift_manufacturer:=false",
             " lift_model:=false",
             " config_controllers:=", config_file_rewritten,
+            " cart:=", params['cart']
         ]
     )
 
     # Create parameter 
-    robot_description_param = launch_ros.descriptions.ParameterValue(robot_description_content, value_type=str)
+    robot_description_param = launch_ros.descriptions.ParameterValue(robot_description_content, value_type=None)
 
     robot_state_publisher = launch_ros.actions.Node(
         package='robot_state_publisher',

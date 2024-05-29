@@ -47,6 +47,7 @@ def read_params(ld : launch.LaunchDescription):
     robot_id = launch.substitutions.LaunchConfiguration('robot_id')
     x_pose = launch.substitutions.LaunchConfiguration('x_pose')
     y_pose = launch.substitutions.LaunchConfiguration('y_pose')
+    z_pose = launch.substitutions.LaunchConfiguration('z_pose')
 
     # Declare the launch options
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -63,7 +64,7 @@ def read_params(ld : launch.LaunchDescription):
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='description_pkg',
+        name='description_name',
         description='Description package of the robot.',
         default_value='default.urdf.xacro')
     )
@@ -91,14 +92,21 @@ def read_params(ld : launch.LaunchDescription):
         description='Y position of the robot.',
         default_value='0.5')
     )
-    
+
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='z_pose',
+        description='Z position of the robot.',
+        default_value='0.5')
+    )
+
     # Parse the launch options
     return {
         'use_sim_time': use_sim_time,
         'robot_description': os.path.join(get_package_share_directory('rbvogui_description'), 'robot', 'test.urdf.xacro'),
         'robot_id': robot_id,
         'x_pose': x_pose,
-        'y_pose': y_pose
+        'y_pose': y_pose,
+        'z_pose': z_pose,
     }
 
 
@@ -112,15 +120,14 @@ def generate_launch_description():
         executable='spawn_entity.py',
         arguments=[
             '-entity', "rbvogui",
-            '-topic', 'robot_description',
+            '-topic', "robot_description",
             '-x', params['x_pose'],
             '-y', params['y_pose'],
-            '-z', '0.10',
-
+            '-z', params['z_pose'],
         ],
         output='screen',
     )
-  
+
     ld.add_action(start_gazebo_ros_spawner_cmd)
 
     return ld

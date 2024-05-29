@@ -43,6 +43,7 @@ def read_params(ld : launch.LaunchDescription):
     robot_id = launch.substitutions.LaunchConfiguration('robot_id')
     world_name = launch.substitutions.LaunchConfiguration('world_name')
     world = launch.substitutions.LaunchConfiguration('world')
+    cart = launch.substitutions.LaunchConfiguration('cart')
 
     # Declare the launch options
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -74,7 +75,7 @@ def read_params(ld : launch.LaunchDescription):
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='world_name',
         description='Name of the world to load.',
-        default_value='willow_garage')
+        default_value='demo')
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -82,7 +83,11 @@ def read_params(ld : launch.LaunchDescription):
         description='World to load path.',
         default_value=[get_package_share_directory('rbvogui_gazebo'), '/worlds/', world_name, '.world'])
     )
-    
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='cart',
+        description='bool rbvogui with cart',
+        default_value='false')
+    )
     # Parse the launch options
     ret = {}
 
@@ -92,6 +97,7 @@ def read_params(ld : launch.LaunchDescription):
         'namespace': namespace,
         'robot_id': robot_id,
         'world': world,
+        'cart': cart
         }
     
     else:
@@ -112,6 +118,10 @@ def read_params(ld : launch.LaunchDescription):
         elif 'WORLD_NAME' in os.environ:
             ret['world'] = [get_package_share_directory('rbvogui_gazebo'), '/worlds/', os.environ['WORLD_NAME'], '.world']
         else: ret['world'] = world
+
+        if 'CART' in os.environ:
+            ret['cart'] = os.environ['CART']
+        else:  ret['cart'] = cart
 
     return ret
 
@@ -157,6 +167,7 @@ def generate_launch_description():
         launch_arguments={
             'use_sim_time': params['use_sim_time'],
             'robot_id': params['robot_id'],
+            'cart': params['cart']
         }.items(),
     )
 
@@ -168,6 +179,7 @@ def generate_launch_description():
             'use_sim_time': params['use_sim_time'],
             'x_pose': '0.5',
             'y_pose': '0.5',
+            'z_pose': '0.5',
         }.items()
     )
 

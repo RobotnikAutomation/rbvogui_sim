@@ -1,147 +1,148 @@
-controller_manager:
-  ros__parameters:
-    use_sim_time: true
-    update_rate: 200  # Hz
+robot:
+  controller_manager:
+    ros__parameters:
+      use_sim_time: true
+      update_rate: 100  # Hz
 
-    joint_state_broadcaster:
-      type: joint_state_broadcaster/JointStateBroadcaster
+      joint_state_broadcaster:
+        type: joint_state_broadcaster/JointStateBroadcaster
 
-    robotnik_base_controller:
-      type: ackermann_drive_controller/BaseController
-
-
-joint_state_broadcaster:
-  ros__parameters:
-    use_sim_time: true
-    publish_rate: 200
+      robotnik_base_controller:
+        type: ackermann_drive_controller/BaseController
 
 
-robotnik_base_controller: # Double ackermann
-  ros__parameters:
-    use_sim_time: true
-    publish_rate: 200
+  joint_state_broadcaster:
+    ros__parameters:
+      use_sim_time: true
+      publish_rate: 200
 
-    # Odometry:
-    odom_topic: ~/odom
-    set_odometry_service: ~/set_odometry
-    odom_frame_id: robot_odom
-    base_frame_id: robot_base_footprint
-    enable_odom_tf: true
-    odom_publish_rate: 100.0
-    tf_publish_rate: 100.0
 
-    # Imu
-    imu_topic: /robot/imu/data
-    imu_timeout: 0.2
+  robotnik_base_controller: # Double ackermann
+    ros__parameters:
+      use_sim_time: true
+      publish_rate: 200
 
-    # Command Velocity:
-    cmd_vel_topic: ~/cmd_vel
-    cmd_vel_unstamped_topic: ~/cmd_vel_unstamped
-    cmd_vel_out: ~/cmd_vel_out
-    cmd_vel_timeout: 0.2
-    publish_limited_velocity: false
-    linear:
-      x:
+      # Odometry:
+      odom_topic: ~/odom
+      set_odometry_service: ~/set_odometry
+      odom_frame_id: robot_odom
+      base_frame_id: robot_base_footprint
+      enable_odom_tf: true
+      odom_publish_rate: 100.0
+      tf_publish_rate: 100.0
+
+      # Imu
+      imu_topic: /robot/imu/data
+      imu_timeout: 0.2
+
+      # Command Velocity:
+      cmd_vel_topic: ~/cmd_vel
+      cmd_vel_unstamped_topic: ~/cmd_vel_unstamped
+      cmd_vel_out: ~/cmd_vel_out
+      cmd_vel_timeout: 0.2
+      publish_limited_velocity: false
+      linear:
+        x:
+          has_velocity_limits: true
+          min_velocity: -1.0
+          max_velocity:  1.0
+          has_acceleration_limits: true
+          min_acceleration: -2.0
+          max_acceleration:  2.0
+  #        has_jerk_limits: true
+  #        min_jerk: -1.0
+  #        max_jerk: 1.0
+        y:
+          has_velocity_limits: true
+          min_velocity: -1.0
+          max_velocity:  1.0
+          has_acceleration_limits: true
+          min_acceleration: -2.0
+          max_acceleration:  2.0
+  #        has_jerk_limits: true
+  #        min_jerk: -1.0
+  #        max_jerk: 1.0
+      angular:
         has_velocity_limits: true
         min_velocity: -1.0
-        max_velocity:  1.0
+        max_velocity: 1.0
         has_acceleration_limits: true
-        min_acceleration: -2.0
-        max_acceleration:  2.0
-#        has_jerk_limits: true
-#        min_jerk: -1.0
-#        max_jerk: 1.0
-      y:
-        has_velocity_limits: true
-        min_velocity: -1.0
-        max_velocity:  1.0
-        has_acceleration_limits: true
-        min_acceleration: -2.0
-        max_acceleration:  2.0
-#        has_jerk_limits: true
-#        min_jerk: -1.0
-#        max_jerk: 1.0
-    angular:
-      has_velocity_limits: true
-      min_velocity: -1.0
-      max_velocity: 1.0
-      has_acceleration_limits: true
-      min_acceleration: -1.8
-      max_acceleration:  1.8
-#        has_jerk_limits: true
-#        min_jerk: -1.0
-#        max_jerk: 1.0
+        min_acceleration: -1.8
+        max_acceleration:  1.8
+  #        has_jerk_limits: true
+  #        min_jerk: -1.0
+  #        max_jerk: 1.0
 
-    # Wheels:
-    radius: 0.1125
-    wheelbase: 0.76
-    track: 0.4745
+      # Wheels:
+      radius: 0.1125
+      wheelbase: 0.76
+      track: 0.4745
 
-    # To avoid move errors
-    center_error: 1.0
-    steering_error: 0.15
+      # To avoid move errors
+      center_error: 1.0
+      steering_error: 0.15
 
-    # To avoid skidding
-    center_error_skidding: 10.00
-    steering_error_skidding: 0.75
+      # To avoid skidding
+      center_error_skidding: 10.00
+      steering_error_skidding: 0.75
 
-    # Joints:
-    front_right:
-      steering_joint_name: robot_front_right_steering_joint
-      driving_joint_name: robot_front_right_wheel_joint
-      limits:
-        steering:
-          pos:  {has_limit: true, min: -2.8, max: 2.8}
-          vel:  {has_limit: true, min: -1.0, max: 1.0}
-          acc:  {has_limit: true, min: -1.0, max: 1.0} #
-          jerk: {has_limit: true, min: -1.0, max: 1.0} #
-        driving:
-          pos:  {has_limit: true, min: -2.8, max: 2.8} #
-          vel:  {has_limit: true, min: -1.0, max: 1.0} #
-          acc:  {has_limit: true, min: -1.0, max: 1.0} #
-          jerk: {has_limit: true, min: -1.0, max: 1.0} #
+      # Joints:
+      front_right:
+        steering_joint_name: robot_front_right_steering_joint
+        driving_joint_name: robot_front_right_wheel_joint
+        limits:
+          steering:
+            pos:  {has_limit: true, min: -2.8, max: 2.8}
+            vel:  {has_limit: true, min: -1.0, max: 1.0}
+            acc:  {has_limit: true, min: -1.0, max: 1.0} #
+            jerk: {has_limit: true, min: -1.0, max: 1.0} #
+          driving:
+            pos:  {has_limit: true, min: -2.8, max: 2.8} #
+            vel:  {has_limit: true, min: -1.0, max: 1.0} #
+            acc:  {has_limit: true, min: -1.0, max: 1.0} #
+            jerk: {has_limit: true, min: -1.0, max: 1.0} #
 
-    front_left:
-      steering_joint_name: robot_front_left_steering_joint
-      driving_joint_name: robot_front_left_wheel_joint
-      limits:
-        steering:
-          pos:  {has_limit: true, min: -2.8, max: 2.8}
-          vel:  {has_limit: true, min: -1.0, max: 1.0}
-          acc:  {has_limit: true, min: -1.0, max: 1.0} #
-          jerk: {has_limit: true, min: -1.0, max: 1.0} #
-        driving:
-          pos:  {has_limit: true, min: -2.8, max: 2.8} #
-          vel:  {has_limit: true, min: -1.0, max: 1.0} #
-          acc:  {has_limit: true, min: -1.0, max: 1.0} #
-          jerk: {has_limit: true, min: -1.0, max: 1.0} #
+      front_left:
+        steering_joint_name: robot_front_left_steering_joint
+        driving_joint_name: robot_front_left_wheel_joint
+        limits:
+          steering:
+            pos:  {has_limit: true, min: -2.8, max: 2.8}
+            vel:  {has_limit: true, min: -1.0, max: 1.0}
+            acc:  {has_limit: true, min: -1.0, max: 1.0} #
+            jerk: {has_limit: true, min: -1.0, max: 1.0} #
+          driving:
+            pos:  {has_limit: true, min: -2.8, max: 2.8} #
+            vel:  {has_limit: true, min: -1.0, max: 1.0} #
+            acc:  {has_limit: true, min: -1.0, max: 1.0} #
+            jerk: {has_limit: true, min: -1.0, max: 1.0} #
 
-    rear_right:
-      steering_joint_name: robot_back_right_steering_joint
-      driving_joint_name: robot_back_right_wheel_joint
-      limits:
-        steering:
-          pos:  {has_limit: true, min: -2.8, max: 2.8}
-          vel:  {has_limit: true, min: -1.0, max: 1.0}
-          acc:  {has_limit: true, min: -1.0, max: 1.0} #
-          jerk: {has_limit: true, min: -1.0, max: 1.0} #
-        driving:
-          pos:  {has_limit: true, min: -2.8, max: 2.8}
-          vel:  {has_limit: true, min: -1.0, max: 1.0} #
-          acc:  {has_limit: true, min: -1.0, max: 1.0} #
-          jerk: {has_limit: true, min: -1.0, max: 1.0} #
+      rear_right:
+        steering_joint_name: robot_back_right_steering_joint
+        driving_joint_name: robot_back_right_wheel_joint
+        limits:
+          steering:
+            pos:  {has_limit: true, min: -2.8, max: 2.8}
+            vel:  {has_limit: true, min: -1.0, max: 1.0}
+            acc:  {has_limit: true, min: -1.0, max: 1.0} #
+            jerk: {has_limit: true, min: -1.0, max: 1.0} #
+          driving:
+            pos:  {has_limit: true, min: -2.8, max: 2.8}
+            vel:  {has_limit: true, min: -1.0, max: 1.0} #
+            acc:  {has_limit: true, min: -1.0, max: 1.0} #
+            jerk: {has_limit: true, min: -1.0, max: 1.0} #
 
-    rear_left:
-      steering_joint_name: robot_back_left_steering_joint
-      driving_joint_name: robot_back_left_wheel_joint
-      limits:
-        steering:
-          pos:  {has_limit: true, min: -2.8, max: 2.8}
-          vel:  {has_limit: true, min: -1.0, max: 1.0}
-          acc:  {has_limit: true, min: -1.0, max: 1.0} #
-          jerk: {has_limit: true, min: -1.0, max: 1.0} #
-        driving:
-          pos:  {has_limit: true, min: -2.8, max: 2.8} #
-          vel:  {has_limit: true, min: -2.8, max: 1.0} #
-          acc:  {has_limit: true, min: -1.0, max: 1.0} #
-          jerk: {has_limit: true, min: -1.0, max: 1.0} #
+      rear_left:
+        steering_joint_name: robot_back_left_steering_joint
+        driving_joint_name: robot_back_left_wheel_joint
+        limits:
+          steering:
+            pos:  {has_limit: true, min: -2.8, max: 2.8}
+            vel:  {has_limit: true, min: -1.0, max: 1.0}
+            acc:  {has_limit: true, min: -1.0, max: 1.0} #
+            jerk: {has_limit: true, min: -1.0, max: 1.0} #
+          driving:
+            pos:  {has_limit: true, min: -2.8, max: 2.8} #
+            vel:  {has_limit: true, min: -2.8, max: 1.0} #
+            acc:  {has_limit: true, min: -1.0, max: 1.0} #
+            jerk: {has_limit: true, min: -1.0, max: 1.0} #
