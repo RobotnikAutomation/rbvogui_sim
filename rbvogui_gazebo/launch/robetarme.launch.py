@@ -131,32 +131,6 @@ def generate_launch_description():
             ))
     )
 
-    map_server_launch = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(nav_launch_dir, 'map_server.launch.py')
-        ),
-        launch_arguments={
-            'map_name': params['world_name'],
-            'namespace': ''
-        }.items(),
-    )
-
-    navigation_launch = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(nav_launch_dir, 'navigation.launch.py')
-        ),
-        launch_arguments={
-        }.items(),
-    )
-
-    docking_launch = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(docking_launch_dir, 'rbvogui_docking.launch.py')
-        ),
-        launch_arguments={
-        }.items(),
-    )
-
     rviz = launch_ros.actions.Node(
         package='rviz2',
         executable='rviz2',
@@ -167,8 +141,5 @@ def generate_launch_description():
     ld.add_action(default_launch)
     ld.add_action(trailer_launch)
     ld.add_action(rviz)
-    # ld.add_action(map_server_launch)
-    # ld.add_action(navigation_launch)
-    # ld.add_action(docking_launch)
 
     return ld
