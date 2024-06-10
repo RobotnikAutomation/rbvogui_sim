@@ -164,7 +164,6 @@ def generate_launch_description():
         arguments=["--ros-args", "--log-level", "FATAL"],
         )
 
-    ld.add_action(launch_ros.actions.PushRosNamespace(namespace=params['namespace']))
     ld.add_action(default_launch)
     ld.add_action(trailer_launch)
     ld.add_action(rviz)

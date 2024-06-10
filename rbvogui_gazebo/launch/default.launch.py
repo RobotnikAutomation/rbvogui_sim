@@ -76,7 +76,7 @@ def read_params(ld : launch.LaunchDescription):
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='',
+        name='world_name',
         description='Name of the world to load.',
         default_value='demo')
     )
@@ -86,6 +86,7 @@ def read_params(ld : launch.LaunchDescription):
         description='World to load path.',
         default_value=[get_package_share_directory('rbvogui_gazebo'), '/worlds/', world_name, '.world'])
     )
+
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='cart',
         description='bool rbvogui with cart',
@@ -213,6 +214,7 @@ def generate_launch_description():
         arguments=["robotnik_base_controller", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
     )
 
+    ld.add_action(launch_ros.actions.PushRosNamespace(namespace=params['namespace']))
     ld.add_action(gzserver_cmd)
     ld.add_action(gzclient_cmd)
     ld.add_action(robot_state_publisher_cmd)
