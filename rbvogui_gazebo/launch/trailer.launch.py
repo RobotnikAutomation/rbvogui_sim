@@ -27,8 +27,6 @@ import launch_ros
 import os
 
 from ament_index_python.packages import get_package_share_directory
-from launch.actions import LogInfo, RegisterEventHandler
-from launch.event_handlers import OnProcessStart
 
 #from robotnik_common.launch import RewrittenYaml
 
@@ -47,6 +45,9 @@ def read_params(ld : launch.LaunchDescription):
     world = launch.substitutions.LaunchConfiguration('world')
     cart = launch.substitutions.LaunchConfiguration('cart')
     connected = launch.substitutions.LaunchConfiguration('connected')
+    x_pose = launch.substitutions.LaunchConfiguration('x_pose')
+    y_pose = launch.substitutions.LaunchConfiguration('y_pose')
+    z_pose = launch.substitutions.LaunchConfiguration('z_pose')
 
     # Declare the launch options
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -60,13 +61,13 @@ def read_params(ld : launch.LaunchDescription):
         name='environment',
         description='Read params from environment variables.',
         choices=['true', 'false'],
-        default_value='true')
+        default_value='false')
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='namespace',
         description='Namespace of the node.',
-        default_value='robot')
+        default_value='cart')
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -76,7 +77,7 @@ def read_params(ld : launch.LaunchDescription):
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='',
+        name='world_name',
         description='Name of the world to load.',
         default_value='demo')
     )
@@ -91,12 +92,30 @@ def read_params(ld : launch.LaunchDescription):
         description='bool rbvogui with cart',
         default_value='false')
     )
+
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='x_pose',
+        description='X position of the robot.',
+        default_value='-5')
+    )
+
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='y_pose',
+        description='Y position of the robot.',
+        default_value='0.5')
+    )
+
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='z_pose',
+        description='Z position of the robot.',
+        default_value='0.5')
+    )
+
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='connected',
         description='bool if cart is connected',
-        default_value='true')
+        default_value='false')
     )
-    
     # Parse the launch options
     ret = {}
 
@@ -106,11 +125,13 @@ def read_params(ld : launch.LaunchDescription):
         'namespace': namespace,
         'robot_id': robot_id,
         'world': world,
-        'world_name': world_name,
         'cart': cart,
-        'connected': connected
+        'connected': connected,
+        'x_pose': x_pose,
+        'y_pose': y_pose,
+        'z_pose': z_pose,
         }
-    
+
     else:
         if 'USE_SIM_TIME' in os.environ:
             ret['use_sim_time'] = os.environ['USE_SIM_TIME']
@@ -138,7 +159,9 @@ def read_params(ld : launch.LaunchDescription):
             ret['connected'] = os.environ['CONNECTED']
         else:  ret['connected'] = connected
 
-        ret['world_name']=world_name
+        ret['x_pose'] = x_pose
+        ret['y_pose'] = y_pose
+        ret['z_pose'] = z_pose
 
     return ret
 
@@ -152,72 +175,31 @@ def generate_launch_description():
 
     params = read_params(ld)
 
-    gzserver_cmd = launch.actions.IncludeLaunchDescription(
+    cart_state_publisher_cmd = launch.actions.IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(gazebo_dir, 'gzserver.launch.py')
+            os.path.join(get_package_share_directory('rbvogui_description'), 'launch/cart_state_publisher.launch.py')
         ),
         launch_arguments={
-            'verbose': 'false',
-            'world': params['world'],
-            'paused': 'false',
-            'physics': 'ode',
-            'init': 'true',
-            'factory': 'true',
-            'force_system': 'true',
-            'params_file': [get_package_share_directory('rbvogui_gazebo'), '/config/gazebo.yaml'],
-        }.items(),
-    )
-
-    gzclient_cmd = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(gazebo_dir, 'gzclient.launch.py')
-        ),
-        launch_arguments={
-            'verbose': 'false',
-        }.items(),
-    )
-
-    robot_state_publisher_cmd = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(launch_dir, 'description.launch.py')
-        ),
-        launch_arguments={
-            'use_sim_time': params['use_sim_time'],
-            'robot_id': params['robot_id'],
-            'cart': params['cart'],
-            'connected': params['connected'],
-        }.items(),
-    )
-
-    spawn_cmd = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(launch_dir, 'spawn.launch.py')
-        ),
-        launch_arguments={
-            'use_sim_time': params['use_sim_time'],
-            'x_pose': '0.5',
-            'y_pose': '0.5',
-            'z_pose': '0.5',
+            'launch_joint': 'false',
+            'connected': params['connected']
         }.items()
     )
 
-    joint_state_broadcaster_spawner = launch_ros.actions.Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
+    start_gazebo_ros_spawner_cmd = launch_ros.actions.Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-entity', "cart",
+            '-topic', "robot_description",
+            '-x', '-2',
+            '-y', params['y_pose'],
+            '-z', params['z_pose'],
+        ],
+        output='screen',
     )
 
-    base_controller_spawner = launch_ros.actions.Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["robotnik_base_controller", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
-    )
-
-    ld.add_action(gzserver_cmd)
-    ld.add_action(gzclient_cmd)
-    ld.add_action(robot_state_publisher_cmd)
-    ld.add_action(spawn_cmd)
-    ld.add_action(joint_state_broadcaster_spawner)
-    ld.add_action(base_controller_spawner)
+    ld.add_action(launch_ros.actions.PushRosNamespace(namespace='cart'))
+    ld.add_action(cart_state_publisher_cmd)
+    ld.add_action(start_gazebo_ros_spawner_cmd)
 
     return ld

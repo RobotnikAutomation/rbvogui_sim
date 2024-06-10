@@ -35,6 +35,8 @@ def read_params(ld : launch.LaunchDescription):
     controllers_file = launch.substitutions.LaunchConfiguration('controllers_file')
     robot_id = launch.substitutions.LaunchConfiguration('robot_id')
     cart = launch.substitutions.LaunchConfiguration('cart')
+    connected = launch.substitutions.LaunchConfiguration('connected')
+    namespace = launch.substitutions.LaunchConfiguration('namespace')
 
     # Declare the launch options
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -42,6 +44,12 @@ def read_params(ld : launch.LaunchDescription):
         description='Use simulation (Gazebo) clock if true',
         choices=['true', 'false'],
         default_value='true')
+    )
+
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='namespace',
+        description='Namespace of the node.',
+        default_value='robot')
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -59,7 +67,12 @@ def read_params(ld : launch.LaunchDescription):
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='cart',
         description='bool rbvogui with cart',
-        default_value='true')
+        default_value='false')
+    )
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='connected',
+        description='bool if cart is connected',
+        default_value='false')
     )
     # Parse the launch options
     return {
@@ -67,7 +80,9 @@ def read_params(ld : launch.LaunchDescription):
         'robot_description_path': os.path.join(get_package_share_directory('rbvogui_description'), 'robots', 'rbvogui_std.urdf.xacro'),
         'robot_id': robot_id,
         'controllers_file': controllers_file,
-        'cart': cart
+        'cart': cart,
+        'connected': connected,
+        'namespace': namespace,
     }
 
 def generate_launch_description():
@@ -106,7 +121,8 @@ def generate_launch_description():
             " lift_manufacturer:=false",
             " lift_model:=false",
             " config_controllers:=", config_file_rewritten,
-            " cart:=", params['cart']
+            " cart:=", params['cart'],
+            " connected:=", params['connected']
         ]
     )
 
@@ -122,7 +138,8 @@ def generate_launch_description():
             'use_sim_time': params['use_sim_time'],
             'robot_description': robot_description_param,
             'publish_frequency': 100.0,
-            'frame_prefix': ''
+            'frame_prefix': '',
+            'namespace': params['namespace']
         }],
     )
 
