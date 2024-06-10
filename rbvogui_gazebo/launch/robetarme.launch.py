@@ -99,8 +99,6 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 def generate_launch_description():
     ld = launch.LaunchDescription()
     default_launch_dir = os.path.join(get_package_share_directory('rbvogui_gazebo'), 'launch')
-    nav_launch_dir = os.path.join(get_package_share_directory('rbvogui_navigation'), 'launch')
-    docking_launch_dir = os.path.join(get_package_share_directory('rbvogui_docking'), 'launch')
 
     params = read_params(ld)
 

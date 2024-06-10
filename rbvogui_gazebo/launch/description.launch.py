@@ -126,7 +126,7 @@ def generate_launch_description():
         ]
     )
 
-    # Create parameter 
+    # Create parameter
     robot_description_param = launch_ros.descriptions.ParameterValue(robot_description_content, value_type=None)
 
     robot_state_publisher = launch_ros.actions.Node(
