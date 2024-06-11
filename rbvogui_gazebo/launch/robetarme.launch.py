@@ -28,14 +28,6 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 
-#from robotnik_common.launch import RewrittenYaml
-
-# Environment variables
-#  USE_SIM_TIME: Use simulation (Gazebo) clock if true
-#  NAMESPACE: Namespace of the node stack.
-#  ROBOT_ID: Frame id of the robot. (e.g. vectornav_link).
-#  WORLD: World to load.
-
 def read_params(ld : launch.LaunchDescription):
     use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
     world_name = launch.substitutions.LaunchConfiguration('world_name')
@@ -111,6 +103,7 @@ def generate_launch_description():
             'connected': params['connected'],
             'world': params['world'],
             'use_sim_time': params['use_sim_time'],
+            'namespace': params['namespace']
         }.items(),
     )
 

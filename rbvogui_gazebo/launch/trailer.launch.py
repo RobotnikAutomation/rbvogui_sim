@@ -28,21 +28,10 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 
-#from robotnik_common.launch import RewrittenYaml
-
-# Environment variables
-#  USE_SIM_TIME: Use simulation (Gazebo) clock if true
-#  NAMESPACE: Namespace of the node stack.
-#  ROBOT_ID: Frame id of the robot. (e.g. vectornav_link).
-#  WORLD: World to load.
-
 def read_params(ld : launch.LaunchDescription):
-    environment = launch.substitutions.LaunchConfiguration('environment')
     use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
     namespace = launch.substitutions.LaunchConfiguration('namespace')
     robot_id = launch.substitutions.LaunchConfiguration('robot_id')
-    world_name = launch.substitutions.LaunchConfiguration('world_name')
-    world = launch.substitutions.LaunchConfiguration('world')
     cart = launch.substitutions.LaunchConfiguration('cart')
     connected = launch.substitutions.LaunchConfiguration('connected')
     x_pose = launch.substitutions.LaunchConfiguration('x_pose')
@@ -77,17 +66,6 @@ def read_params(ld : launch.LaunchDescription):
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='world_name',
-        description='Name of the world to load.',
-        default_value='demo')
-    )
-
-    ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='world',
-        description='World to load path.',
-        default_value=[get_package_share_directory('rbvogui_gazebo'), '/worlds/', world_name, '.world'])
-    )
-    ld.add_action(launch.actions.DeclareLaunchArgument(
         name='cart',
         description='bool rbvogui with cart',
         default_value='false')
@@ -119,49 +97,16 @@ def read_params(ld : launch.LaunchDescription):
     # Parse the launch options
     ret = {}
 
-    if environment == 'false':
-        ret = {
-        'use_sim_time': use_sim_time,
-        'namespace': namespace,
-        'robot_id': robot_id,
-        'world': world,
-        'cart': cart,
-        'connected': connected,
-        'x_pose': x_pose,
-        'y_pose': y_pose,
-        'z_pose': z_pose,
-        }
-
-    else:
-        if 'USE_SIM_TIME' in os.environ:
-            ret['use_sim_time'] = os.environ['USE_SIM_TIME']
-        else: ret['use_sim_time'] = use_sim_time
-
-        if 'NAMESPACE' in os.environ:
-            ret['namespace'] = os.environ['NAMESPACE']
-        else:  ret['namespace'] = namespace
-
-        if 'ROBOT_ID' in os.environ:
-            ret['robot_id'] = os.environ['ROBOT_ID']
-        else: ret['robot_id'] = robot_id
-
-        if 'WORLD' in os.environ:
-            ret['world'] = os.environ['WORLD']
-        elif 'WORLD_NAME' in os.environ:
-            ret['world'] = [get_package_share_directory('rbvogui_gazebo'), '/worlds/', os.environ['WORLD_NAME'], '.world']
-        else: ret['world'] = world
-
-        if 'CART' in os.environ:
-            ret['cart'] = os.environ['CART']
-        else:  ret['cart'] = cart
-
-        if 'CONNECTED' in os.environ:
-            ret['connected'] = os.environ['CONNECTED']
-        else:  ret['connected'] = connected
-
-        ret['x_pose'] = x_pose
-        ret['y_pose'] = y_pose
-        ret['z_pose'] = z_pose
+    ret = {
+    'use_sim_time': use_sim_time,
+    'namespace': namespace,
+    'robot_id': robot_id,
+    'cart': cart,
+    'connected': connected,
+    'x_pose': x_pose,
+    'y_pose': y_pose,
+    'z_pose': z_pose,
+    }
 
     return ret
 
@@ -170,8 +115,6 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
     ld = launch.LaunchDescription()
-    launch_dir = os.path.join(get_package_share_directory('rbvogui_gazebo'), 'launch')
-    gazebo_dir = os.path.join(get_package_share_directory('gazebo_ros'), 'launch')
 
     params = read_params(ld)
 

@@ -30,14 +30,6 @@ from ament_index_python.packages import get_package_share_directory
 from launch.actions import LogInfo, RegisterEventHandler
 from launch.event_handlers import OnProcessStart
 
-#from robotnik_common.launch import RewrittenYaml
-
-# Environment variables
-#  USE_SIM_TIME: Use simulation (Gazebo) clock if true
-#  NAMESPACE: Namespace of the node stack.
-#  ROBOT_ID: Frame id of the robot. (e.g. vectornav_link).
-#  WORLD: World to load.
-
 def read_params(ld : launch.LaunchDescription):
     environment = launch.substitutions.LaunchConfiguration('environment')
     use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
