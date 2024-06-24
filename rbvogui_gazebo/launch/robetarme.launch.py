@@ -107,19 +107,29 @@ def generate_launch_description():
         }.items(),
     )
 
-    trailer_launch = launch.actions.IncludeLaunchDescription(
+    cart_state_publisher_cmd = launch.actions.IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(default_launch_dir, 'trailer.launch.py')
+            os.path.join(get_package_share_directory('rbvogui_description'), 'launch/cart_state_publisher.launch.py')
         ),
         launch_arguments={
-            'cart': params['cart'],
-            'connected': params['connected']
-        }.items(),
-        condition = launch.conditions.IfCondition(
-            launch.substitutions.AndSubstitution(
-                launch.substitutions.NotSubstitution(params['connected']),
-                params['cart']
-            ))
+            'launch_joint': 'false',
+            'connected': params['connected'],
+            'namespace': 'robot/cart'
+        }.items()
+    )
+
+    start_gazebo_ros_spawner_cmd = launch_ros.actions.Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-entity', "cart",
+            '-topic', "robot_description",
+            '-x', '-2',
+            '-y', '0.5',
+            '-z', '0.5',
+        ],
+        output='screen',
+        namespace='robot/cart'
     )
 
     rviz = launch_ros.actions.Node(
@@ -130,7 +140,8 @@ def generate_launch_description():
         )
 
     ld.add_action(default_launch)
-    ld.add_action(trailer_launch)
-    ld.add_action(rviz)
+    ld.add_action(cart_state_publisher_cmd)
+    ld.add_action(start_gazebo_ros_spawner_cmd)
+    # ld.add_action(rviz)
 
     return ld
