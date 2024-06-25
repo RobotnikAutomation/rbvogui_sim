@@ -35,6 +35,7 @@ def read_params(ld : launch.LaunchDescription):
     cart = launch.substitutions.LaunchConfiguration('cart')
     connected = launch.substitutions.LaunchConfiguration('connected')
     namespace = launch.substitutions.LaunchConfiguration('namespace')
+    kinematics = launch.substitutions.LaunchConfiguration('kinematics')
 
     # Declare the launch options
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -69,8 +70,15 @@ def read_params(ld : launch.LaunchDescription):
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='connected',
         description='bool if cart is connected',
-        default_value='false')
+        default_value='true')
     )
+
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='kinematics',
+        description='kinematics of the robot (omni or ackermann)',
+        default_value='ackermann')
+    )
+
     # Parse the launch options
     ret = {}
 
@@ -81,6 +89,7 @@ def read_params(ld : launch.LaunchDescription):
     'connected': connected,
     'world_name': world_name,
     'namespace': namespace,
+    'kinematics': kinematics,
     }
 
     return ret
@@ -103,7 +112,8 @@ def generate_launch_description():
             'connected': params['connected'],
             'world': params['world'],
             'use_sim_time': params['use_sim_time'],
-            'namespace': params['namespace']
+            'namespace': params['namespace'],
+            'kinematics': params['kinematics']
         }.items(),
     )
 
@@ -114,7 +124,7 @@ def generate_launch_description():
         launch_arguments={
             'launch_joint': 'false',
             'connected': params['connected'],
-            'namespace': 'robot/cart'
+            'namespace': [params['namespace'],'/cart']
         }.items()
     )
 
@@ -129,7 +139,7 @@ def generate_launch_description():
             '-z', '0.5',
         ],
         output='screen',
-        namespace='robot/cart'
+        namespace=[params['namespace']]
     )
 
     rviz = launch_ros.actions.Node(
@@ -142,6 +152,6 @@ def generate_launch_description():
     ld.add_action(default_launch)
     ld.add_action(cart_state_publisher_cmd)
     ld.add_action(start_gazebo_ros_spawner_cmd)
-    # ld.add_action(rviz)
+    ld.add_action(rviz)
 
     return ld

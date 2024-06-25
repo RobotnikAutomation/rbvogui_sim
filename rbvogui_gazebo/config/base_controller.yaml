@@ -8,7 +8,7 @@ robot:
         type: joint_state_broadcaster/JointStateBroadcaster
 
       robotnik_base_controller:
-        type: ackermann_drive_controller/BaseController
+        type: omni_ackermann_drive_controller/BaseController
 
 
   joint_state_broadcaster:

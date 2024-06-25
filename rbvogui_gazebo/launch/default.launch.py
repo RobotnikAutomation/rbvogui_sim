@@ -42,6 +42,7 @@ def read_params(ld : launch.LaunchDescription):
     x_pose = launch.substitutions.LaunchConfiguration('x_pose')
     y_pose = launch.substitutions.LaunchConfiguration('y_pose')
     z_pose = launch.substitutions.LaunchConfiguration('z_pose')
+    kinematics = launch.substitutions.LaunchConfiguration('kinematics')
 
     # Declare the launch options
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -110,6 +111,12 @@ def read_params(ld : launch.LaunchDescription):
         description='Z position of the robot.',
         default_value='0.5')
     )
+
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='kinematics',
+        description='kinematics of the robot (omni or ackermann)',
+        default_value='ackermann')
+    )
     # Parse the launch options
     ret = {}
 
@@ -125,6 +132,7 @@ def read_params(ld : launch.LaunchDescription):
         'x_pose': x_pose,
         'y_pose': y_pose,
         'z_pose': z_pose,
+        'kinematics': kinematics,
         }
     
     else:
@@ -158,6 +166,7 @@ def read_params(ld : launch.LaunchDescription):
         ret['x_pose']=x_pose
         ret['y_pose']=y_pose
         ret['z_pose']=z_pose
+        ret['kinematics']=kinematics
 
     return ret
 
@@ -206,6 +215,7 @@ def generate_launch_description():
             'cart': params['cart'],
             'connected': params['connected'],
             'namespace': params['namespace'],
+            'kinematics': params['kinematics'],
         }.items(),
     )
 
