@@ -43,6 +43,7 @@ def read_params(ld : launch.LaunchDescription):
     y_pose = launch.substitutions.LaunchConfiguration('y_pose')
     z_pose = launch.substitutions.LaunchConfiguration('z_pose')
     kinematics = launch.substitutions.LaunchConfiguration('kinematics')
+    controllers_file = launch.substitutions.LaunchConfiguration('controllers_file')
 
     # Declare the launch options
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -85,13 +86,14 @@ def read_params(ld : launch.LaunchDescription):
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='cart',
-        description='bool rbvogui with cart',
+        description='Bool to spawn the rbvogui with a cart',
         default_value='false')
     )
+
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='connected',
-        description='bool if cart is connected',
-        default_value='true')
+        description='Bool to connect the cart',
+        default_value='false')
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
@@ -115,8 +117,15 @@ def read_params(ld : launch.LaunchDescription):
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='kinematics',
         description='kinematics of the robot (omni or ackermann)',
-        default_value='ackermann')
+        default_value='omni')
     )
+
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+            name='controllers_file',
+            description='Absolute path to the controllers file.',
+            default_value=[get_package_share_directory('rbvogui_gazebo'), '/config/', kinematics, '_controller.yaml'])
+    )
+
     # Parse the launch options
     ret = {}
 
@@ -133,6 +142,7 @@ def read_params(ld : launch.LaunchDescription):
         'y_pose': y_pose,
         'z_pose': z_pose,
         'kinematics': kinematics,
+        'controllers_file': controllers_file
         }
     
     else:
@@ -167,6 +177,7 @@ def read_params(ld : launch.LaunchDescription):
         ret['y_pose']=y_pose
         ret['z_pose']=z_pose
         ret['kinematics']=kinematics
+        ret['controllers_file']=controllers_file
 
     return ret
 
@@ -180,29 +191,33 @@ def generate_launch_description():
 
     params = read_params(ld)
 
-    gzserver_cmd = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(gazebo_dir, 'gzserver.launch.py')
-        ),
-        launch_arguments={
-            'verbose': 'false',
-            'world': params['world'],
-            'paused': 'false',
-            'physics': 'ode',
-            'init': 'true',
-            'factory': 'true',
-            'force_system': 'true',
-            'params_file': [get_package_share_directory('rbvogui_gazebo'), '/config/gazebo.yaml'],
-        }.items(),
-    )
-
-    gzclient_cmd = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(gazebo_dir, 'gzclient.launch.py')
-        ),
-        launch_arguments={
-            'verbose': 'false',
-        }.items(),
+    gazebo_launch_group = launch.actions.GroupAction(
+        actions=[
+            launch_ros.actions.PushRosNamespace(namespace=params['namespace']),
+            launch.actions.IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(gazebo_dir, 'gzserver.launch.py')
+                ),
+                launch_arguments={
+                    'verbose': 'false',
+                    'world': params['world'],
+                    'paused': 'false',
+                    'physics': 'ode',
+                    'init': 'true',
+                    'factory': 'true',
+                    'force_system': 'true',
+                    'params_file': [get_package_share_directory('rbvogui_gazebo'), '/config/gazebo.yaml'],
+                }.items(),
+            ),
+            launch.actions.IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(gazebo_dir, 'gzclient.launch.py')
+                ),
+                launch_arguments={
+                    'verbose': 'false',
+                }.items(),
+            )
+        ]
     )
 
     robot_state_publisher_cmd = launch.actions.IncludeLaunchDescription(
@@ -216,6 +231,8 @@ def generate_launch_description():
             'connected': params['connected'],
             'namespace': params['namespace'],
             'kinematics': params['kinematics'],
+            'launch_joint': 'false',
+            'controllers_file': params['controllers_file'],
         }.items(),
     )
 
@@ -247,11 +264,29 @@ def generate_launch_description():
         namespace=params['namespace']
     )
 
-    ld.add_action(gzserver_cmd)
-    ld.add_action(gzclient_cmd)
+    rviz = launch_ros.actions.Node(
+        package='rviz2',
+        namespace='',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d' + os.path.join(get_package_share_directory('rbvogui_gazebo'), 'rviz', 'default.rviz')]
+    )
+
+    ld.add_action(gazebo_launch_group)
     ld.add_action(robot_state_publisher_cmd)
     ld.add_action(rbvogui_gazebo_ros_spawner_cmd)
     ld.add_action(joint_state_broadcaster_spawner)
     ld.add_action(base_controller_spawner)
+    ld.add_action(rviz)
+    ld.add_action(
+        launch.actions.RegisterEventHandler(
+            launch.event_handlers.OnProcessExit(
+                target_action=base_controller_spawner,
+                on_exit=[
+                    launch.actions.LogInfo(msg='Spawn finished'),
+                ]
+            )
+        ),
+    )
 
     return ld

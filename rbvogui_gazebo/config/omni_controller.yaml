@@ -1,4 +1,4 @@
-robot:
+/**:
   controller_manager:
     ros__parameters:
       use_sim_time: true
@@ -79,11 +79,11 @@ robot:
       track: 0.4745
 
       # To avoid move errors
-      center_error: 1.0
+      center_error: 1.0  #1.0
       steering_error: 0.15
 
       # To avoid skidding
-      center_error_skidding: 10.00
+      center_error_skidding: 10.00 #10.0
       steering_error_skidding: 0.75
 
       # Joints:
