@@ -61,7 +61,7 @@ git clone -b foxy-devel https://github.com/pal-robotics/realsense_gazebo_plugin.
 ### 3) Install the controllers, robotnik_msgs and the rest of debs:
 
 ```bash
-sudo dpkg -i ~/ros2_ws/src/rbvogui_common/rbvogui_common/ros-humble-*.deb
+sudo dpkg -i ~/ros2_ws/src/rbvogui_common/rbvogui_common/debs/ros-humble-*.deb
 ```
 
 ### 4) Compile:
