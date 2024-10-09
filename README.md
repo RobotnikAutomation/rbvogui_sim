@@ -43,7 +43,7 @@ sudo apt-get install ros-humble-gazebo-ros2-control
 Create a new workspace
 
 ```bash
-mkdir ros2_ws && mkdir src
+mkdir -p ros2_ws/src
 cd ros2_ws/src
 ```
 
