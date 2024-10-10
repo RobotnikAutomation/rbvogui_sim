@@ -40,6 +40,8 @@ sudo apt-get install ros-humble-velodyne-gazebo-plugins
 sudo apt-get install ros-humble-opennav-docking
 sudo apt-get install ros-humble-slam-toolbox
 sudo apt-get install ros-humble-teleop-twist-keyboard
+sudo apt-get install ros-humble-nav2-dwb-controller
+sudo apt-get install ros-humble-nav2-navfn-planner
 ```
 
 ### 2) Create a workspace and clone the repository:
