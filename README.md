@@ -123,7 +123,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-arg cmd_vel:=/robot/r
 Once you see a good result of the map, save it:
 ```bash
 ros2 service call /robot/slam_toolbox/save_map slam_toolbox/srv/SaveMap "name:
-  data: '~/ros2_ws/src/rbvogui/rbvogui_common/rbvogui_navigation/maps/name'"
+  data: '~/ros2_ws/src/rbvogui_common/rbvogui_navigation/maps/name'"
 ```
 
 
