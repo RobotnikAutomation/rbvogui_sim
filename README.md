@@ -38,6 +38,7 @@ sudo apt-get install ros-humble-ros2-control
 sudo apt-get install ros-humble-gazebo-ros2-control
 sudo apt-get install ros-humble-velodyne-gazebo-plugins
 sudo apt-get install ros-humble-opennav-docking
+sudo apt-get install ros-humble-slam-toolbox
 ```
 
 ### 2) Create a workspace and clone the repository:
