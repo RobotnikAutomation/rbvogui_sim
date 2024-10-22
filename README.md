@@ -36,6 +36,12 @@ sudo apt-get install ros-humble-ros-gz
 sudo apt-get install ros-humble-gazebo-ros-pkgs
 sudo apt-get install ros-humble-ros2-control
 sudo apt-get install ros-humble-gazebo-ros2-control
+sudo apt-get install ros-humble-velodyne-gazebo-plugins
+sudo apt-get install ros-humble-opennav-docking
+sudo apt-get install ros-humble-slam-toolbox
+sudo apt-get install ros-humble-teleop-twist-keyboard
+sudo apt-get install ros-humble-nav2-dwb-controller
+sudo apt-get install ros-humble-nav2-navfn-planner
 ```
 
 ### 2) Create a workspace and clone the repository:
@@ -43,7 +49,7 @@ sudo apt-get install ros-humble-gazebo-ros2-control
 Create a new workspace
 
 ```bash
-mkdir ros2_ws && mkdir src
+mkdir -p ros2_ws/src
 cd ros2_ws/src
 ```
 
@@ -61,7 +67,7 @@ git clone -b foxy-devel https://github.com/pal-robotics/realsense_gazebo_plugin.
 ### 3) Install the controllers, robotnik_msgs and the rest of debs:
 
 ```bash
-sudo dpkg -i ~/ros2_ws/src/rbvogui_common/rbvogui_common/ros-humble-*.deb
+sudo dpkg -i ~/ros2_ws/src/rbvogui_common/rbvogui_common/debs/ros-humble-*.deb
 ```
 
 ### 4) Compile:
@@ -119,7 +125,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-arg cmd_vel:=/robot/r
 Once you see a good result of the map, save it:
 ```bash
 ros2 service call /robot/slam_toolbox/save_map slam_toolbox/srv/SaveMap "name:
-  data: '~/ros2_ws/src/rbvogui/rbvogui_common/rbvogui_navigation/maps/name'"
+  data: '~/ros2_ws/src/rbvogui_common/rbvogui_navigation/maps/name'"
 ```
 
 
