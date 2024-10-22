@@ -250,6 +250,40 @@ def generate_launch_description():
         namespace=params['namespace']
     )
 
+    cart_group = launch.actions.GroupAction(
+        actions = [
+            launch_ros.actions.Node(
+                package='gazebo_ros',
+                executable='spawn_entity.py',
+                arguments=[
+                    '-entity', "cart",
+                    '-topic', "robot_description",
+                    '-x', '-2',
+                    '-y', '0.5',
+                    '-z', '0.5',
+                ],
+                output='screen',
+                namespace=[params['namespace'], '/cart'],
+            ),
+            launch.actions.IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(get_package_share_directory('rbvogui_description'), 'launch/cart_state_publisher.launch.py')
+                ),
+                launch_arguments={
+                    'use_sim_time': params['use_sim_time'],
+                    'launch_joint': 'false',
+                    'connected': params['connected'],
+                    'namespace': [params['namespace'],'/cart'],
+                    'robot_id': [params['robot_id'],'_cart'],
+                }.items(),
+            )
+        ],
+        condition = launch.conditions.IfCondition(
+                    launch.substitutions.AndSubstitution(launch.substitutions.NotSubstitution(
+                        params['connected']),params['cart'])
+                )
+    )
+
     joint_state_broadcaster_spawner = launch_ros.actions.Node(
         package="controller_manager",
         executable="spawner",
@@ -275,6 +309,7 @@ def generate_launch_description():
     ld.add_action(gazebo_launch_group)
     ld.add_action(robot_state_publisher_cmd)
     ld.add_action(rbvogui_gazebo_ros_spawner_cmd)
+    ld.add_action(cart_group)
     ld.add_action(joint_state_broadcaster_spawner)
     ld.add_action(base_controller_spawner)
     ld.add_action(rviz)
