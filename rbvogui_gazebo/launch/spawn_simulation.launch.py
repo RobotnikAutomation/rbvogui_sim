@@ -28,9 +28,13 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 from launch.actions import LogInfo, RegisterEventHandler
+from launch.conditions import IfCondition
 from launch.event_handlers import OnProcessStart
 
 def read_params(ld : launch.LaunchDescription):
+    gui = launch.substitutions.LaunchConfiguration('gui')
+    server = launch.substitutions.LaunchConfiguration('server')
+    rviz = launch.substitutions.LaunchConfiguration('rviz')
     environment = launch.substitutions.LaunchConfiguration('environment')
     use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
     namespace = launch.substitutions.LaunchConfiguration('namespace')
@@ -47,15 +51,36 @@ def read_params(ld : launch.LaunchDescription):
 
     # Declare the launch options
     ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='use_sim_time',
-        description='Use simulation (Gazebo) clock if true',
+        name='gui',
+        description='Launch Gazebo client (gui) if true',
+        choices=['true', 'false'],
+        default_value='true')
+    )   
+    
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='server',
+        description='Launch Gazebo server if true',
+        choices=['true', 'false'],
+        default_value='true')
+    )   
+    
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='rviz',
+        description='Launch Rviz if true',
+        choices=['true', 'false'],
+        default_value='true')
+    )    
+
+    ld.add_action(launch.actions.DeclareLaunchArgument(
+        name='environment',
+        description='Read params from environment variables.',
         choices=['true', 'false'],
         default_value='true')
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='environment',
-        description='Read params from environment variables.',
+        name='use_sim_time',
+        description='Use simulation (Gazebo) clock if true',
         choices=['true', 'false'],
         default_value='true')
     )
@@ -131,6 +156,9 @@ def read_params(ld : launch.LaunchDescription):
 
     if environment == 'false':
         ret = {
+        'gui' : gui,
+        'server' : server,
+        'rviz' : rviz,
         'use_sim_time': use_sim_time,
         'namespace': namespace,
         'robot_id': robot_id,
@@ -146,6 +174,11 @@ def read_params(ld : launch.LaunchDescription):
         }
     
     else:
+
+        ret['gui'] = gui
+        ret['server'] = server
+        ret['rviz'] = rviz
+
         if 'USE_SIM_TIME' in os.environ:
             ret['use_sim_time'] = os.environ['USE_SIM_TIME']
         else: ret['use_sim_time'] = use_sim_time
@@ -208,6 +241,7 @@ def generate_launch_description():
                     'force_system': 'true',
                     'params_file': [get_package_share_directory('rbvogui_gazebo'), '/config/gazebo.yaml'],
                 }.items(),
+                condition = IfCondition(launch.substitutions.LaunchConfiguration('server'))
             ),
             launch.actions.IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
@@ -216,6 +250,7 @@ def generate_launch_description():
                 launch_arguments={
                     'verbose': 'false',
                 }.items(),
+                condition = IfCondition(launch.substitutions.LaunchConfiguration('gui'))
             )
         ]
     )
@@ -297,14 +332,27 @@ def generate_launch_description():
         arguments=["robotnik_base_controller", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
         namespace=params['namespace']
     )
-
-    rviz = launch_ros.actions.Node(
-        package='rviz2',
-        namespace='',
-        executable='rviz2',
-        name='rviz2',
-        arguments=['-d' + os.path.join(get_package_share_directory('rbvogui_gazebo'), 'rviz', 'default.rviz')]
-    )
+    
+    #rviz = launch_ros.actions.Node(
+    #    package='rviz2',
+    #    namespace='',
+    #    executable='rviz2',
+    #    name='rviz2',
+    #    arguments=['-d' + os.path.join(get_package_share_directory('rbvogui_gazebo'), 'rviz', 'default.rviz')]
+    #)
+    rviz_group = launch.actions.GroupAction(
+        actions = [
+            launch_ros.actions.Node(
+                package='rviz2',
+                namespace='',
+                executable='rviz2',
+                name='rviz2',
+                arguments=['-d' + os.path.join(get_package_share_directory('rbvogui_gazebo'), 'rviz', 'default.rviz')]
+            )
+        ],
+        condition = IfCondition(launch.substitutions.LaunchConfiguration('rviz'))
+    )    
+    
 
     ld.add_action(gazebo_launch_group)
     ld.add_action(robot_state_publisher_cmd)
@@ -312,7 +360,7 @@ def generate_launch_description():
     ld.add_action(cart_group)
     ld.add_action(joint_state_broadcaster_spawner)
     ld.add_action(base_controller_spawner)
-    ld.add_action(rviz)
+    ld.add_action(rviz_group)
     ld.add_action(
         launch.actions.RegisterEventHandler(
             launch.event_handlers.OnProcessExit(
