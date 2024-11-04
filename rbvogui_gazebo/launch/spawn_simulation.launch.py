@@ -333,13 +333,6 @@ def generate_launch_description():
         namespace=params['namespace']
     )
     
-    #rviz = launch_ros.actions.Node(
-    #    package='rviz2',
-    #    namespace='',
-    #    executable='rviz2',
-    #    name='rviz2',
-    #    arguments=['-d' + os.path.join(get_package_share_directory('rbvogui_gazebo'), 'rviz', 'default.rviz')]
-    #)
     rviz_group = launch.actions.GroupAction(
         actions = [
             launch_ros.actions.Node(
