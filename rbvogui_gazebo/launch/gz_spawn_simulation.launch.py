@@ -22,14 +22,17 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 import launch
 import launch_ros
 import os
 
 from ament_index_python.packages import get_package_share_directory
-from launch.actions import LogInfo, RegisterEventHandler
+from launch.actions import LogInfo, RegisterEventHandler, DeclareLaunchArgument, IncludeLaunchDescription
 from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch.event_handlers import OnProcessStart
+from launch_ros.actions import Node
 
 def read_params(ld : launch.LaunchDescription):
     gui = launch.substitutions.LaunchConfiguration('gui')
@@ -37,10 +40,11 @@ def read_params(ld : launch.LaunchDescription):
     rviz = launch.substitutions.LaunchConfiguration('rviz')
     environment = launch.substitutions.LaunchConfiguration('environment')
     use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
+    simulator = launch.substitutions.LaunchConfiguration('simulator')
     namespace = launch.substitutions.LaunchConfiguration('namespace')
     robot_id = launch.substitutions.LaunchConfiguration('robot_id')
     world_name = launch.substitutions.LaunchConfiguration('world_name')
-    world = launch.substitutions.LaunchConfiguration('world')
+    world_path = launch.substitutions.LaunchConfiguration('world_path')
     cart = launch.substitutions.LaunchConfiguration('cart')
     connected = launch.substitutions.LaunchConfiguration('connected')
     x_pose = launch.substitutions.LaunchConfiguration('x_pose')
@@ -50,102 +54,109 @@ def read_params(ld : launch.LaunchDescription):
     controllers_file = launch.substitutions.LaunchConfiguration('controllers_file')
 
     # Declare the launch options
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='gui',
         description='Launch Gazebo client (gui) if true',
         choices=['true', 'false'],
         default_value='true')
     )   
     
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='server',
         description='Launch Gazebo server if true',
         choices=['true', 'false'],
         default_value='true')
     )   
     
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='rviz',
         description='Launch Rviz if true',
         choices=['true', 'false'],
-        default_value='true')
+        default_value='false')
     )    
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='environment',
         description='Read params from environment variables.',
         choices=['true', 'false'],
         default_value='true')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
+        name='simulator',
+        description='Gazebo classic or ignition',
+        choices=['classic', 'ignition'],
+        default_value='ignition')
+    )
+
+    ld.add_action(DeclareLaunchArgument(
         name='use_sim_time',
         description='Use simulation (Gazebo) clock if true',
         choices=['true', 'false'],
         default_value='true')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='namespace',
         description='Namespace of the node.',
         default_value='robot')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='robot_id',
         description='Frame id of the sensor. (e.g. robot).',
         default_value='robot')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='world_name',
         description='Name of the world to load.',
-        default_value='demo')
+        default_value='demo2.sdf.world')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
-        name='world',
+    ld.add_action(DeclareLaunchArgument(
+        name='world_path',
         description='World to load path.',
-        default_value=[get_package_share_directory('rbvogui_gazebo'), '/worlds/', world_name, '.world'])
+        default_value=[get_package_share_directory('rbvogui_gazebo'), '/worlds/', world_name])
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='cart',
         description='Bool to spawn the rbvogui with a cart',
         default_value='false')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='connected',
         description='Bool to connect the cart',
         default_value='false')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='x_pose',
         description='X position of the robot.',
         default_value='0.5')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='y_pose',
         description='Y position of the robot.',
         default_value='0.5')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='z_pose',
         description='Z position of the robot.',
         default_value='0.5')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
         name='kinematics',
         description='kinematics of the robot (omni or ackermann)',
         default_value='omni')
     )
 
-    ld.add_action(launch.actions.DeclareLaunchArgument(
+    ld.add_action(DeclareLaunchArgument(
             name='controllers_file',
             description='Absolute path to the controllers file.',
             default_value=[get_package_share_directory('rbvogui_gazebo'), '/config/', kinematics, '_controller.yaml'])
@@ -159,10 +170,11 @@ def read_params(ld : launch.LaunchDescription):
         'gui' : gui,
         'server' : server,
         'rviz' : rviz,
+        'simulator' : simulator,
         'use_sim_time': use_sim_time,
         'namespace': namespace,
         'robot_id': robot_id,
-        'world': world,
+        'world_path': world_path,
         'world_name': world_name,
         'cart': cart,
         'connected': connected,
@@ -179,6 +191,10 @@ def read_params(ld : launch.LaunchDescription):
         ret['server'] = server
         ret['rviz'] = rviz
 
+        if 'SIMULATOR' in os.environ:
+            ret['simulator'] = os.environ['SIMULATOR']
+        else: ret['simulator'] = simulator
+
         if 'USE_SIM_TIME' in os.environ:
             ret['use_sim_time'] = os.environ['USE_SIM_TIME']
         else: ret['use_sim_time'] = use_sim_time
@@ -191,11 +207,11 @@ def read_params(ld : launch.LaunchDescription):
             ret['robot_id'] = os.environ['ROBOT_ID']
         else: ret['robot_id'] = robot_id
 
-        if 'WORLD' in os.environ:
-            ret['world'] = os.environ['WORLD']
+        if 'WORLD_PATH' in os.environ:
+            ret['world_path'] = os.environ['WORLD']
         elif 'WORLD_NAME' in os.environ:
-            ret['world'] = [get_package_share_directory('rbvogui_gazebo'), '/worlds/', os.environ['WORLD_NAME'], '.world']
-        else: ret['world'] = world
+            ret['world_path'] = [get_package_share_directory('rbvogui_gazebo'), '/worlds/', os.environ['WORLD_NAME'], '.world']
+        else: ret['world_path'] = world_path
 
         if 'CART' in os.environ:
             ret['cart'] = os.environ['CART']
@@ -219,47 +235,51 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
     ld = launch.LaunchDescription()
-    gazebo_dir = os.path.join(get_package_share_directory('gazebo_ros'), 'launch')
+
     description_dir = os.path.join(get_package_share_directory('rbvogui_description'), 'launch')
 
     params = read_params(ld)
 
-    gazebo_launch_group = launch.actions.GroupAction(
-        actions=[
-            launch_ros.actions.PushRosNamespace(namespace=params['namespace']),
-            launch.actions.IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(
-                    os.path.join(gazebo_dir, 'gzserver.launch.py')
-                ),
-                launch_arguments={
-                    'verbose': 'false',
-                    'world': params['world'],
-                    'paused': 'false',
-                    'physics': 'ode',
-                    'init': 'true',
-                    'factory': 'true',
-                    'force_system': 'true',
-                    'params_file': [get_package_share_directory('rbvogui_gazebo'), '/config/gazebo.yaml'],
-                }.items(),
-                condition = IfCondition(launch.substitutions.LaunchConfiguration('server'))
-            ),
-            launch.actions.IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(
-                    os.path.join(gazebo_dir, 'gzclient.launch.py')
-                ),
-                launch_arguments={
-                    'verbose': 'false',
-                }.items(),
-                condition = IfCondition(launch.substitutions.LaunchConfiguration('gui'))
-            )
-        ]
+    ### Gazebo classic
+
+    gazebo_classic_launch = launch.actions.IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('rbvogui_gazebo'), 'launch', 'gazebo_classic_sim.launch.py')]
+        ),
+        launch_arguments={
+            'gui':params['gui'],
+            'server':params['server'],
+            'world_path': params['world_path'],
+        }.items(),
+        condition=IfCondition(
+        PythonExpression(["'", LaunchConfiguration('simulator'), "' == 'classic'"])
+        )
     )
 
-    robot_state_publisher_cmd = launch.actions.IncludeLaunchDescription(
+    ### Gazebo Ignition
+
+    gazebo_ignition_launch = launch.actions.IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([os.path.join(
+            get_package_share_directory('rbvogui_gazebo'), 'launch', 'gazebo_ign_sim.launch.py')]
+        ),
+        launch_arguments={
+            'gui':params['gui'],
+            'server':params['server'],
+            'world_path': params['world_path'],
+        }.items(),
+        condition=IfCondition(
+        PythonExpression(["'", LaunchConfiguration('simulator'), "' == 'ignition'"])
+        )
+    )
+
+    ### Robot State publisher
+
+    robot_state_publisher_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(description_dir, 'robot_state_publisher.launch.py')
         ),
         launch_arguments={
+            'simulator': params['simulator'],
             'use_sim_time': params['use_sim_time'],
             'robot_id': params['robot_id'],
             'cart': params['cart'],
@@ -271,27 +291,13 @@ def generate_launch_description():
         }.items(),
     )
 
-    rbvogui_gazebo_ros_spawner_cmd = launch_ros.actions.Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=[
-            '-entity', "rbvogui",
-            '-topic', "robot_description",
-            '-x', params['x_pose'],
-            '-y', params['y_pose'],
-            '-z', params['z_pose'],
-        ],
-        output='screen',
-        namespace=params['namespace']
-    )
-
     cart_group = launch.actions.GroupAction(
         actions = [
-            launch_ros.actions.Node(
-                package='gazebo_ros',
-                executable='spawn_entity.py',
+            Node(
+                package='ros_gz_sim',
+                executable='create',
                 arguments=[
-                    '-entity', "cart",
+                    '-name', "cart",
                     '-topic', "robot_description",
                     '-x', '-2',
                     '-y', '0.5',
@@ -300,7 +306,7 @@ def generate_launch_description():
                 output='screen',
                 namespace=[params['namespace'], '/cart'],
             ),
-            launch.actions.IncludeLaunchDescription(
+            IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
                     os.path.join(get_package_share_directory('rbvogui_description'), 'launch/cart_state_publisher.launch.py')
                 ),
@@ -319,23 +325,27 @@ def generate_launch_description():
                 )
     )
 
-    joint_state_broadcaster_spawner = launch_ros.actions.Node(
+    ### Joint state broadcaster
+
+    joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=["joint_state_broadcaster", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
         namespace=params['namespace']
     )
+    
+    ### Robotnik base Controller
 
-    base_controller_spawner = launch_ros.actions.Node(
+    base_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=["robotnik_base_controller", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
         namespace=params['namespace']
     )
     
-    rviz_group = launch.actions.GroupAction(
+    rviz_launch = launch.actions.GroupAction(
         actions = [
-            launch_ros.actions.Node(
+            Node(
                 package='rviz2',
                 namespace='',
                 executable='rviz2',
@@ -345,15 +355,13 @@ def generate_launch_description():
         ],
         condition = IfCondition(launch.substitutions.LaunchConfiguration('rviz'))
     )    
-    
 
-    ld.add_action(gazebo_launch_group)
     ld.add_action(robot_state_publisher_cmd)
-    ld.add_action(rbvogui_gazebo_ros_spawner_cmd)
-    ld.add_action(cart_group)
     ld.add_action(joint_state_broadcaster_spawner)
     ld.add_action(base_controller_spawner)
-    ld.add_action(rviz_group)
+    ld.add_action(rviz_launch)
+    ld.add_action(gazebo_ignition_launch)
+    ld.add_action(gazebo_classic_launch)
     ld.add_action(
         launch.actions.RegisterEventHandler(
             launch.event_handlers.OnProcessExit(
