@@ -86,7 +86,7 @@ def read_params(ld : launch.LaunchDescription):
         name='simulator',
         description='Gazebo classic or ignition',
         choices=['classic', 'ignition'],
-        default_value='ignition')
+        default_value='classic')
     )
 
     ld.add_action(DeclareLaunchArgument(
@@ -111,7 +111,7 @@ def read_params(ld : launch.LaunchDescription):
     ld.add_action(DeclareLaunchArgument(
         name='world_name',
         description='Name of the world to load.',
-        default_value='demo2.sdf.world')
+        default_value='demo.world')
     )
 
     ld.add_action(DeclareLaunchArgument(
