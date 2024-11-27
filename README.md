@@ -9,7 +9,7 @@ Packages for the simulation of the RB-Vogui
 
 ## Packages
 
-This packages contains the simulation of the RB-Vogui in ROS2 Humble, using Gazebo 11 as simulator.
+This packages contains the simulation of the RB-Vogui in ROS2 Humble. It could be used for Gazebo 11 or Gazebo Fortress as simulator.
 
 ### rbvogui_gazebo
 
@@ -17,8 +17,9 @@ Launch files and world files to start the models in gazebo.
 
 ## Requirements
 
-- Ubuntu 22.04
-- ROS Humble
+- [Ubuntu 22.04](https://releases.ubuntu.com/22.04/)
+- [ROS2 Humble](https://docs.ros.org/en/humble/Installation.html)
+- [Gazebo Fortress](https://gazebosim.org/docs/fortress/install_ubuntu)
 
 ## Simulating RB-Vogui
 
@@ -42,6 +43,7 @@ sudo apt-get install ros-humble-slam-toolbox
 sudo apt-get install ros-humble-teleop-twist-keyboard
 sudo apt-get install ros-humble-nav2-dwb-controller
 sudo apt-get install ros-humble-nav2-navfn-planner
+sudo apt-get install ros-humble-joint-state-broadcaster
 ```
 
 ### 2) Create a workspace and clone the repository:
@@ -49,8 +51,8 @@ sudo apt-get install ros-humble-nav2-navfn-planner
 Create a new workspace
 
 ```bash
-mkdir -p ros2_ws/src
-cd ros2_ws/src
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
 ```
 
 Then, install this repository in your workspace:
@@ -59,37 +61,45 @@ git clone -b humble-devel https://github.com/RobotnikAutomation/rbvogui_sim
 git clone -b humble-devel https://github.com/RobotnikAutomation/rbvogui_common
 ```
 
-Also, the repository for the realsense in gazebo:
+Also, the repository for the realsense for Gazebo 11:
 ```bash
 git clone -b foxy-devel https://github.com/pal-robotics/realsense_gazebo_plugin.git
 ```
 
-### 3) Install the controllers, robotnik_msgs and the rest of debs:
+### 3) Install the controllers, robotnik_msgs and the rest of debs and dependences:
 
 ```bash
 sudo dpkg -i ~/ros2_ws/src/rbvogui_common/rbvogui_common/debs/ros-humble-*.deb
+cd ~/ros2_ws
+rosdep install -r --from-paths src -i -y
 ```
 
 ### 4) Compile:
 
 ```bash
-cd ~/ros2_ws
 colcon build --symlink-install
 source install/setup.bash
 ```
 
 ### 5) Run RB-Vogui simulation:
 
-
+# Gazebo Classic
 ```bash
 ros2 launch rbvogui_gazebo spawn_simulation.launch.py
 ```
 
-With this launch, the simulation in gazebo will start. The arguments of the launch are:
+# Gazebo Ignition (Fortress)
+```bash
+ros2 launch rbvogui_gazebo spawn_simulation.launch.py simulator:=ignition world_name:=demo.sdf.world
+```
+
+The arguments of the launch are:
 
   1. namespace: Namespace of the node. default: robot
   2. robot_id: Name of the robot. default: robot
   3. kinematics: Kinematics of the robot (omni or ackermann). default: omni
+  4. world_name: World name file to load in the simulator. default: demo.world
+  5. simulator: To choose between Gazebo classic or Ignition. default: classic
 
 Examples:
 ```bash
@@ -110,7 +120,7 @@ The package rbvogui_common has all the packages of the RB-Vogui robot:
 - navigation
 - docking
 
-### 5.2 Mapping
+### 5.1 Mapping
 
 To launch the mapping use the following command:
 ```bash
