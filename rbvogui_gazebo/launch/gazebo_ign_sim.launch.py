@@ -229,7 +229,7 @@ def generate_launch_description():
                     'gz_args':[
                         '-r ',
                         '-s ',
-                        '-v4 ',
+                        #'-v4 ', #verbose level
                         params['world_path']
                     ], 
                     'on_exit_shutdown':'true'
