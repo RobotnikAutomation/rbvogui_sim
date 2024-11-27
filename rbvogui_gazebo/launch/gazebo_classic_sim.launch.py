@@ -225,7 +225,7 @@ def generate_launch_description():
                         'gzserver.launch.py')
                 ),
                 launch_arguments={
-                    'verbose': 'true',
+                    'verbose': 'false',
                     'world': params['world_path'],
                     'paused': 'false',
                     'physics': 'ode',
