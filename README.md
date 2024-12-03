@@ -53,12 +53,20 @@ Create a new workspace
 ```bash
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/src
+
+```
+#### Repo Developers:
+```bash
+sudo apt-get install python3-vcstool
+curl -# -o rbvogui_sim.repos https://raw.githubusercontent.com/RobotnikAutomation/rbvogui_sim/refs/heads/feat/gazebo_ignition/rbvogui_sim.repos
+vcs import < rbvogui_sim.repos
 ```
 
+#### Users:
 Then, install this repository in your workspace:
 ```bash
-git clone -b humble-devel https://github.com/RobotnikAutomation/rbvogui_sim
-git clone -b humble-devel https://github.com/RobotnikAutomation/rbvogui_common
+git clone -b feat/gazebo_ignition https://github.com/RobotnikAutomation/rbvogui_sim
+git clone -b feat/gazebo_ignition https://github.com/RobotnikAutomation/rbvogui_common
 ```
 
 Also, the repository for the realsense for Gazebo 11:
@@ -83,12 +91,12 @@ source install/setup.bash
 
 ### 5) Run RB-Vogui simulation:
 
-# Gazebo Classic
+#### Gazebo Classic
 ```bash
 ros2 launch rbvogui_gazebo spawn_simulation.launch.py
 ```
 
-# Gazebo Ignition (Fortress)
+#### Gazebo Ignition (Fortress)
 ```bash
 ros2 launch rbvogui_gazebo spawn_simulation.launch.py simulator:=ignition world_name:=demo.sdf.world
 ```
