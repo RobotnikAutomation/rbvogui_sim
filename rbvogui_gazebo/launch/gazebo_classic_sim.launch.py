@@ -26,18 +26,18 @@
 import launch
 import launch_ros
 import os
-
-from ament_index_python.packages import get_package_share_directory
-from launch.actions import LogInfo, RegisterEventHandler, DeclareLaunchArgument, IncludeLaunchDescription
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, GroupAction, IncludeLaunchDescription
+from launch_ros.actions import PushRosNamespace
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration, PythonExpression
-from launch.event_handlers import OnProcessStart
-from launch_ros.actions import Node
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from ament_index_python.packages import get_package_share_directory
+
 
 def read_params(ld : launch.LaunchDescription):
     gui = launch.substitutions.LaunchConfiguration('gui')
     server = launch.substitutions.LaunchConfiguration('server')
-    rviz = launch.substitutions.LaunchConfiguration('rviz')
     environment = launch.substitutions.LaunchConfiguration('environment')
     use_sim_time = launch.substitutions.LaunchConfiguration('use_sim_time')
     simulator = launch.substitutions.LaunchConfiguration('simulator')
@@ -50,8 +50,6 @@ def read_params(ld : launch.LaunchDescription):
     x_pose = launch.substitutions.LaunchConfiguration('x_pose')
     y_pose = launch.substitutions.LaunchConfiguration('y_pose')
     z_pose = launch.substitutions.LaunchConfiguration('z_pose')
-    kinematics = launch.substitutions.LaunchConfiguration('kinematics')
-    controllers_file = launch.substitutions.LaunchConfiguration('controllers_file')
 
     # Declare the launch options
     ld.add_action(DeclareLaunchArgument(
@@ -67,13 +65,6 @@ def read_params(ld : launch.LaunchDescription):
         choices=['true', 'false'],
         default_value='true')
     )   
-    
-    ld.add_action(DeclareLaunchArgument(
-        name='rviz',
-        description='Launch Rviz if true',
-        choices=['true', 'false'],
-        default_value='false')
-    )    
 
     ld.add_action(DeclareLaunchArgument(
         name='environment',
@@ -150,18 +141,6 @@ def read_params(ld : launch.LaunchDescription):
         default_value='0.5')
     )
 
-    ld.add_action(DeclareLaunchArgument(
-        name='kinematics',
-        description='kinematics of the robot (omni or ackermann)',
-        default_value='omni')
-    )
-
-    ld.add_action(DeclareLaunchArgument(
-            name='controllers_file',
-            description='Absolute path to the controllers file.',
-            default_value=[get_package_share_directory('rbvogui_gazebo'), '/config/', kinematics, '_controller.yaml'])
-    )
-
     # Parse the launch options
     ret = {}
 
@@ -169,7 +148,6 @@ def read_params(ld : launch.LaunchDescription):
         ret = {
         'gui' : gui,
         'server' : server,
-        'rviz' : rviz,
         'simulator' : simulator,
         'use_sim_time': use_sim_time,
         'namespace': namespace,
@@ -181,15 +159,12 @@ def read_params(ld : launch.LaunchDescription):
         'x_pose': x_pose,
         'y_pose': y_pose,
         'z_pose': z_pose,
-        'kinematics': kinematics,
-        'controllers_file': controllers_file
         }
     
     else:
 
         ret['gui'] = gui
-        ret['server'] = server
-        ret['rviz'] = rviz
+        ret['server'] = server        
 
         if 'SIMULATOR' in os.environ:
             ret['simulator'] = os.environ['SIMULATOR']
@@ -208,7 +183,7 @@ def read_params(ld : launch.LaunchDescription):
         else: ret['robot_id'] = robot_id
 
         if 'WORLD_PATH' in os.environ:
-            ret['world_path'] = os.environ['WORLD']
+            ret['world_path'] = os.environ['WORLD_PATH']
         elif 'WORLD_NAME' in os.environ:
             ret['world_path'] = [get_package_share_directory('rbvogui_gazebo'), '/worlds/', os.environ['WORLD_NAME'], '.world']
         else: ret['world_path'] = world_path
@@ -225,152 +200,80 @@ def read_params(ld : launch.LaunchDescription):
         ret['x_pose']=x_pose
         ret['y_pose']=y_pose
         ret['z_pose']=z_pose
-        ret['kinematics']=kinematics
-        ret['controllers_file']=controllers_file
 
     return ret
 
 
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-
 def generate_launch_description():
-    ld = launch.LaunchDescription()
 
-    description_dir = os.path.join(get_package_share_directory('rbvogui_description'), 'launch')
+    ld = launch.LaunchDescription()
 
     params = read_params(ld)
 
-    ### Gazebo classic
-
-    gazebo_classic_launch = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('rbvogui_gazebo'), 'launch', 'gazebo_classic_sim.launch.py')]
-        ),
-        launch_arguments={
-            'gui':params['gui'],
-            'server':params['server'],
-            'world_path': params['world_path'],
-        }.items(),
+    gazebo_classic_launch_group = launch.actions.GroupAction(
+        actions=[
+            launch_ros.actions.PushRosNamespace(namespace=params['namespace']),
+            launch.actions.IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(
+                        os.path.join(
+                            get_package_share_directory(
+                                'gazebo_ros'
+                            ), 
+                            'launch'
+                        ), 
+                        'gzserver.launch.py')
+                ),
+                launch_arguments={
+                    'verbose': 'false',
+                    'world': params['world_path'],
+                    'paused': 'false',
+                    'physics': 'ode',
+                    'init': 'true',
+                    'factory': 'true',
+                    'force_system': 'true',
+                    'params_file': [get_package_share_directory('rbvogui_gazebo'), '/config/gazebo_classic.yaml'],
+                }.items(),
+                condition = IfCondition(launch.substitutions.LaunchConfiguration('server'))
+            ),
+            launch.actions.IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    os.path.join(
+                        os.path.join(
+                            get_package_share_directory(
+                                'gazebo_ros'
+                            ), 
+                            'launch'
+                        ),
+                        'gzclient.launch.py')
+                ),
+                launch_arguments={
+                    'verbose': 'false',
+                }.items(),
+                condition = IfCondition(launch.substitutions.LaunchConfiguration('gui'))
+            )
+        ],
         condition=IfCondition(
         PythonExpression(["'", LaunchConfiguration('simulator'), "' == 'classic'"])
         )
     )
 
-    ### Gazebo Ignition
-
-    gazebo_ignition_launch = launch.actions.IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([os.path.join(
-            get_package_share_directory('rbvogui_gazebo'), 'launch', 'gazebo_ign_sim.launch.py')]
-        ),
-        launch_arguments={
-            'gui':params['gui'],
-            'server':params['server'],
-            'world_path': params['world_path'],
-        }.items(),
-        condition=IfCondition(
-        PythonExpression(["'", LaunchConfiguration('simulator'), "' == 'ignition'"])
-        )
-    )
-
-    ### Robot State publisher
-
-    robot_state_publisher_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(description_dir, 'robot_state_publisher.launch.py')
-        ),
-        launch_arguments={
-            'simulator': params['simulator'],
-            'use_sim_time': params['use_sim_time'],
-            'robot_id': params['robot_id'],
-            'cart': params['cart'],
-            'connected': params['connected'],
-            'namespace': params['namespace'],
-            'kinematics': params['kinematics'],
-            'launch_joint': 'false',
-            'controllers_file': params['controllers_file'],
-        }.items(),
-    )
-
-    cart_group = launch.actions.GroupAction(
-        actions = [
-            Node(
-                package='ros_gz_sim',
-                executable='create',
-                arguments=[
-                    '-name', "cart",
-                    '-topic', "robot_description",
-                    '-x', '-2',
-                    '-y', '0.5',
-                    '-z', '0.5',
-                ],
-                output='screen',
-                namespace=[params['namespace'], '/cart'],
-            ),
-            IncludeLaunchDescription(
-                PythonLaunchDescriptionSource(
-                    os.path.join(get_package_share_directory('rbvogui_description'), 'launch/cart_state_publisher.launch.py')
-                ),
-                launch_arguments={
-                    'use_sim_time': params['use_sim_time'],
-                    'launch_joint': 'false',
-                    'connected': params['connected'],
-                    'namespace': [params['namespace'],'/cart'],
-                    'robot_id': [params['robot_id'],'_cart'],
-                }.items(),
-            )
+    rbvogui_gazebo_ros_spawner_cmd = launch_ros.actions.Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-entity', "rbvogui",
+            '-topic', "robot_description",
+            '-x', params['x_pose'],
+            '-y', params['y_pose'],
+            '-z', params['z_pose'],
         ],
-        condition = launch.conditions.IfCondition(
-                    launch.substitutions.AndSubstitution(launch.substitutions.NotSubstitution(
-                        params['connected']),params['cart'])
-                )
-    )
-
-    ### Joint state broadcaster
-
-    joint_state_broadcaster_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
+        output='screen',
         namespace=params['namespace']
     )
-    
-    ### Robotnik base Controller
 
-    base_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["robotnik_base_controller", "--controller-manager", ["/", params['namespace'], "/controller_manager"]],
-        namespace=params['namespace']
-    )
-    
-    rviz_launch = launch.actions.GroupAction(
-        actions = [
-            Node(
-                package='rviz2',
-                namespace='',
-                executable='rviz2',
-                name='rviz2',
-                arguments=['-d' + os.path.join(get_package_share_directory('rbvogui_gazebo'), 'rviz', 'default.rviz')]
-            )
-        ],
-        condition = IfCondition(launch.substitutions.LaunchConfiguration('rviz'))
-    )    
-
-    ld.add_action(robot_state_publisher_cmd)
-    ld.add_action(joint_state_broadcaster_spawner)
-    ld.add_action(base_controller_spawner)
-    ld.add_action(rviz_launch)
-    ld.add_action(gazebo_ignition_launch)
-    ld.add_action(gazebo_classic_launch)
-    ld.add_action(
-        launch.actions.RegisterEventHandler(
-            launch.event_handlers.OnProcessExit(
-                target_action=base_controller_spawner,
-                on_exit=[
-                    launch.actions.LogInfo(msg='Spawn finished'),
-                ]
-            )
-        ),
-    )
+    ld.add_action(gazebo_classic_launch_group)
+    ld.add_action(rbvogui_gazebo_ros_spawner_cmd)
 
     return ld
+

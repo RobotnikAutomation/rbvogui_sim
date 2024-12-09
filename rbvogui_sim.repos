@@ -1,0 +1,25 @@
+repositories:
+  rbvogui_common:
+    type: git
+    url: https://github.com/RobotnikAutomation/rbvogui_common
+    version: feat/gazebo_ignition
+  rbvogui_sim:
+    type: git
+    url: https://github.com/RobotnikAutomation/rbvogui_sim
+    version: feat/gazebo_ignition
+  realsense_gazebo_plugin:
+    type: git
+    url: https://github.com/pal-robotics/realsense_gazebo_plugin.git
+    version: foxy-devel
+  robotnik_controllers:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_controllers/
+    version: ros2-devel
+  robotnik_msgs:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_msgs
+    version: ros2-devel
+  robotnik_sensors:
+    type: git
+    url: https://github.com/RobotnikAutomation/robotnik_sensors
+    version: feat/gazebo_ignition
