@@ -105,7 +105,7 @@ def read_params(ld : launch.LaunchDescription):
     ld.add_action(launch.actions.DeclareLaunchArgument(
         name='kinematics',
         description='kinematics of the robot (omni or ackermann)',
-        default_value='omni')
+        default_value='swerve')
     )
 
     ld.add_action(launch.actions.DeclareLaunchArgument(
