@@ -50,8 +50,15 @@ def read_params(ld : launch.LaunchDescription):
     x_pose = launch.substitutions.LaunchConfiguration('x_pose')
     y_pose = launch.substitutions.LaunchConfiguration('y_pose')
     z_pose = launch.substitutions.LaunchConfiguration('z_pose')
+    gazebo_debug_on = launch.substitutions.LaunchConfiguration('gazebo_debug_on')
 
     # Declare the launch options
+    ld.add_action(DeclareLaunchArgument(
+        name='gazebo_debug_on',
+        description='Flags extra for debugging gazebo, true/false',
+        default_value='false')
+    ) 
+    
     ld.add_action(DeclareLaunchArgument(
         name='gui',
         description='Launch Gazebo client (gui) if true',
@@ -200,6 +207,7 @@ def read_params(ld : launch.LaunchDescription):
         ret['x_pose']=x_pose
         ret['y_pose']=y_pose
         ret['z_pose']=z_pose
+        ret['gazebo_debug_on']=gazebo_debug_on
 
     return ret
 
@@ -225,7 +233,7 @@ def generate_launch_description():
                         'gzserver.launch.py')
                 ),
                 launch_arguments={
-                    'verbose': 'false',
+                    'verbose': params['gazebo_debug_on'],
                     'world': params['world_path'],
                     'paused': 'false',
                     'physics': 'ode',

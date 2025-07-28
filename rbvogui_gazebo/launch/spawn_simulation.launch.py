@@ -53,8 +53,17 @@ def read_params(ld : launch.LaunchDescription):
     z_pose = launch.substitutions.LaunchConfiguration('z_pose')
     kinematics = launch.substitutions.LaunchConfiguration('kinematics')
     controllers_file = launch.substitutions.LaunchConfiguration('controllers_file')
+    gazebo_debug_on = launch.substitutions.LaunchConfiguration('gazebo_debug_on')
 
     # Declare the launch options
+
+    ld.add_action(DeclareLaunchArgument(
+        name='gazebo_debug_on',
+        description='Nivel de log para Gazebo (true or false)',
+        default_value='false')
+    )
+
+
     ld.add_action(DeclareLaunchArgument(
         name='gui',
         description='Launch Gazebo client (gui) if true',
@@ -231,6 +240,8 @@ def read_params(ld : launch.LaunchDescription):
         ret['z_pose']=z_pose
         ret['kinematics']=kinematics
         ret['controllers_file']=controllers_file
+        ret['gazebo_debug_on'] = gazebo_debug_on
+
 
     return ret
 
@@ -254,6 +265,7 @@ def generate_launch_description():
             'gui':params['gui'],
             'server':params['server'],
             'world_path': params['world_path'],
+            'gazebo_debug_on': params['gazebo_debug_on'],
         }.items(),
         condition=IfCondition(
         PythonExpression(["'", LaunchConfiguration('simulator'), "' == 'classic'"])
