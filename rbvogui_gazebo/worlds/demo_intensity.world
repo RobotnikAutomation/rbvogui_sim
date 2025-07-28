@@ -82,7 +82,7 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
-    <model name='demo'>
+    <model name='demo_intensity'>
       <pose frame=''>0.446728 1.67861 0 0 -0 0</pose>
       <link name='Wall_10'>
         <collision name='Wall_10_Collision'>
@@ -2521,7 +2521,7 @@
       <real_time>96 21539812</real_time>
       <wall_time>1633516541 377109527</wall_time>
       <iterations>95560</iterations>
-      <model name='demo'>
+      <model name='demo_intensity'>
         <pose frame=''>-0.267831 1.98478 0 0 -0 1.57088</pose>
         <scale>1 1 1</scale>
         <link name='Wall_10'>
@@ -2870,13 +2870,5 @@
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
-    <include>
-			<uri>model://Reflectancia</uri>
-			<pose>3 0 1 0 0 0</pose>
-		</include>
-    <include>
-			<uri>model://Reflectancia50</uri>
-			<pose>0 3 1 0 0 0</pose>
-		</include>
   </world>
 </sdf>

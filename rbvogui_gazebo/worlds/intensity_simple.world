@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="ros_logo">
+    <!-- Ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Luz principal -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- NUMERO 1 -->
+    <!-- BLOQUE DERECHO-->
+    <model name="wall_D_3_1">
+      <static>true</static>
+      <pose>2 1 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.05</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.05</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_3_5">
+      <static>true</static>
+      <pose>2 -1 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>255</laser_retro>
+        <geometry><cylinder><radius>0.05</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.05</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0.05 -0.05 7.2048 0 1.570796 0</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>orthographic</projection_type>
+      </camera>
+    </gui>
+
+    </world>
+</sdf>

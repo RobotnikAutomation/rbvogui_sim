@@ -1,0 +1,621 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="ros_logo">
+    <!-- Ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Luz principal -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- NUMERO 1 -->
+    <!-- BLOQUE DERECHO-->
+    <model name="wall_D_3_1">
+      <static>true</static>
+      <pose>3 1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>255</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_3_5">
+      <static>true</static>
+      <pose>3 4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_5_3">
+      <static>true</static>
+      <pose>4.95 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_1_3">
+      <static>true</static>
+      <pose>1.05 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 2 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_3_-5">
+      <static>true</static>
+      <pose>3 -4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_3_-1">
+      <static>true</static>
+      <pose>3 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_5_-3">
+      <static>true</static>
+      <pose>4.95 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_1_-3">
+      <static>true</static>
+      <pose>1.05 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 3 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-3_-5">
+      <static>true</static>
+      <pose>-3 -4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-3_-1">
+      <static>true</static>
+      <pose>-3 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-5_-3">
+      <static>true</static>
+      <pose>-4.95 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-1_-3">
+      <static>true</static>
+      <pose>-1.05 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 4 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-3_5">
+      <static>true</static>
+      <pose>-3 4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-3_1">
+      <static>true</static>
+      <pose>-3 1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-5_3">
+      <static>true</static>
+      <pose>-4.95 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-1_3">
+      <static>true</static>
+      <pose>-1.05 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 5 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-3_7">
+      <static>true</static>
+      <pose>-3 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <!--model name="wall_I_-3_11">
+      <static>true</static>
+      <pose>-3 10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-5_9">
+      <static>true</static>
+      <pose>-4.95 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-1_9">
+      <static>true</static>
+      <pose>-1.05 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 6 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_3_7">
+      <static>true</static>
+      <pose>3 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <!--model name="wall_I_3_11">
+      <static>true</static>
+      <pose>3 10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_5_9">
+      <static>true</static>
+      <pose>4.95 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_1_9">
+      <static>true</static>
+      <pose>1.05 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 7 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_9_7">
+      <static>true</static>
+      <pose>9 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <!--model name="wall_I_9_11">
+      <static>true</static>
+      <pose>9 10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE ARRIBA-->
+    <!--model name="wall_A_11_9">
+      <static>true</static>
+      <pose>10.95 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_7_9">
+      <static>true</static>
+      <pose>7.05 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    
+    <!-- NUMERO 8 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_9_1">
+      <static>true</static>
+      <pose>9 1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_9_5">
+      <static>true</static>
+      <pose>9 4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <!--model name="wall_A_11_3">
+      <static>true</static>
+      <pose>10.95 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_7_3">
+      <static>true</static>
+      <pose>7.05 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 9 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_9_-5">
+      <static>true</static>
+      <pose>9 -4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_9_-1">
+      <static>true</static>
+      <pose>9 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <!--model name="wall_A_11_-3">
+      <static>true</static>
+      <pose>10.95 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_7_-3">
+      <static>true</static>
+      <pose>7.05 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 10 -->
+    <!-- BLOQUE DERECHO -->
+    <!--model name="wall_D_9_-11">
+      <static>true</static>
+      <pose>9 -10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_9_-7">
+      <static>true</static>
+      <pose>9 -7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <!--model name="wall_A_11_-9">
+      <static>true</static>
+      <pose>10.95 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_7_-9">
+      <static>true</static>
+      <pose>7.05 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 11 -->
+    <!-- BLOQUE DERECHO -->
+    <!--model name="wall_D_3_-11">
+      <static>true</static>
+      <pose>3 -10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_3_-7">
+      <static>true</static>
+      <pose>3 -7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_5_-9">
+      <static>true</static>
+      <pose>4.95 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_1_-9">
+      <static>true</static>
+      <pose>1.05 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 12 -->
+    <!-- BLOQUE DERECHO -->
+    <!--model name="wall_D_-3_-11">
+      <static>true</static>
+      <pose>-3 -10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-3_-7">
+      <static>true</static>
+      <pose>-3 -7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-5_-9">
+      <static>true</static>
+      <pose>-4.95 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-1_-9">
+      <static>true</static>
+      <pose>-1.05 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 13 -->
+    <!-- BLOQUE DERECHO -->
+    <!--model name="wall_D_-9_-11">
+      <static>true</static>
+      <pose>-9 -10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-9_-7">
+      <static>true</static>
+      <pose>-9 -7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-7_-9">
+      <static>true</static>
+      <pose>-7.05 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <!--model name="wall_B_-11_-9">
+      <static>true</static>
+      <pose>-10.95 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+
+    <!-- NUMERO 14 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-9_-5">
+      <static>true</static>
+      <pose>-9 -4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-9_-1">
+      <static>true</static>
+      <pose>-9 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-7_-3">
+      <static>true</static>
+      <pose>-7.05 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.627 0.012 0.133 1</ambient><diffuse>0.627 0.012 0.133 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <!--model name="wall_B_-11_-3">
+      <static>true</static>
+      <pose>-10.95 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+
+    <!-- NUMERO 15 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-9_5">
+      <static>true</static>
+      <pose>-9 4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-9_1">
+      <static>true</static>
+      <pose>-9 1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-7_3">
+      <static>true</static>
+      <pose>-7.05 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <!--model name="wall_B_-11_3">
+      <static>true</static>
+      <pose>-10.95 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+
+    <!-- NUMERO 16 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-9_7">
+      <static>true</static>
+      <pose>-9 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <!--model name="wall_I_-9_11">
+      <static>true</static>
+      <pose>-9 10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-7_9">
+      <static>true</static>
+      <pose>-7.05 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>0</laser_retro>
+        <geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <!--model name="wall_B_-11_9">
+      <static>true</static>
+      <pose>-10.95 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry></collision>
+      <visual name="vis"><geometry><cylinder><radius>0.25</radius><length>2.0</length></cylinder></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model-->
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0.05 -0.05 7.2048 0 1.570796 0</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>orthographic</projection_type>
+      </camera>
+    </gui>
+
+    </world>
+</sdf>

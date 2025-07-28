@@ -28,11 +28,12 @@ import launch_ros
 import os
 
 from ament_index_python.packages import get_package_share_directory
-from launch.actions import LogInfo, RegisterEventHandler, DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import LogInfo, RegisterEventHandler, DeclareLaunchArgument, IncludeLaunchDescription, ExecuteProcess
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch.event_handlers import OnProcessStart
 from launch_ros.actions import Node
+
 
 def read_params(ld : launch.LaunchDescription):
     gui = launch.substitutions.LaunchConfiguration('gui')
@@ -111,7 +112,10 @@ def read_params(ld : launch.LaunchDescription):
     ld.add_action(DeclareLaunchArgument(
         name='world_name',
         description='Name of the world to load.',
-        default_value='demo.world')
+        default_value='wall_all.world')
+        #default_value='robotnik_logo_min.world')
+        #default_value='robotnik_logo_black.world')
+        #default_value='intensity_simple.world')
     )
 
     ld.add_action(DeclareLaunchArgument(
@@ -135,19 +139,19 @@ def read_params(ld : launch.LaunchDescription):
     ld.add_action(DeclareLaunchArgument(
         name='x_pose',
         description='X position of the robot.',
-        default_value='0.5')
+        default_value='0.0')
     )
 
     ld.add_action(DeclareLaunchArgument(
         name='y_pose',
         description='Y position of the robot.',
-        default_value='0.5')
+        default_value='0.0')
     )
 
     ld.add_action(DeclareLaunchArgument(
         name='z_pose',
         description='Z position of the robot.',
-        default_value='0.5')
+        default_value='0.0')
     )
 
     ld.add_action(DeclareLaunchArgument(
@@ -361,7 +365,7 @@ def generate_launch_description():
     ld.add_action(base_controller_spawner)
     ld.add_action(rviz_launch)
     ld.add_action(gazebo_ignition_launch)
-    ld.add_action(gazebo_classic_launch)
+    ld.add_action(gazebo_classic_launch)    
     ld.add_action(
         launch.actions.RegisterEventHandler(
             launch.event_handlers.OnProcessExit(
