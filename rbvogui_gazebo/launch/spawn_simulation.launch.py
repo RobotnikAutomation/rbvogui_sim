@@ -121,7 +121,7 @@ def read_params(ld : launch.LaunchDescription):
     ld.add_action(DeclareLaunchArgument(
         name='world_name',
         description='Name of the world to load.',
-        default_value='wall_all.world')
+        default_value='grid_map.world')
         #default_value='robotnik_logo_min.world')
         #default_value='robotnik_logo_black.world')
         #default_value='intensity_simple.world')
