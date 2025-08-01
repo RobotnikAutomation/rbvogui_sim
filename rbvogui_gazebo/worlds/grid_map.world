@@ -1,0 +1,701 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="corridors_intensities">
+    <!-- Ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Luz principal -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!--                    -->
+    <!--  7   8   9  10  -->
+    <!--  6   1   2  11  -->
+    <!--  5   4   3  12  -->
+    <!--  16  15  14 13  -->
+    <!--                   -->
+    <!--                   -->
+    <!-- NUMERO 1 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_3_1">
+      <static>true</static>
+      <pose>3 1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_3_5">
+      <static>true</static>
+      <pose>3 4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_5_3">
+      <static>true</static>
+      <pose>4.95 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_1_3">
+      <static>true</static>
+      <pose>1.05 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 2 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_3_-5">
+      <static>true</static>
+      <pose>3 -4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_3_-1">
+      <static>true</static>
+      <pose>3 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_5_-3">
+      <static>true</static>
+      <pose>4.95 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_1_-3">
+      <static>true</static>
+      <pose>1.05 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 3 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-3_-5">
+      <static>true</static>
+      <pose>-3 -4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-3_-1">
+      <static>true</static>
+      <pose>-3 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-5_-3">
+      <static>true</static>
+      <pose>-4.95 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-1_-3">
+      <static>true</static>
+      <pose>-1.05 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 4 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-3_5">
+      <static>true</static>
+      <pose>-3 4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-3_1">
+      <static>true</static>
+      <pose>-3 1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-5_3">
+      <static>true</static>
+      <pose>-4.95 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-1_3">
+      <static>true</static>
+      <pose>-1.05 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 5 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-3_7">
+      <static>true</static>
+      <pose>-3 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-3_11">
+      <static>true</static>
+      <pose>-3 10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-5_9">
+      <static>true</static>
+      <pose>-4.95 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-1_9">
+      <static>true</static>
+      <pose>-1.05 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 6 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_3_7">
+      <static>true</static>
+      <pose>3 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_3_11">
+      <static>true</static>
+      <pose>3 10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_5_9">
+      <static>true</static>
+      <pose>4.95 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_1_9">
+      <static>true</static>
+      <pose>1.05 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 7 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_9_7">
+      <static>true</static>
+      <pose>9 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_9_11">
+      <static>true</static>
+      <pose>9 10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_11_9">
+      <static>true</static>
+      <pose>10.95 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_7_9">
+      <static>true</static>
+      <pose>7.05 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    
+    <!-- NUMERO 8 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_9_1">
+      <static>true</static>
+      <pose>9 1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_9_5">
+      <static>true</static>
+      <pose>9 4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_11_3">
+      <static>true</static>
+      <pose>10.95 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_7_3">
+      <static>true</static>
+      <pose>7.05 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 9 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_9_-5">
+      <static>true</static>
+      <pose>9 -4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_9_-1">
+      <static>true</static>
+      <pose>9 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_11_-3">
+      <static>true</static>
+      <pose>10.95 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_7_-3">
+      <static>true</static>
+      <pose>7.05 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 10 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_9_-11">
+      <static>true</static>
+      <pose>9 -10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_9_-7">
+      <static>true</static>
+      <pose>9 -7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_11_-9">
+      <static>true</static>
+      <pose>10.95 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_7_-9">
+      <static>true</static>
+      <pose>7.05 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 11 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_3_-11">
+      <static>true</static>
+      <pose>3 -10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_3_-7">
+      <static>true</static>
+      <pose>3 -7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_5_-9">
+      <static>true</static>
+      <pose>4.95 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_1_-9">
+      <static>true</static>
+      <pose>1.05 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 12 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-3_-11">
+      <static>true</static>
+      <pose>-3 -10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-3_-7">
+      <static>true</static>
+      <pose>-3 -7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-5_-9">
+      <static>true</static>
+      <pose>-4.95 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-1_-9">
+      <static>true</static>
+      <pose>-1.05 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 13 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-9_-11">
+      <static>true</static>
+      <pose>-9 -10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-9_-7">
+      <static>true</static>
+      <pose>-9 -7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-7_-9">
+      <static>true</static>
+      <pose>-7.05 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-11_-9">
+      <static>true</static>
+      <pose>-10.95 -9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 14 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-9_-5">
+      <static>true</static>
+      <pose>-9 -4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-9_-1">
+      <static>true</static>
+      <pose>-9 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-7_-3">
+      <static>true</static>
+      <pose>-7.05 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-11_-3">
+      <static>true</static>
+      <pose>-10.95 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 15 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-9_5">
+      <static>true</static>
+      <pose>-9 4.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-9_1">
+      <static>true</static>
+      <pose>-9 1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-7_3">
+      <static>true</static>
+      <pose>-7.05 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-11_3">
+      <static>true</static>
+      <pose>-10.95 3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- NUMERO 16 -->
+    <!-- BLOQUE DERECHO -->
+    <model name="wall_D_-9_7">
+      <static>true</static>
+      <pose>-9 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE IZQUIERDO-->
+    <model name="wall_I_-9_11">
+      <static>true</static>
+      <pose>-9 10.95 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>4.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>4.0 0.10 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ARRIBA-->
+    <model name="wall_A_-7_9">
+      <static>true</static>
+      <pose>-7.05 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+    <!-- BLOQUE ABAJO-->
+    <model name="wall_B_-11_9">
+      <static>true</static>
+      <pose>-10.95 9 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><geometry><box><size>0.10 4.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 4.0 2</size></box></geometry>
+      <material><ambient>0.0 0.0 0.0 1</ambient><diffuse>0.0 0.0 0.0 1</diffuse></material></visual></link>
+    </model>
+
+    <!-- REFLECTORS -->    
+    <model name="reflector_1_h_255">
+      <static>true</static>
+      <pose>1.05 1.75 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>255</laser_retro>
+        <geometry><box><size>0.10 1.0 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.10 1.0 2</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>1 1 1 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_1_v_100">
+      <static>true</static>
+      <pose>3 1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>100</laser_retro>
+        <geometry><box><size>1.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>1.0 0.10 2</size></box></geometry>
+      <material><ambient>0.39 0.39 0.39 1</ambient><diffuse>0.39 0.39 0.39 1</diffuse><specular>0.39 0.39 0.39 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_2_v_250">
+      <static>true</static>
+      <pose>3 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>250</laser_retro>
+        <geometry><box><size>0.0 0.10 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.0 0.10 2</size></box></geometry>
+      <material><ambient>0.98 0.98 0.98 1</ambient><diffuse>0.98 0.98 0.98 1</diffuse><specular>0.98 0.98 0.98 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_2_c_150">
+      <static>true</static>
+      <pose>7.1 -1.1 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>150</laser_retro>
+        <geometry><box><size>0.2 0.2 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.2 0.2 2</size></box></geometry>
+      <material><ambient>0.08 0.08 0.08 1</ambient><diffuse>0.08 0.08 0.08 1</diffuse><specular>0.08 0.08 0.08 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_8_h_80">
+      <static>true</static>
+      <pose>7.05 2.1 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>80</laser_retro>
+        <geometry><box><size>0.1 0.25 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.1 0.25 2</size></box></geometry>
+      <material><ambient>0.31 0.31 0.31 1</ambient><diffuse>0.31 0.31 0.31 1</diffuse><specular>0.31 0.31 0.31 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_6_v_255">
+      <static>true</static>
+      <pose>2.15 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>255</laser_retro>
+        <geometry><box><size>1.7 0.1 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>1.7 0.1 2</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>1 1 1 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_5_v_95">
+      <static>true</static>
+      <pose>-1.5 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>95</laser_retro>
+        <geometry><box><size>0.7 0.1 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.7 0.1 2</size></box></geometry>
+      <material><ambient>0.37 0.37 0.37 1</ambient><diffuse>0.37 0.37 0.37 1</diffuse><specular>0.37 0.37 0.37 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_5_v_50">
+      <static>true</static>
+      <pose>-3.1 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>50</laser_retro>
+        <geometry><box><size>0.5 0.1 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.5 0.1 2</size></box></geometry>
+      <material><ambient>0.19 0.19 0.19 1</ambient><diffuse>0.19 0.19 0.19 1</diffuse><specular>0.19 0.19 0.19 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_5_v_30">
+      <static>true</static>
+      <pose>-4.0 7.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>30</laser_retro>
+        <geometry><box><size>0.4 0.1 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.4 0.1 2</size></box></geometry>
+      <material><ambient>0.11 0.11 0.11 1</ambient><diffuse>0.11 0.11 0.11 1</diffuse><specular>0.11 0.11 0.11 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_3_h_180">
+      <static>true</static>
+      <pose>-1.05 -3 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>180</laser_retro>
+        <geometry><box><size>0.1 3.8 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.1 3.8 2</size></box></geometry>
+      <material><ambient>0.70 0.70 0.70 1</ambient><diffuse>0.70 0.70 0.70 1</diffuse><specular>0.70 0.70 0.70 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_15_h_250">
+      <static>true</static>
+      <pose>-10.95 2.1 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>250</laser_retro>
+        <geometry><box><size>0.1 0.8 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.1 0.8 2</size></box></geometry>
+      <material><ambient>0.98 0.98 0.98 1</ambient><diffuse>0.98 0.98 0.98 1</diffuse><specular>0.98 0.98 0.98 1</specular></material></visual></link>
+    </model>
+    
+    <model name="reflector_14_v_50">
+      <static>true</static>
+      <pose>-7.52 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>50</laser_retro>
+        <geometry><box><size>0.2 0.1 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.2 0.1 2</size></box></geometry>
+      <material><ambient>0.19 0.19 0.19 1</ambient><diffuse>0.19 0.19 0.19 1</diffuse><specular>0.19 0.19 0.19 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_14_v_105">
+      <static>true</static>
+      <pose>-9.52 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>105</laser_retro>
+        <geometry><box><size>0.17 0.1 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.17 0.1 2</size></box></geometry>
+      <material><ambient>0.41 0.41 0.41 1</ambient><diffuse>0.41 0.41 0.41 1</diffuse><specular>0.41 0.41 0.41 1</specular></material></visual></link>
+    </model>
+
+    <model name="reflector_14_v_255">
+      <static>true</static>
+      <pose>-10.55 -1.05 1 0 0 0</pose>
+      <link name="link"><collision name="wall"><laser_retro>255</laser_retro>
+        <geometry><box><size>0.15 0.1 2</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.15 0.1 2</size></box></geometry>
+      <material><ambient>1 1 1 1</ambient><diffuse>1 1 1 1</diffuse><specular>1 1 1 1</specular></material></visual></link>
+    </model>
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>0.05 -0.05 7.2048 0 1.570796 0</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>orthographic</projection_type>
+      </camera>
+    </gui>
+    
+  </world>
+</sdf>
